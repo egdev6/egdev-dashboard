@@ -1,0 +1,47 @@
+schema_version: 1
+project: egdev
+network: linkedin
+strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+source_context:
+  brand_namespace_key: egdev-dashboard/project/egdev/brand
+  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  recent_ledger_content_ids:
+    - x-post-001-demo
+timeframe: 2026-W23
+strategy_slice:
+  goals:
+    - validate a weekly LinkedIn planning slice from persisted fake context
+    - keep strategy outputs structured and reviewable
+  assumptions:
+    - technical trade-off posts will outperform generic motivational framing
+    - recent X publish history can inform LinkedIn topic selection without reusing the same hook verbatim
+  planned_items:
+    - title: linkedin-weekly-plan-demo-01
+      purpose: test a technical trade-off angle for engineering leads
+      required_assets:
+        - asset://demo/linkedin-outline-01
+        - asset://demo/linkedin-cover-01
+    - title: linkedin-weekly-plan-demo-02
+      purpose: summarize one reusable implementation lesson from recent work
+      required_assets:
+        - asset://demo/linkedin-outline-02
+  review_checkpoints:
+    - confirm tone still matches persisted brand context
+    - confirm no item implies publishing without human approval
+  out_of_scope:
+    - direct publishing
+    - automated scheduling
+    - Buffer analytics decisions
+approval_status: approved-for-demo-validation
+approval_record:
+  approved_by: human-maintainer-for-issue-10
+  scope: fake local CLI memory validation only
+  does_not_authorize:
+    - publishing
+    - scheduling
+    - real brand strategy
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake strategy data only and is safe to commit.
