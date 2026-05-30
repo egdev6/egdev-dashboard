@@ -31,12 +31,12 @@ OpenClaw is the operational entrypoint target. Pi/el Gentleman develops the repo
 Suggested convention:
 
 ```text
-#linkedin-egdev -> project: egdev, network: linkedin
-#x-egdev        -> project: egdev, network: x
-#youtube-egdev  -> project: egdev, network: youtube
+linkedin-egdev -> project: egdev, network: linkedin
+x-egdev        -> project: egdev, network: x
+youtube-egdev  -> project: egdev, network: youtube
 ```
 
-OpenClaw documents routing/bindings, including Discord surfaces. This repo still needs a spike to choose between one agent with channel-derived namespaces and multiple agents bound by account/channel/guild rules.
+OpenClaw documents routing/bindings, including Discord surfaces. This repo uses the channel naming and fallback contract in `docs/architecture/discord-channel-routing.md` until live Discord routing is validated.
 
 ## Engram namespace model
 

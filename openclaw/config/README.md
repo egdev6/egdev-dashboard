@@ -8,4 +8,9 @@ Expected future contents:
 - environment notes for Docker deployment
 - references to confirmed image tags or Dockerfiles
 
-Do not store live credentials or exported runtime state here.
+Current routing references:
+
+- `docs/architecture/discord-channel-routing.md` defines channel naming and namespace mapping.
+- `docs/operations/discord-routing.md` defines the operator runbook and fallback behavior.
+
+Do not store live credentials, real guild/channel IDs, or exported runtime state here.
