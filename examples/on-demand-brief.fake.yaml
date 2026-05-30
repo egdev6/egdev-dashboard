@@ -1,0 +1,153 @@
+schema_version: 1
+project: egdev
+supported_networks:
+  - youtube
+  - twitch
+  - stack-and-flow
+request_id: brief-request-001-demo
+timeframe: 2026-W24
+source_context:
+  brand_namespace_key: egdev-dashboard/project/egdev/brand
+  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_keys:
+    youtube: egdev-dashboard/project/egdev/network/youtube
+    twitch: egdev-dashboard/project/egdev/network/twitch
+    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+  recent_ledger_content_ids:
+    - x-post-001-demo
+brief_request:
+  user_prompt: turn one reviewability theme into a YouTube video brief, a Twitch live brief, and a Stack and Flow compact brief
+  goal: define reusable on-demand briefs from approved fake project context
+  audience:
+    primary:
+      - engineering leads
+      - product-minded developers
+    secondary:
+      - technical creators evaluating AI-assisted workflow discipline
+  desired_networks:
+    - youtube
+    - twitch
+    - stack-and-flow
+  constraints:
+    - english artifacts only
+    - no publishing or scheduling without human approval
+    - no private customer examples or confidential project details
+  known_assets:
+    - asset://demo/youtube-outline-001
+    - asset://demo/twitch-run-of-show-001
+    - asset://demo/stack-and-flow-clip-outline-001
+  desired_cta: ask the audience to compare where review discipline matters most in their own workflow
+  review_preferences:
+    - keep the three briefs reviewable in one PR
+    - keep shared themes consistent while varying format-specific hooks
+planning_basis:
+  confirmed_facts:
+    - approved fake brand context prefers direct, technical, calm communication
+    - approved fake strategy context favors explaining decisions before implementation
+    - fake content ledger contains x-post-001-demo as prior technical content history
+  assumptions:
+    - one approved operational theme can be adapted across long-form, live, and compact formats without reusing the same opening hook
+    - engineering leads will value reviewability trade-offs more than generic AI productivity framing
+  format_rules:
+    - youtube briefs should support longer explanatory outlines with a clear teaching arc
+    - twitch briefs should leave room for live interaction, Q and A, and operator commentary
+    - stack-and-flow briefs should stay compact, clip-friendly, and specific enough to tee up a longer follow-up
+  proposed_angles:
+    - why a single writer thread protects review quality
+    - fake memory fixtures are the right proof surface for workflow contracts
+    - approval gates belong in the product, not just in process docs
+briefs:
+  - network: youtube
+    status: draft-review
+    brief_goal: explain why reviewability constraints matter more than raw generation speed in long-form format
+    audience: engineering leads evaluating AI-assisted development workflows
+    outline:
+      - open with the single-writer-thread trade-off
+      - show how fake fixtures prove a contract without faking production behavior
+      - close with a reviewability checklist for technical teams
+    required_assets:
+      - asset://demo/youtube-outline-001
+    call_to_action: invite viewers to compare which review bottleneck they would protect first
+    rationale:
+      prompt_alignment: expands the prompt into a longer teaching brief
+      brand_alignment: explains trade-offs before implementation and avoids hype framing
+      ledger_reference: reuses the specificity that worked in x-post-001-demo without copying its hook
+    approval_checkpoint:
+      - approve the YouTube brief before scripting or recording
+  - network: twitch
+    status: draft-review
+    brief_goal: structure a live reviewability session with room for questions and operator commentary
+    audience: technical operators who want to discuss workflow discipline in real time
+    outline:
+      - short opener on why two writers racing breaks review quality
+      - live walkthrough of one fake fixture validation example
+      - moderated Q and A on approval gates and memory boundaries
+    required_assets:
+      - asset://demo/twitch-run-of-show-001
+    call_to_action: ask viewers to share the hardest approval gate in their own workflow
+    rationale:
+      prompt_alignment: adapts the theme into an interaction-friendly live format
+      brand_alignment: stays practical and explicit about runtime limits
+      ledger_reference: extends the fake strategy and queue planning contract work without claiming live runtime wiring
+    approval_checkpoint:
+      - approve the Twitch brief before preparing a run of show or live slot
+  - network: stack-and-flow
+    status: draft-review
+    brief_goal: compress the reviewability lesson into a compact brief that can stand alone or point to longer content
+    audience: developers who prefer short, dense operational lessons
+    outline:
+      - one-sentence hook on reviewability discipline
+      - compact example about fake fixtures proving contract shape
+      - short CTA toward deeper long-form discussion
+    required_assets:
+      - asset://demo/stack-and-flow-clip-outline-001
+    call_to_action: invite the audience to pick the next workflow boundary to unpack in depth
+    rationale:
+      prompt_alignment: condenses the prompt into a compact short-form brief
+      brand_alignment: keeps the lesson technical, specific, and reviewable
+      ledger_reference: complements prior network/x and linkedin planning examples without implying reuse of final copy
+    approval_checkpoint:
+      - approve the Stack and Flow brief before drafting or clipping
+approval:
+  status: pending-human-approval
+  checkpoints:
+    - confirm the requested networks and shared theme still match approved brand context
+    - approve each brief before drafting
+    - approve publishing before any brief becomes live content
+    - approve scheduling before any live slot or publishing calendar entry is created
+    - approve durable memory and ledger writes before saving strategy, network, or content-ledger state
+memory_write_targets:
+  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_keys:
+    youtube: egdev-dashboard/project/egdev/network/youtube
+    twitch: egdev-dashboard/project/egdev/network/twitch
+    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+  write_mode: planned-only-until-approved
+  planned_records:
+    - scope: strategy
+      summary: save a reusable cross-network brief rule only after human approval
+    - scope: network-youtube
+      summary: save the approved YouTube brief summary only after human approval
+    - scope: network-twitch
+      summary: save the approved Twitch brief summary only after human approval
+    - scope: network-stack-and-flow
+      summary: save the approved Stack and Flow brief summary only after human approval
+  ledger_candidates:
+    - network: youtube
+      candidate_id: youtube-brief-001-demo
+      intended_status: draft
+      save_after: human approval plus draft status confirmation
+    - network: twitch
+      candidate_id: twitch-brief-001-demo
+      intended_status: draft
+      save_after: human approval plus draft status confirmation
+    - network: stack-and-flow
+      candidate_id: stack-and-flow-brief-001-demo
+      intended_status: draft
+      save_after: human approval plus draft status confirmation
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake on-demand brief workflow data only and is safe to commit.
