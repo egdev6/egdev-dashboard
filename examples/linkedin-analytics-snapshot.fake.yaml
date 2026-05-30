@@ -1,0 +1,56 @@
+schema_version: 1
+project: egdev
+network: linkedin
+source:
+  type: fake-manual-export
+  provider: buffer-compatible-placeholder
+  live_buffer_api: false
+snapshot_window:
+  start: 2026-06-01
+  end: 2026-06-07
+captured_at: 2026-06-08T09:00:00Z
+namespace_keys:
+  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+content_metrics:
+  - content_id: linkedin-post-001-demo
+    planning_reference_id: linkedin-weekly-post-01-demo
+    content_ledger_entry_id: linkedin-post-001-demo
+    content_ledger_status: published
+    source_link: https://example.invalid/posts/linkedin-post-001-demo
+    published_at: 2026-06-03T14:00:00Z
+    metrics:
+      impressions: 420
+      reactions: 18
+      comments: 4
+      shares: 2
+      clicks: 11
+      engagement_rate: 0.083
+      followers_gained: unknown
+  - content_id: linkedin-post-002-demo
+    planning_reference_id: linkedin-weekly-post-02-demo
+    content_ledger_entry_id: linkedin-post-002-demo
+    content_ledger_status: published
+    source_link: https://example.invalid/posts/linkedin-post-002-demo
+    published_at: 2026-06-05T16:30:00Z
+    metrics:
+      impressions: 355
+      reactions: 12
+      comments: 3
+      shares: 1
+      clicks: unknown
+      engagement_rate: unknown
+      followers_gained: 2
+normalization_notes:
+  - values are fake-demo placeholders because issue #17 found no public Buffer read-only analytics endpoint for LinkedIn
+  - content_id and content_ledger_entry_id are stable join keys for later project-level analytics reconciliation
+  - engagement_rate remains source-provided or unknown; this fixture does not define a canonical formula
+limitations:
+  - no live Buffer API calls, OAuth tokens, or manual exports are included
+  - fake values do not represent real audience performance
+  - future live ingestion may require additive fields after a confirmed analytics source is approved
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake LinkedIn analytics snapshot data only and is safe to commit.
