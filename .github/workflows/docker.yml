@@ -1,0 +1,36 @@
+name: Docker smoke
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  docker-smoke:
+    name: Compose config and OpenClaw image build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Show Docker versions
+        run: |
+          docker version
+          docker compose version
+
+      - name: Validate Compose configuration
+        run: docker compose config
+
+      - name: Build OpenClaw runtime image
+        run: |
+          docker build \
+            --pull \
+            --file docker/openclaw/Dockerfile \
+            --tag egdev-dashboard-openclaw:ci \
+            .

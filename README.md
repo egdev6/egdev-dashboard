@@ -49,6 +49,7 @@ Included now:
 - Issue-first GitHub templates
 - Backlog and roadmap
 - Skill skeletons for brand context, content ledger, and strategy planning
+- CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, and secret scanning
 
 Not included or not yet validated:
 
@@ -77,7 +78,7 @@ docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 ```
 
-See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
+See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/ci.md` for automated checks, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
 
 ## Development model
 
@@ -97,7 +98,7 @@ The current M1 foundation skeleton is larger than the configured 600-line review
 - `skills/` — project-specific skill skeletons
 - `docs/` — ADRs, architecture notes, and roadmap
 - `openspec/` — project planning configuration
-- `.github/` — issue-first workflow templates
+- `.github/` — issue-first workflow templates and CI workflows
 
 ## Next step
 
