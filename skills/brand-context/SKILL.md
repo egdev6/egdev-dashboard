@@ -22,7 +22,8 @@ Use this skill to structure a project's public-facing brand context before deepe
 1. Ask for missing brand facts instead of inventing them.
 2. Summarize the current brand context in a small, reviewable structure.
 3. Prefer saving durable operational context to Engram when that runtime is available.
-4. Keep repository-facing examples sanitized and generic.
+4. Use the ADR 0002 namespace contract: store project-wide brand memory under `egdev-dashboard/project/<project-slug>/brand` and network-specific context under `.../network/<network-slug>`.
+5. Keep repository-facing examples sanitized and generic.
 
 ## Output shape
 
@@ -40,6 +41,6 @@ Use this skill to structure a project's public-facing brand context before deepe
 - Do not claim persistent memory was updated unless the runtime actually saved it.
 - Do not overwrite shared planning artifacts without approval.
 
-## TODO
+## Memory contract
 
-Define the exact Engram namespace and serialization format after the runtime contract is validated.
+Follow `docs/adr/0002-engram-namespace-contract.md` for namespace families and promotion rules. Keep serialization small and reviewable; do not invent extra namespace families for brand context.
