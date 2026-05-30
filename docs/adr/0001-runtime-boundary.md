@@ -1,0 +1,52 @@
+# ADR 0001: Pi development SDD vs OpenClaw operational SDD boundary
+
+- Status: Accepted
+- Date: 2026-05-30
+
+## Decision
+
+`egdev-dashboard` uses two SDD surfaces with different responsibilities:
+
+- **Pi / el Gentleman** is the development harness for repository planning, implementation, review, and change management.
+- **OpenClaw** is the dockerized operational runtime target that serves Discord-driven workflows.
+- **Gentle-AI SDD inside OpenClaw** is allowed for operational usage, but shared planning artifacts remain canonical in the repository and the full runtime wiring is still pending validation.
+
+## Rules
+
+1. Canonical planning artifacts live in the repo:
+   - `openspec/`
+   - `docs/adr/`
+   - `docs/architecture/`
+   - `docs/project/`
+   - `skills/`
+   - GitHub issues and GitHub Project metadata
+2. Live session context is **not** shared automatically between Pi and OpenClaw.
+3. Shared understanding is synchronized through versioned artifacts and agreed Engram namespaces.
+4. Engram summaries are operational memory until promoted into a canonical repo artifact.
+5. Concurrent writes to shared SDD artifacts are not allowed.
+6. GitHub issues and project tracking follow an issue-first approval workflow.
+
+## Why
+
+This keeps development reproducible, reviewable, and portable while still allowing OpenClaw to operate in Discord with persistent memory.
+
+## Consequences
+
+### Positive
+
+- Clear boundary between product development and runtime operations
+- Portable setup for another PC through Docker Compose
+- Repository remains the reviewable source of truth
+- Engram can store operational memory without replacing versioned planning artifacts
+
+### Trade-offs
+
+- Runtime and development sessions must coordinate through artifacts instead of assuming a shared live context
+- Operational SDD changes that affect shared artifacts must be serialized
+- Initial setup requires explicit namespace and routing conventions
+
+## Follow-up
+
+- Validate the OpenClaw runtime contract in Docker before adding deeper integrations.
+- Define Engram namespaces before implementing persistent skills.
+- Keep future ADRs small and specific when runtime assumptions change.
