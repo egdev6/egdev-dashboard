@@ -18,12 +18,14 @@
    - `docs/adr/`
    - `docs/architecture/`
    - `docs/project/`
+   - `docs/process/`
+   - `docs/security/`
    - `skills/`
    - GitHub issues and GitHub Project metadata
 2. Live session context is **not** shared automatically between Pi and OpenClaw.
 3. Shared understanding is synchronized through versioned artifacts and agreed Engram namespaces.
 4. Engram summaries are operational memory until promoted into a canonical repo artifact.
-5. Concurrent writes to shared SDD artifacts are not allowed.
+5. Concurrent writes to shared SDD artifacts are not allowed. Use `docs/process/shared-artifact-serialization.md` for the single-writer claim/release procedure.
 6. GitHub issues and project tracking follow an issue-first approval workflow.
 
 ## Why
@@ -42,7 +44,7 @@ This keeps development reproducible, reviewable, and portable while still allowi
 ### Trade-offs
 
 - Runtime and development sessions must coordinate through artifacts instead of assuming a shared live context
-- Operational SDD changes that affect shared artifacts must be serialized
+- Operational SDD changes that affect shared artifacts must be serialized through the documented single-writer procedure
 - Initial setup requires explicit namespace and routing conventions
 - Gentle-AI/Pi SDD assets may need adaptation into OpenClaw skills instead of direct reuse
 

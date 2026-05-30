@@ -30,6 +30,8 @@ Canonical shared-planning artifacts live in this repo:
 - `docs/adr/`
 - `docs/architecture/`
 - `docs/project/`
+- `docs/process/`
+- `docs/security/`
 - `skills/`
 - GitHub issues and GitHub Project metadata
 
@@ -81,9 +83,9 @@ See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check c
 
 - Repo development happens through Pi/el Gentleman SDD.
 - Operational Discord usage is intended to happen inside OpenClaw once validated.
-- Canonical planning artifacts are OpenSpec changes, ADRs, `docs/architecture/`, `docs/project/`, skills, and GitHub issue/project metadata.
+- Canonical planning artifacts are OpenSpec changes, ADRs, `docs/architecture/`, `docs/project/`, `docs/process/`, `docs/security/`, skills, and GitHub issue/project metadata.
 - Engram holds operational memory and summaries until something is promoted into the repo.
-- Concurrent SDD writes to shared planning artifacts are not allowed.
+- Concurrent SDD writes to shared planning artifacts are not allowed; follow `docs/process/shared-artifact-serialization.md` for claim/release and recovery.
 
 ## Review guidance
 
