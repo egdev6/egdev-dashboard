@@ -1,0 +1,6 @@
+ignored:
+  # OpenClaw is still validated as a moving upstream runtime during the M2/M3
+  # foundation work. Pin the base image once runtime compatibility stabilizes.
+  - DL3006
+trustedRegistries:
+  - ghcr.io
