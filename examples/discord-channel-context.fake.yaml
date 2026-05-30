@@ -1,0 +1,52 @@
+schema_version: 1
+resolver_examples:
+  - name: matched-linkedin-egdev
+    channel_context:
+      guild_id: "111111111111111111"
+      channel_id: "222222222222222222"
+      channel_name: linkedin-egdev
+      normalized_channel_name: linkedin-egdev
+      route_match:
+        status: matched
+        pattern: <network-slug>-<project-slug>
+    resolver_output:
+      routing_status: matched-route
+      runtime_namespace: egdev-dashboard/runtime/discord/111111111111111111/222222222222222222
+      resolved_route:
+        project_slug: egdev
+        network_slug: linkedin
+      durable_read_namespaces:
+        brand_namespace_key: egdev-dashboard/project/egdev/brand
+        strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+        content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+        network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+      durable_write_candidates:
+        strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+        content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+        network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+        write_mode: planned-only-until-approved
+        approval_note: route resolution does not authorize durable writes
+  - name: unmapped-general-channel
+    channel_context:
+      guild_id: "111111111111111111"
+      channel_id: "333333333333333333"
+      channel_name: general
+      normalized_channel_name: general
+      route_match:
+        status: unmatched
+        reason: no-approved-project-network-route
+    resolver_output:
+      routing_status: unmapped-channel
+      runtime_namespace: egdev-dashboard/runtime/discord/111111111111111111/333333333333333333
+      resolved_route:
+        project_slug: none
+        network_slug: none
+      durable_read_namespaces: none
+      durable_write_candidates:
+        write_mode: runtime-only-fallback
+        action: ask-human-for-route
+        approval_note: do not read or write durable project namespaces
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake Discord channel-context mapping data only and is safe to commit.

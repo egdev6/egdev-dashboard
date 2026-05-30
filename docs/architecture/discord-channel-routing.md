@@ -98,7 +98,7 @@ Unknown channels must not silently default to `egdev`, `linkedin`, or any other 
 ## Privacy rules
 
 - Real guild IDs and channel IDs are private by default.
-- Public docs may use placeholders such as `<guild-id>` and `<channel-id>` only.
+- Public docs may use placeholders such as `<guild-id>` and `<channel-id>` or obvious fake/demo IDs such as repeated `111111111111111111` values.
 - Channel display names are not secrets by themselves, but public examples must remain fake/demo.
 - Do not commit Discord exports, transcripts, screenshots, or runtime state.
 

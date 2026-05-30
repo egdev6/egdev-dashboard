@@ -11,6 +11,7 @@ This is an operations contract only. It does not prove live Discord bot routing 
 3. Route channel-local memory by raw Discord IDs.
 4. Route durable project reads by approved project/network slugs.
 5. Ask for human approval before durable project writes.
+6. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
 
 ## Naming examples
 
@@ -29,6 +30,8 @@ egdev-dashboard/project/egdev/brand
 egdev-dashboard/project/egdev/strategy
 egdev-dashboard/project/egdev/content-ledger
 ```
+
+The canonical resolver contract lives in `docs/architecture/channel-context-namespace-mapping.md`, and `examples/discord-channel-context.fake.yaml` provides fake matched/unmapped fixtures.
 
 ## Routing checklist
 
@@ -78,6 +81,7 @@ For this documentation-only routing slice, validate with:
 
 ```bash
 git diff --check
+npx --yes yaml-lint examples/discord-channel-context.fake.yaml
 npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 ```
 
