@@ -1,0 +1,30 @@
+project:
+  name: egdev-dashboard
+  description: Portable OpenClaw workspace and planning repo for Gentle-AI social operations.
+
+sdd:
+  mode: interactive
+  artifact_store:
+    repo: openspec
+    memory: engram
+  pr_strategy: ask-always
+  review_budget_lines: 600
+
+canonical_artifacts:
+  - openspec/
+  - docs/adr/
+  - docs/architecture/
+  - docs/project/
+  - skills/
+  - github:issues-and-project-metadata
+
+operational_memory:
+  backend: engram
+  summaries_are_canonical: false
+  promotion_rule: promote important runtime summaries into repo artifacts before treating them as shared planning truth
+
+runtime:
+  development_harness: pi-el-gentleman
+  operational_runtime: openclaw
+  memory_backend: engram
+  concurrent_shared_artifact_writes: disallowed

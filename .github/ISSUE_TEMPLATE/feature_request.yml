@@ -1,0 +1,60 @@
+name: Feature request
+description: Propose a roadmap item or repository improvement
+labels:
+  - enhancement
+  - status:needs-review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for planned work only. A maintainer must add `status:approved` before a PR is opened.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I understand this issue must be approved before implementation starts
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What pain point or gap does this feature solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the outcome and user-facing behavior.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Runtime
+        - Memory
+        - Skills
+        - Docs
+        - Process
+        - Analytics
+        - Dashboard
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the observable conditions that make this done.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links, references, risks, or related roadmap milestones.
