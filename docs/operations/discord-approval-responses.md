@@ -1,0 +1,153 @@
+# Discord approval-oriented responses
+
+Use this runbook for Discord responses that may change durable project memory, content-ledger state, or public-facing content plans.
+
+This is a response contract only. It does not prove live Discord bot behavior, OpenClaw routing, Engram writes, Buffer actions, publishing, or scheduling.
+
+## Quick path
+
+1. Summarize the request and resolved route.
+2. Show the proposed change before writing anything durable.
+3. Ask for an explicit approval phrase.
+4. Record an audit trail in channel-local runtime memory.
+5. Write durable project memory or ledger state only after approval and only to approved namespaces.
+
+## Response states
+
+| State | Purpose | Durable writes allowed? |
+|---|---|---|
+| `summary-only` | Answer or summarize context without changing state. | No |
+| `proposal` | Show a planned memory, strategy, network, or ledger update. | No |
+| `approval-requested` | Ask the operator to approve, reject, or revise the proposal. | No |
+| `approved-for-write` | Operator explicitly approves the proposed write. | Yes, within the approved scope |
+| `rejected` | Operator rejects the proposal. | No |
+| `needs-route` | Channel cannot be mapped to project/network. | No |
+
+## Approval prompts
+
+Memory-changing actions must ask for an explicit approval phrase. Do not treat silence, emoji reactions, or unrelated replies as approval.
+
+Recommended prompt shape:
+
+```text
+Proposed durable update
+Route: <project>/<network>
+Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Target namespace: <namespace-key>
+Change summary: <one-sentence summary>
+Risk boundary: <what this does not do>
+
+Reply with exactly one option:
+- approve write
+- revise: <instruction>
+- reject
+```
+
+For content-ledger entries, include the ledger status:
+
+```text
+Ledger candidate
+Target: egdev-dashboard/project/<project-slug>/content-ledger
+Content id: <content-id>
+Network: <network-slug>
+Status: draft|queued|published|archived
+Approval needed: confirm identity and status before write
+```
+
+## Audit trail requirements
+
+Every approval-oriented response must leave enough channel-local context for later review.
+
+Record these fields in runtime memory before any durable write attempt:
+
+| Field | Requirement |
+|---|---|
+| `runtime_namespace` | `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` |
+| `routing_status` | `matched-route`, `unmapped-channel`, or other resolver status |
+| `resolved_route` | Project/network slugs or `none` |
+| `proposal_summary` | Short description of the proposed change |
+| `target_namespaces` | Durable namespaces that would be affected |
+| `approval_status` | `pending`, `approved`, `rejected`, or `revised` |
+| `operator_decision` | Exact approval/rejection/revision phrase when available |
+| `no-op_boundaries` | Publishing, scheduling, Buffer, Discord routing, or memory writes that did not happen |
+
+Do not store secrets, real exports, raw private transcripts, or private customer data in the audit trail.
+
+## Planning update example
+
+Fake operator request:
+
+```text
+In #x-egdev, save this queue variation rule: alternate single posts and threads this week.
+```
+
+Safe response:
+
+```text
+Proposed durable update
+Route: egdev/x
+Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Target namespace: egdev-dashboard/project/egdev/network/x
+Change summary: add an X queue variation rule for alternating single-post and thread entries this week.
+Risk boundary: this will not publish, schedule, or update Buffer.
+
+Reply with exactly one option:
+- approve write
+- revise: <instruction>
+- reject
+```
+
+If approved, the durable write target is limited to the approved network namespace. The runtime audit note remains under the runtime Discord namespace.
+
+## Content-ledger update example
+
+Fake operator request:
+
+```text
+In #x-egdev, save x-post-002-demo as a draft ledger candidate with asset://demo/x-thread-outline-004.
+```
+
+Safe response:
+
+```text
+Ledger candidate
+Route: egdev/x
+Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Target: egdev-dashboard/project/egdev/content-ledger
+Content id: x-post-002-demo
+Network: x
+Status: draft
+Assets: asset://demo/x-thread-outline-004
+Approval needed: confirm identity and draft status before write.
+
+Reply with exactly one option:
+- approve write
+- revise: <instruction>
+- reject
+```
+
+The ledger status must stay inside the content-ledger contract: `draft`, `queued`, `published`, or `archived`. Use `queued` only after separate scheduling approval exists.
+
+## Unknown channel response
+
+When routing status is `unmapped-channel`, do not read or write durable project memory.
+
+```text
+I cannot map this channel to a project/network yet.
+Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Durable reads: none
+Durable writes: none
+
+Choose an approved route before I read or write project memory.
+```
+
+## Non-goals
+
+Approval-oriented responses do not authorize:
+
+- publishing;
+- scheduling;
+- Buffer analytics or sync;
+- Engram Cloud enrollment or sync;
+- live Discord routing changes;
+- durable writes outside the displayed target namespaces.

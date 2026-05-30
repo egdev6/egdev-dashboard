@@ -11,7 +11,8 @@ This is an operations contract only. It does not prove live Discord bot routing 
 3. Route channel-local memory by raw Discord IDs.
 4. Route durable project reads by approved project/network slugs.
 5. Ask for human approval before durable project writes.
-6. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+6. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
+7. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
 
 ## Naming examples
 
@@ -74,6 +75,8 @@ Still require explicit human approval before:
 - writing content-ledger entries;
 - drafting final public copy;
 - publishing or scheduling content.
+
+Use `docs/operations/discord-approval-responses.md` for the response states, approval prompt shape, and runtime audit trail fields.
 
 ## Local validation
 
