@@ -1,0 +1,30 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Secrets and local runtime data
+secrets/
+data/
+logs/
+*.log
+
+# OpenClaw / Engram / Pi local state
+.openclaw/
+.pi/
+engram-data/
+openclaw-data/
+/openclaw/workspace/**
+!/openclaw/workspace/README.md
+
+# Node / JS tooling
+node_modules/
+dist/
+build/
+coverage/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

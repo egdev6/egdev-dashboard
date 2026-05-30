@@ -1,0 +1,52 @@
+services:
+  openclaw:
+    # Intentionally unresolved: set OPENCLAW_IMAGE to a confirmed image reference
+    # or replace this service with a local Dockerfile once runtime validation is done.
+    image: ${OPENCLAW_IMAGE:?Set OPENCLAW_IMAGE to a confirmed OpenClaw image reference}
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      OPENCLAW_AGENT_NAME: ${OPENCLAW_AGENT_NAME:-egdev-dashboard}
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN:-}
+      DISCORD_GUILD_ID: ${DISCORD_GUILD_ID:-}
+      ENGRAM_API_URL: ${ENGRAM_API_URL:-}
+      ENGRAM_API_TOKEN: ${ENGRAM_API_TOKEN:-}
+      ENGRAM_NAMESPACE_PREFIX: ${ENGRAM_NAMESPACE_PREFIX:-egdev-dashboard}
+    volumes:
+      - openclaw-workspace:/workspace
+      - ./openclaw/skills:/skills/project:ro
+      - ./openclaw/config:/config/project:ro
+      - openclaw-data:/var/lib/openclaw
+    ports:
+      - "127.0.0.1:${OPENCLAW_PORT:-3000}:3000"
+    depends_on:
+      - engram
+
+  engram:
+    # Intentionally unresolved: set ENGRAM_IMAGE to a confirmed image reference
+    # or replace this service with a local Dockerfile/compose extension.
+    image: ${ENGRAM_IMAGE:?Set ENGRAM_IMAGE to a confirmed Engram image reference}
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      ENGRAM_PROJECT: ${ENGRAM_PROJECT:-egdev-dashboard}
+    volumes:
+      - engram-data:/var/lib/engram
+    ports:
+      - "127.0.0.1:${ENGRAM_PORT:-8080}:8080"
+
+  # Future services should stay opt-in until the runtime contract is validated.
+  # buffer-sync:
+  #   profiles: ["future"]
+  #   build: ./services/buffer-sync
+  #
+  # dashboard-web:
+  #   profiles: ["future"]
+  #   build: ./apps/dashboard
+
+volumes:
+  openclaw-workspace:
+  openclaw-data:
+  engram-data:
