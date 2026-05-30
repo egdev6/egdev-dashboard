@@ -1,0 +1,34 @@
+project: egdev
+network: linkedin
+project_namespace_key: egdev-dashboard/project/egdev/brand
+network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+brand_context:
+  voice:
+    - direct
+    - technical
+    - calm
+  audience:
+    - engineering leads
+    - product-minded developers
+  positioning:
+    - practical AI-assisted development without hype
+  approved_constraints:
+    - english artifacts only
+    - no private customer data in examples
+  reference_urls:
+    - https://example.invalid/brand/egdev
+network_context:
+  cadence:
+    - weekly thought-leadership post
+  content_format:
+    - implementation trade-off breakdowns
+  do_guidance:
+    - explain decisions before code
+    - keep examples reviewable
+  avoid_guidance:
+    - fake certainty
+    - vanity-metric language
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake data only and is safe to commit.
