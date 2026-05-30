@@ -8,8 +8,8 @@
 `egdev-dashboard` uses two SDD surfaces with different responsibilities:
 
 - **Pi / el Gentleman** is the development harness for repository planning, implementation, review, and change management.
-- **OpenClaw** is the dockerized operational runtime target that serves Discord-driven workflows.
-- **Gentle-AI SDD inside OpenClaw** is allowed for operational usage, but shared planning artifacts remain canonical in the repository and the full runtime wiring is still pending validation.
+- **OpenClaw** is the dockerized operational runtime target that serves Discord-driven workflows. Public docs and local smoke validation support Docker, workspaces, `SKILL.md` skills, Gateway health, Discord setup, and routing as target capabilities.
+- **Gentle-AI SDD inside OpenClaw** is an adaptation target, not a confirmed native Pi runtime. Package Gentle-AI behavior as OpenClaw `SKILL.md` assets and workspace instructions; do not assume Pi-native `.pi` agents/chains run inside OpenClaw unless a future spike proves direct compatibility.
 
 ## Rules
 
@@ -44,9 +44,11 @@ This keeps development reproducible, reviewable, and portable while still allowi
 - Runtime and development sessions must coordinate through artifacts instead of assuming a shared live context
 - Operational SDD changes that affect shared artifacts must be serialized
 - Initial setup requires explicit namespace and routing conventions
+- Gentle-AI/Pi SDD assets may need adaptation into OpenClaw skills instead of direct reuse
 
 ## Follow-up
 
-- Validate the OpenClaw runtime contract in Docker before adding deeper integrations.
+- Implement the compose service shape from the validated OpenClaw image, command, and Gateway port.
 - Define Engram namespaces before implementing persistent skills.
+- Validate Engram access and Discord routing before promising full Discord-driven operational SDD.
 - Keep future ADRs small and specific when runtime assumptions change.
