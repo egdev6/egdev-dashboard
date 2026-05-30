@@ -6,40 +6,119 @@ license: MIT
 
 # Content Ledger
 
-Use this skill to record and inspect publish-history metadata for a project and network.
+Use this skill to normalize publish-history facts for one project and one network without inventing analytics or storing private exports in git.
+
+This is a skill contract, not a live analytics or publishing integration.
 
 ## Inputs
 
-- project slug
-- network
-- content identifier or title
-- publish date
-- asset references
-- outcome notes
+Required inputs:
+
+- `project_slug`
+- `network_slug`
+- `content_id_or_title`
+- `publish_status`
+- `publish_date` or `unknown`
+- `asset_references` or `none`
+
+Optional inputs:
+
+- `campaign`
+- `source_link`
+- `follow_up_notes`
+- `measured_outcomes`
 
 ## Behavior
 
-1. Normalize a content entry into a small ledger record.
-2. Preserve enough metadata to compare later performance or avoid duplicates.
-3. Mark unknown fields explicitly instead of fabricating them.
-4. Prefer Engram-backed persistence when the runtime provides it.
-5. Use the ADR 0002 namespace contract: durable ledger state belongs under `egdev-dashboard/project/<project-slug>/content-ledger`, with network-specific overlays under `.../network/<network-slug>` when needed.
+1. Normalize one content record at a time.
+2. Preserve enough detail to avoid duplicates and support later analytics joins.
+3. Mark unknown values explicitly instead of fabricating them.
+4. Keep reusable ledger structure separate from network-local working notes.
+5. Use only fake/demo values in repository-facing examples.
+6. Follow ADR 0002 for all namespace references.
 
 ## Output shape
 
-- project
-- network
-- content entry
-- publish status
-- asset references
-- next follow-up action
+Return a YAML-like structure similar to this:
+
+```yaml
+project: <project-slug>
+network: <network-slug>
+content_entry:
+  id: <stable-id-or-title>
+  status: <draft|queued|published|archived>
+  published_at: <date-or-unknown>
+  assets:
+    - <asset-reference>
+  source_link: <url-or-none>
+  measured_outcomes:
+    - metric: <name>
+      value: <value-or-unknown>
+follow_up:
+  action: <next-step>
+  notes:
+    - <note>
+```
+
+## Memory behavior
+
+### Read candidates
+
+- `egdev-dashboard/project/<project-slug>/content-ledger`
+- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- approved repo artifacts that define ledger conventions or identifiers
+
+### Write candidates
+
+- durable ledger state under `egdev-dashboard/project/<project-slug>/content-ledger`
+- network-local overlays under `egdev-dashboard/project/<project-slug>/network/<network-slug>` when queue state or temporary workflow notes are needed
+
+### Approval gate
+
+Do not write a new durable ledger entry or modify an existing one until a human confirms that the content identity and status are correct.
+
+### Namespace target
+
+Use ADR 0002 exactly:
+
+- `egdev-dashboard/project/<project-slug>/content-ledger`
+- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+
+Canonical ADR examples that this skill may mirror when using fake/demo values:
+
+- `egdev-dashboard/project/egdev/content-ledger`
+- `egdev-dashboard/project/egdev/network/x`
+
+### Promotion to repo artifact
+
+Promote ledger conventions, identifier rules, and reusable workflow behavior into repo artifacts when they become review-facing or implementation-critical. Raw operational entries may remain in Engram until they are summarized.
 
 ## Safety rules
 
-- Do not store real credentials or private exports in git.
-- Do not infer analytics that were not measured.
-- Keep examples fake unless the data is intentionally public.
+- Do not invent analytics that were not measured.
+- Do not store credentials, private exports, or secrets in the ledger contract.
+- Do not use `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` for durable publish history.
+- Keep examples fake unless the source is intentionally public and approved.
 
-## Memory contract
+## Demo example (fake)
 
-Follow `docs/adr/0002-engram-namespace-contract.md` for namespace families and promotion rules. Retention, update semantics, and analytics linkage can evolve later without changing the namespace root.
+```yaml
+project: egdev
+network: x
+content_entry:
+  id: x-post-001-demo
+  status: published
+  published_at: 2026-05-30
+  assets:
+    - asset://demo/cover-001
+  source_link: https://example.invalid/posts/x-post-001-demo
+  measured_outcomes:
+    - metric: impressions
+      value: unknown
+follow_up:
+  action: compare against future X queue posts after analytics validation
+  notes:
+    - fake demo entry for contract review only
+```
+
+This example is fake/demo data only and must not be treated as real publish history.
