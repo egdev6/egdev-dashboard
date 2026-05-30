@@ -1,0 +1,89 @@
+schema_version: 1
+project: egdev
+network: linkedin
+timeframe: 2026-W24
+source_context:
+  brand_namespace_key: egdev-dashboard/project/egdev/brand
+  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  recent_ledger_content_ids:
+    - x-post-001-demo
+planning_inputs:
+  goals:
+    - validate a weekly LinkedIn planning contract from approved fake project context
+    - keep weekly post ideas structured, reviewable, and approval-gated
+  cadence:
+    posts_per_week: 2
+    preferred_publish_days:
+      - tuesday
+      - thursday
+    format_mix:
+      - technical trade-off breakdown
+      - reusable implementation lesson
+  constraints:
+    - english artifacts only
+    - no publishing or scheduling without human approval
+    - no private customer examples or confidential project details
+  known_assets:
+    - asset://demo/linkedin-outline-03
+    - asset://demo/linkedin-cover-03
+    - asset://demo/linkedin-outline-04
+  review_preferences:
+    - keep examples reviewable in one PR
+    - separate approved facts from assumptions
+planning_basis:
+  confirmed_facts:
+    - approved fake brand context prefers direct, technical, calm communication
+    - approved fake LinkedIn context favors implementation trade-off breakdowns
+    - fake content ledger contains x-post-001-demo as prior technical content history
+  assumptions:
+    - engineering leads will value reviewability lessons over broad AI productivity claims
+    - LinkedIn can reuse a topic from X only if the hook and framing are adapted
+  proposed_angles:
+    - single-writer-thread reviewability lesson
+    - fake memory fixtures as workflow-contract proof
+weekly_plan:
+  posts:
+    - id: linkedin-weekly-post-01-demo
+      working_title: why a single writer thread keeps AI-assisted changes reviewable
+      objective: show one operational lesson that matters to engineering leads
+      rationale:
+        ties_to_goal: supports weekly technical-depth testing on LinkedIn
+        brand_alignment: explains decisions before code and avoids hype framing
+        ledger_reference: reuse the technical specificity that performed well in x-post-001-demo without copying its hook
+      required_assets:
+        - asset://demo/linkedin-outline-03
+        - asset://demo/linkedin-cover-03
+      approval_checkpoint:
+        - approve the weekly angle before drafting copy
+    - id: linkedin-weekly-post-02-demo
+      working_title: when fake memory fixtures are the right way to prove a workflow contract
+      objective: turn a recent implementation lesson into a reviewable planning slice
+      rationale:
+        ties_to_goal: supports repeatable weekly planning from approved fake context
+        brand_alignment: stays practical, technical, and explicit about limits
+        ledger_reference: extends the fake strategy-planning roundtrip instead of claiming live runtime validation
+      required_assets:
+        - asset://demo/linkedin-outline-04
+      approval_checkpoint:
+        - approve the follow-up angle before any durable memory write
+approval:
+  status: pending-human-approval
+  checkpoints:
+    - confirm weekly goals still match approved brand context
+    - approve each post angle before drafting
+    - approve durable memory writes before saving strategy or network planning state
+memory_write_targets:
+  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  write_mode: planned-only-until-approved
+  planned_records:
+    - scope: cross-network-strategy
+      summary: save a reusable weekly cadence rule only after human approval
+    - scope: network-linkedin
+      summary: save the approved weekly LinkedIn plan summary only after human approval
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake LinkedIn weekly planning data only and is safe to commit.

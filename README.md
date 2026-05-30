@@ -48,7 +48,7 @@ Included now:
 - ADRs and architecture notes
 - Issue-first GitHub templates
 - Backlog and roadmap
-- Skill skeletons for brand context, content ledger, and strategy planning
+- Skill skeletons/contracts for brand context, content ledger, strategy planning, and LinkedIn weekly planning
 - CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, developer tooling, commit messages, and secret scanning
 
 Not included or not yet validated:
