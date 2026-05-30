@@ -50,6 +50,7 @@ Included now:
 - Backlog and roadmap
 - Skill skeletons/contracts for brand context, content ledger, strategy planning, LinkedIn weekly planning, X queue planning, and on-demand brief workflows
 - CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, developer tooling, commit messages, and secret scanning
+- Buffer API research for read-only analytics scope and auth boundaries
 
 Not included or not yet validated:
 
@@ -57,7 +58,7 @@ Not included or not yet validated:
 - Confirmed live Engram enrollment/sync behavior from OpenClaw skills
 - Host/browser access validation on every target machine
 - Live Discord bot configuration
-- Buffer analytics integration
+- Live Buffer analytics integration; current public API research found no read-only LinkedIn/X analytics endpoint
 - Dashboard or API implementation
 
 ## Quick start

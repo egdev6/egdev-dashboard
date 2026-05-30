@@ -21,7 +21,7 @@ Use this runbook before onboarding any real Discord server, brand, Buffer accoun
 | `ENGRAM_CLOUD_ADMIN` | No | `.env` or secret manager | Admin-only secret; never share with clients. |
 | `ENGRAM_JWT_SECRET` | No | `.env` or secret manager | Must be strong and private. |
 | `POSTGRES_PASSWORD` | No | `.env` or secret manager | Treat DB credentials as production secrets once real memory exists. |
-| `BUFFER_ACCESS_TOKEN` | No | `.env` or secret manager | Grants access to analytics/publishing surfaces. |
+| `BUFFER_ACCESS_TOKEN` / `BUFFER_API_KEY` | No | `.env` or secret manager | Grants Buffer API access; current public API should not be assumed to expose LinkedIn/X analytics metrics. |
 | `BUFFER_ACCOUNT_ID` | Usually no | `.env` or private config | Keep private unless intentionally documented for a public demo. |
 | `.env.example` placeholders | Yes | git | Names and fake `change-me-*` values only. |
 
