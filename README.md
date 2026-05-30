@@ -41,7 +41,7 @@ This is the **M1 foundation skeleton**.
 
 Included now:
 
-- Docker Compose placeholders for OpenClaw and Engram
+- Docker Compose foundation for OpenClaw, Engram Cloud, and Postgres
 - SDD/OpenSpec project config
 - ADRs and architecture notes
 - Issue-first GitHub templates
@@ -50,9 +50,9 @@ Included now:
 
 Not included or not yet validated:
 
-- Confirmed OpenClaw container image reference
-- Confirmed Gentle-AI runtime behavior inside OpenClaw
-- Confirmed live Engram connection details and runtime wiring
+- Native Pi `.pi` agents/chains running directly inside OpenClaw
+- Confirmed live Engram enrollment/sync behavior from OpenClaw skills
+- Host/browser access validation on every target machine
 - Live Discord bot configuration
 - Buffer analytics integration
 - Dashboard or API implementation
@@ -61,17 +61,21 @@ Not included or not yet validated:
 
 1. Clone the repository.
 2. Copy `.env.example` to `.env`.
-3. Replace placeholder image values with confirmed OpenClaw and Engram references.
-4. Review `docs/architecture/portable-openclaw-runtime.md`.
-5. Start foundation services with Docker Compose only after runtime validation confirms the image and wiring assumptions.
+3. Replace every `change-me-*` value before storing real memory.
+4. Run OpenClaw setup once.
+5. Start the foundation services.
 
 ```bash
 git clone <repo-url>
 cd egdev-dashboard
 cp .env.example .env
-# edit .env with confirmed values
-# docker compose up -d
+# edit every change-me value before real use
+
+docker compose --profile setup run --rm openclaw-setup
+docker compose up -d postgres engram openclaw
 ```
+
+See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands.
 
 ## Development model
 

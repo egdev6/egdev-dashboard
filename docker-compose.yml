@@ -1,43 +1,101 @@
 services:
+  openclaw-setup:
+    image: ${OPENCLAW_RUNTIME_IMAGE:-egdev-dashboard-openclaw:local}
+    build:
+      context: .
+      dockerfile: docker/openclaw/Dockerfile
+      args:
+        OPENCLAW_BASE_IMAGE: ${OPENCLAW_BASE_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+    profiles: ["setup"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN:-change-me-local-openclaw-token}
+    volumes:
+      - openclaw-home:/home/node/.openclaw
+    command:
+      - sh
+      - -lc
+      - >-
+        node openclaw.mjs onboard --non-interactive --accept-risk --mode local
+        --auth-choice skip --skip-channels --skip-daemon --skip-health
+        --skip-ui --skip-search --no-install-daemon --json
+        && egdev-sync-skills
+
   openclaw:
-    # Intentionally unresolved: set OPENCLAW_IMAGE to a confirmed image reference
-    # or replace this service with a local Dockerfile once runtime validation is done.
-    image: ${OPENCLAW_IMAGE:?Set OPENCLAW_IMAGE to a confirmed OpenClaw image reference}
+    image: ${OPENCLAW_RUNTIME_IMAGE:-egdev-dashboard-openclaw:local}
+    build:
+      context: .
+      dockerfile: docker/openclaw/Dockerfile
+      args:
+        OPENCLAW_BASE_IMAGE: ${OPENCLAW_BASE_IMAGE:-ghcr.io/openclaw/openclaw:latest}
     restart: unless-stopped
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
-      OPENCLAW_AGENT_NAME: ${OPENCLAW_AGENT_NAME:-egdev-dashboard}
+      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN:-change-me-local-openclaw-token}
       DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN:-}
       DISCORD_GUILD_ID: ${DISCORD_GUILD_ID:-}
-      ENGRAM_API_URL: ${ENGRAM_API_URL:-}
-      ENGRAM_API_TOKEN: ${ENGRAM_API_TOKEN:-}
+      ENGRAM_CLOUD_URL: ${ENGRAM_CLOUD_URL:-http://engram:18080}
+      ENGRAM_CLOUD_TOKEN: ${ENGRAM_CLOUD_TOKEN:-change-me-local-engram-token}
       ENGRAM_NAMESPACE_PREFIX: ${ENGRAM_NAMESPACE_PREFIX:-egdev-dashboard}
     volumes:
-      - openclaw-workspace:/workspace
-      - ./openclaw/skills:/skills/project:ro
-      - ./openclaw/config:/config/project:ro
-      - openclaw-data:/var/lib/openclaw
+      - openclaw-home:/home/node/.openclaw
     ports:
-      - "127.0.0.1:${OPENCLAW_PORT:-3000}:3000"
+      - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:18789"
+    command:
+      - sh
+      - -lc
+      - >-
+        egdev-sync-skills
+        && exec node openclaw.mjs gateway --port 18789 --bind lan --auth token
     depends_on:
-      - engram
+      engram:
+        condition: service_started
 
-  engram:
-    # Intentionally unresolved: set ENGRAM_IMAGE to a confirmed image reference
-    # or replace this service with a local Dockerfile/compose extension.
-    image: ${ENGRAM_IMAGE:?Set ENGRAM_IMAGE to a confirmed Engram image reference}
+  postgres:
+    image: postgres:16-alpine
     restart: unless-stopped
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
-      ENGRAM_PROJECT: ${ENGRAM_PROJECT:-egdev-dashboard}
+      POSTGRES_USER: ${POSTGRES_USER:-engram}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me-local-postgres-password}
+      POSTGRES_DB: ${POSTGRES_DB:-engram_cloud}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     volumes:
-      - engram-data:/var/lib/engram
-    ports:
-      - "127.0.0.1:${ENGRAM_PORT:-8080}:8080"
+      - engram-postgres:/var/lib/postgresql/data
 
-  # Future services should stay opt-in until the runtime contract is validated.
+  engram:
+    image: ${ENGRAM_IMAGE:-ghcr.io/gentleman-programming/engram:latest}
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ENGRAM_DATABASE_URL: postgres://${POSTGRES_USER:-engram}:${POSTGRES_PASSWORD:-change-me-local-postgres-password}@postgres:5432/${POSTGRES_DB:-engram_cloud}?sslmode=disable
+      ENGRAM_JWT_SECRET: ${ENGRAM_JWT_SECRET:-change-me-local-jwt-secret-32-bytes-minimum}
+      ENGRAM_CLOUD_TOKEN: ${ENGRAM_CLOUD_TOKEN:-change-me-local-engram-token}
+      ENGRAM_CLOUD_ADMIN: ${ENGRAM_CLOUD_ADMIN:-change-me-local-engram-admin-token}
+      ENGRAM_CLOUD_ALLOWED_PROJECTS: ${ENGRAM_CLOUD_ALLOWED_PROJECTS:-egdev-dashboard}
+      ENGRAM_CLOUD_HOST: 0.0.0.0
+      ENGRAM_PORT: "18080"
+    command: ["cloud", "serve"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${ENGRAM_PORT:-18080}:18080"
+
+  # Future services should stay opt-in until runtime, memory, and read-model
+  # contracts are stable.
   # buffer-sync:
   #   profiles: ["future"]
   #   build: ./services/buffer-sync
@@ -47,6 +105,5 @@ services:
   #   build: ./apps/dashboard
 
 volumes:
-  openclaw-workspace:
-  openclaw-data:
-  engram-data:
+  openclaw-home:
+  engram-postgres:
