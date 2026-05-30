@@ -30,8 +30,20 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Set up Go for lint tools
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.x"
+          cache: false
+
       - name: Install lint tools
-        run: python -m pip install --disable-pip-version-check yamllint
+        run: |
+          python -m pip install --disable-pip-version-check yamllint
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
+          go install mvdan.cc/sh/v3/cmd/shfmt@v3.10.0
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
 
       - name: Check repository whitespace
         shell: bash
@@ -52,16 +64,41 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          find scripts -type f -name "*.sh" -print0 | sort -z | while IFS= read -r -d '' script; do
+          find scripts docker -type f -name "*.sh" -print0 | sort -z | while IFS= read -r -d '' script; do
             echo "Checking ${script}"
             bash -n "${script}"
           done
+
+      - name: Lint GitHub Actions workflows
+        run: actionlint
+
+      - name: Lint shell scripts
+        run: find scripts docker -type f -name "*.sh" -print0 | sort -z | xargs -0 -r shellcheck
+
+      - name: Check shell formatting
+        run: shfmt -d -i 2 -ci scripts docker/openclaw/sync-skills.sh
 
       - name: Lint YAML
         run: yamllint .
 
       - name: Lint Markdown
         run: npx --yes markdownlint-cli2@0.18.1 "**/*.md"
+
+      - name: Lint commit messages
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          commitlint=(npx --yes @commitlint/cli@19.8.1 --config .commitlintrc.json)
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            "${commitlint[@]}" --from "origin/${GITHUB_BASE_REF}" --to "${HEAD_SHA}"
+          elif [[ -n "${BEFORE_SHA}" && "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ]]; then
+            "${commitlint[@]}" --from "${BEFORE_SHA}" --to HEAD
+          else
+            "${commitlint[@]}" --last
+          fi
 
   memory-roundtrips:
     name: Local Engram memory roundtrips

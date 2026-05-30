@@ -6,8 +6,8 @@ This repository uses lightweight GitHub Actions checks to protect public repo co
 
 | Workflow | File | Purpose |
 |---|---|---|
-| CI | `.github/workflows/ci.yml` | Repository hygiene, YAML/Markdown linting, shell syntax, and local Engram memory roundtrips with a pinned Engram CLI. |
-| Docker smoke | `.github/workflows/docker.yml` | Validates Docker Compose rendering and builds the OpenClaw runtime image. |
+| CI | `.github/workflows/ci.yml` | Repository hygiene, workflow linting, shell linting/format checks, YAML/Markdown linting, commit message linting, and local Engram memory roundtrips with a pinned Engram CLI. |
+| Docker smoke | `.github/workflows/docker.yml` | Lints the OpenClaw Dockerfile, validates Docker Compose rendering, and builds the OpenClaw runtime image. |
 | Security scan | `.github/workflows/security.yml` | Runs Gitleaks to catch accidentally committed secrets. |
 
 All workflows run on pull requests to `main`, pushes to `main`, and manual `workflow_dispatch`.
@@ -18,9 +18,13 @@ Run the main checks before opening a PR:
 
 ```bash
 git diff --check
-find scripts -type f -name "*.sh" -print0 | sort -z | while IFS= read -r -d '' script; do bash -n "$script"; done
+actionlint
+find scripts docker -type f -name "*.sh" -print0 | sort -z | while IFS= read -r -d '' script; do bash -n "$script"; done
+find scripts docker -type f -name "*.sh" -print0 | sort -z | xargs -0 -r shellcheck
+shfmt -d -i 2 -ci scripts docker/openclaw/sync-skills.sh
 yamllint .
 npx --yes markdownlint-cli2@0.18.1 "**/*.md"
+npx --yes @commitlint/cli@19.8.1 --config .commitlintrc.json --last
 ```
 
 For memory validations, each script creates a disposable `ENGRAM_DATA_DIR` by default:
@@ -34,11 +38,14 @@ scripts/validate-strategy-planning-memory.sh
 For Docker validation:
 
 ```bash
+hadolint docker/openclaw/Dockerfile
 docker compose config
 docker build --pull --file docker/openclaw/Dockerfile --tag egdev-dashboard-openclaw:ci .
 ```
 
 ## Boundaries
+
+Local hook setup is documented in `docs/operations/dev-tooling.md`.
 
 These checks do not deploy services or publish images. They also do not validate:
 

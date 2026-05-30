@@ -1,0 +1,31 @@
+pre-commit:
+  parallel: true
+  commands:
+    whitespace:
+      run: git diff --cached --check
+    shell-syntax:
+      run: find scripts docker -type f -name "*.sh" | sort | while IFS= read -r script; do bash -n "$script"; done
+    actionlint:
+      run: actionlint
+    shellcheck:
+      run: find scripts docker -type f -name "*.sh" | sort | while IFS= read -r script; do shellcheck "$script"; done
+    shfmt:
+      run: shfmt -d -i 2 -ci scripts docker/openclaw/sync-skills.sh
+    markdownlint:
+      run: npx --yes markdownlint-cli2@0.18.1 "**/*.md"
+    yamllint:
+      run: yamllint .
+    hadolint:
+      run: hadolint docker/openclaw/Dockerfile
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --yes @commitlint/cli@19.8.1 --config .commitlintrc.json --edit {1}
+
+pre-push:
+  commands:
+    memory-roundtrips:
+      run: find scripts -type f -name "validate-*-memory.sh" | sort | while IFS= read -r script; do "$script"; done
+    docker-compose-config:
+      run: docker compose config >/dev/null

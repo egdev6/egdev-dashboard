@@ -1,0 +1,9 @@
+ignored:
+  # OpenClaw is still validated as a moving upstream runtime during the M2/M3
+  # foundation work. Pin the base image once runtime compatibility stabilizes.
+  - DL3006
+  # The base image is an ARG with a ghcr.io default. Hadolint cannot prove the
+  # runtime value stays in the trusted registry list from this Dockerfile alone.
+  - DL3026
+trustedRegistries:
+  - ghcr.io

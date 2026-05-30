@@ -49,7 +49,7 @@ Included now:
 - Issue-first GitHub templates
 - Backlog and roadmap
 - Skill skeletons for brand context, content ledger, and strategy planning
-- CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, and secret scanning
+- CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, developer tooling, commit messages, and secret scanning
 
 Not included or not yet validated:
 
@@ -78,7 +78,7 @@ docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 ```
 
-See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/ci.md` for automated checks, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
+See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
 
 ## Development model
 

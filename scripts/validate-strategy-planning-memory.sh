@@ -21,9 +21,7 @@ APPROVAL_STATUS="approved-for-demo-validation"
 SCHEMA_VERSION="1"
 
 BRAND_TITLE="fake brand context smoke"
-BRAND_NETWORK_TITLE="fake linkedin brand overlay smoke"
 LEDGER_TITLE="fake content ledger smoke"
-LEDGER_NETWORK_TITLE="fake x content overlay smoke"
 STRATEGY_TITLE="fake strategy planning smoke"
 STRATEGY_NETWORK_TITLE="fake linkedin strategy overlay smoke"
 
