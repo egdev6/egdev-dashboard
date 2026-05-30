@@ -1,0 +1,118 @@
+schema_version: 1
+project: egdev
+network: x
+timeframe: 2026-W24
+source_context:
+  brand_namespace_key: egdev-dashboard/project/egdev/brand
+  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  recent_ledger_content_ids:
+    - x-post-001-demo
+planning_inputs:
+  topics:
+    - technical reviewability lessons
+    - workflow contract proofs with fake memory fixtures
+  cadence:
+    items_per_week: 3
+    preferred_publish_days:
+      - monday
+      - wednesday
+      - friday
+    delivery_mix:
+      - single-post
+      - thread
+      - single-post
+  tone:
+    - direct
+    - technical
+    - specific
+  constraints:
+    - english artifacts only
+    - no publishing or scheduling without human approval
+    - no private customer examples or confidential project details
+  known_assets:
+    - asset://demo/x-cover-002
+    - asset://demo/x-thread-outline-002
+    - asset://demo/x-thread-outline-003
+  review_preferences:
+    - keep queue entries reviewable in one PR
+    - vary hooks so adjacent items do not feel duplicated
+planning_basis:
+  confirmed_facts:
+    - approved fake brand context prefers direct, technical, calm communication
+    - approved fake X context favors technical and specific hooks over hype-only framing
+    - fake content ledger contains x-post-001-demo as prior published technical content
+  assumptions:
+    - engineering leads will respond better to compact specifics than to generic AI productivity claims
+    - one short thread can deepen a theme without exhausting queue variety if adjacent hooks change
+  variation_rules:
+    - alternate between single-post and thread entries across the weekly queue
+    - keep one item operational and one item workflow-oriented to avoid repetitive framing
+  proposed_angles:
+    - single-writer-thread reviewability lesson
+    - fake memory fixtures as workflow-contract proof
+    - why approval gates matter before durable memory writes
+queue_plan:
+  status: draft-review
+  entries:
+    - id: x-queue-item-01-demo
+      entry_type: single-post
+      working_title: the fastest way to make AI-assisted changes unreviewable is to let two writers race
+      objective: highlight a concrete reviewability lesson for technical operators
+      rationale:
+        ties_to_topic: supports technical reviewability lessons
+        brand_alignment: stays direct, practical, and anti-hype
+        ledger_reference: reuses the specificity that worked in x-post-001-demo without repeating the same framing
+      variation_note: sharp single-post opener to lead the weekly queue with an operational claim
+      required_assets:
+        - asset://demo/x-cover-002
+      approval_checkpoint:
+        - approve the queue item before drafting the final post text
+    - id: x-queue-item-02-demo
+      entry_type: thread
+      working_title: fake memory fixtures are not fake rigor
+      objective: explain why fake fixtures are the right proof surface for contract-first workflow validation
+      rationale:
+        ties_to_topic: supports workflow contract proofs with fake memory fixtures
+        brand_alignment: stays technical and explicit about limitations
+        ledger_reference: extends the fake strategy-planning roundtrip instead of claiming live runtime behavior
+      variation_note: longer thread entry to deepen one theme after a compact opening item
+      required_assets:
+        - asset://demo/x-thread-outline-002
+      approval_checkpoint:
+        - approve the thread angle before drafting the full queue item
+    - id: x-queue-item-03-demo
+      entry_type: single-post
+      working_title: approval gates are part of the product, not just paperwork
+      objective: reinforce that durable memory writes need explicit human review
+      rationale:
+        ties_to_topic: supports workflow contract proofs with fake memory fixtures
+        brand_alignment: explains decisions before code and keeps the operational boundary explicit
+        ledger_reference: links back to the existing network/x namespace contract without implying live publishing
+      variation_note: closes the queue with a policy-oriented single-post after a deeper thread item
+      required_assets:
+        - asset://demo/x-thread-outline-003
+      approval_checkpoint:
+        - approve the policy framing before drafting or scheduling any queue item
+approval:
+  status: pending-human-approval
+  checkpoints:
+    - confirm queue topics still match approved brand context
+    - approve each queue entry before drafting
+    - approve publishing before any post leaves review state
+    - approve scheduling before any queue item is placed on a calendar
+    - approve durable memory writes before saving strategy or network queue state
+memory_write_targets:
+  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  write_mode: planned-only-until-approved
+  planned_records:
+    - scope: cross-network-strategy
+      summary: save a reusable cadence or variation rule only after human approval
+    - scope: network-x
+      summary: save the approved X queue summary only after human approval
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake X queue planning data only and is safe to commit.
