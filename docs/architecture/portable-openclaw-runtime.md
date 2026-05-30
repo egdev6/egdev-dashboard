@@ -40,11 +40,13 @@ OpenClaw documents routing/bindings, including Discord surfaces. This repo still
 
 ## Engram namespace model
 
-Recommended namespace prefixes:
+ADR 0002 (`docs/adr/0002-engram-namespace-contract.md`) is the namespace contract.
+
+Summary examples:
 
 ```text
-egdev-dashboard/dev/sdd/*
-egdev-dashboard/runtime/discord/*
+egdev-dashboard/dev/sdd/<change-id>/<phase>
+egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
 egdev-dashboard/project/<project-slug>/brand
 egdev-dashboard/project/<project-slug>/strategy
 egdev-dashboard/project/<project-slug>/content-ledger

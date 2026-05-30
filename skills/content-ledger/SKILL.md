@@ -23,6 +23,7 @@ Use this skill to record and inspect publish-history metadata for a project and 
 2. Preserve enough metadata to compare later performance or avoid duplicates.
 3. Mark unknown fields explicitly instead of fabricating them.
 4. Prefer Engram-backed persistence when the runtime provides it.
+5. Use the ADR 0002 namespace contract: durable ledger state belongs under `egdev-dashboard/project/<project-slug>/content-ledger`, with network-specific overlays under `.../network/<network-slug>` when needed.
 
 ## Output shape
 
@@ -39,6 +40,6 @@ Use this skill to record and inspect publish-history metadata for a project and 
 - Do not infer analytics that were not measured.
 - Keep examples fake unless the data is intentionally public.
 
-## TODO
+## Memory contract
 
-Define retention, update semantics, and analytics linkage once Buffer scope is confirmed.
+Follow `docs/adr/0002-engram-namespace-contract.md` for namespace families and promotion rules. Retention, update semantics, and analytics linkage can evolve later without changing the namespace root.

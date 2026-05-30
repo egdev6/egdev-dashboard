@@ -21,7 +21,8 @@ Use this skill to transform stored context into a planning slice such as a weekl
 1. Start from approved brand context when available.
 2. Generate concise planning structures instead of long prose.
 3. Separate confirmed facts from assumptions.
-4. Leave publishing and analytics execution to later skills or runtime integrations.
+4. Write cross-network strategy memory under `egdev-dashboard/project/<project-slug>/strategy` and network-local planning context under `.../network/<network-slug>` per ADR 0002.
+5. Leave publishing and analytics execution to later skills or runtime integrations.
 
 ## Output shape
 
@@ -39,6 +40,6 @@ Use this skill to transform stored context into a planning slice such as a weekl
 - Do not publish or schedule content from this skeleton alone.
 - Keep repository examples generic and reviewable.
 
-## TODO
+## Memory contract
 
-Split this skill into LinkedIn, X, and on-demand brief variants after the first memory-backed roundtrip is validated.
+Follow `docs/adr/0002-engram-namespace-contract.md` for namespace families and promotion rules. Split this skill into LinkedIn, X, and on-demand brief variants after the first memory-backed roundtrip is validated.
