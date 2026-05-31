@@ -19,7 +19,7 @@ On this WSL machine, Docker Desktop was reachable through the Windows binary:
 /mnt/c/Program\ Files/Docker/Docker/resources/bin/docker.exe compose version
 ```
 
-Use plain `docker` if your shell has Docker integration enabled.
+Use plain `docker` if your shell has Docker integration enabled. If Docker is installed but the socket is not accessible, use `sudo docker ...` for the pilot or fix local Docker group permissions outside the repo.
 
 ## First-time setup
 
@@ -64,7 +64,17 @@ OpenClaw should report:
 200 {"ok":true,"status":"live"}
 ```
 
-For Engram, use the health/dashboard endpoint validated by the Engram Cloud runtime in the next memory spike. This compose file starts the service, but the project still needs to validate client enrollment and sync behavior before storing real context.
+Engram Cloud should report:
+
+```bash
+curl -sS http://127.0.0.1:18080/health
+```
+
+```json
+{"service":"engram-cloud","status":"ok"}
+```
+
+The first runtime pilot validated service reachability only. The project still needs to validate client enrollment and sync behavior before storing real context.
 
 ## Stop
 
