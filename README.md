@@ -53,6 +53,7 @@ Included now:
 - Buffer API research for read-only analytics scope and auth boundaries
 - Fake LinkedIn and X analytics snapshot schemas and local validation without live Buffer dependency
 - Contract-first dashboard/API read model docs, fake fixture, and local validation without a live server
+- Static read-only dashboard overview artifact over the fake read models
 
 Not included or not yet validated:
 
