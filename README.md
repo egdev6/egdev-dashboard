@@ -85,6 +85,42 @@ docker compose up -d postgres engram openclaw
 
 See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/runtime-incident-runbook.md` for startup, failures, backup notes, and incident response, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, `docs/operations/discord-routing.md` for channel routing rules, `docs/operations/discord-approval-responses.md` for approval-oriented response patterns, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
 
+## Try it on another PC
+
+Use a fresh clone and fresh local secrets on every machine. Do **not** copy `.env`, Docker volumes, private memory, raw logs, Discord IDs, or credentials between PCs unless you are deliberately doing a private migration.
+
+```bash
+git clone https://github.com/egdev6/egdev-dashboard.git
+cd egdev-dashboard
+
+test -f .env || cp .env.example .env
+# edit every change-me value before storing real memory
+
+docker compose config
+docker compose --profile setup run --rm openclaw-setup
+docker compose up -d postgres engram openclaw
+docker compose ps
+```
+
+If Docker is installed but the socket is permission-denied, use `sudo docker ...` for the pilot or fix local Docker permissions outside the repo.
+
+Validate local health and skill sync:
+
+```bash
+docker compose exec openclaw node -e "fetch('http://127.0.0.1:18789/healthz').then(async r => { console.log(r.status, await r.text()) })"
+curl -sS http://127.0.0.1:18080/health
+docker compose exec openclaw sh -lc 'find /home/node/.openclaw/workspace/skills -maxdepth 3 -type f | sort'
+```
+
+Shut down without deleting volumes:
+
+```bash
+docker compose down
+docker volume ls | grep 'egdev-dashboard' || true
+```
+
+This validates portability only. It does not configure live Discord, live Buffer analytics, durable Engram application sync, or production hosting.
+
 ## Development model
 
 - Repo development happens through Pi/el Gentleman SDD.
