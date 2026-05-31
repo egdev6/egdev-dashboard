@@ -61,7 +61,7 @@ Not included or not yet validated:
 - Native Pi `.pi` agents/chains running directly inside OpenClaw
 - Confirmed live Engram enrollment/sync behavior from OpenClaw skills
 - Host/browser access validation on every target machine
-- Live Discord bot configuration
+- Fully validated live Discord routing and approval behavior; a private pilot confirmed the external Discord plugin prerequisite and found that write-like Discord requests still need stricter approval gating
 - Live Buffer analytics integration; current public API research found no read-only LinkedIn/X analytics endpoint
 - Live dashboard UI or API server implementation
 
@@ -83,7 +83,19 @@ docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 ```
 
-See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/runtime-incident-runbook.md` for startup, failures, backup notes, and incident response, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, `docs/operations/discord-routing.md` for channel routing rules, `docs/operations/discord-approval-responses.md` for approval-oriented response patterns, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
+See `docs/operations/docker-runtime.md` for shutdown, volume, plugin, and health-check commands, `docs/operations/runtime-incident-runbook.md` for startup, failures, backup notes, and incident response, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, `docs/operations/discord-routing.md` for channel routing rules, `docs/operations/discord-approval-responses.md` for approval-oriented response patterns, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
+
+### Discord pilot prerequisite
+
+The base OpenClaw runtime image does not include the Discord channel plugin by default. Before live Discord route validation, install the external plugin and restart OpenClaw:
+
+```bash
+docker compose exec openclaw openclaw plugins install @openclaw/discord
+docker compose restart openclaw
+docker compose exec openclaw openclaw channels status --deep --probe
+```
+
+Only proceed when Discord appears in channel status. A configured bot token alone is not enough if the plugin is missing.
 
 ## Try it on another PC
 

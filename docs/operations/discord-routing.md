@@ -6,13 +6,14 @@ This is an operations contract only. It does not prove live Discord bot routing 
 
 ## Quick path
 
-1. Name channels with `<network-slug>-<project-slug>`.
-2. Keep real guild and channel IDs outside the repo.
-3. Route channel-local memory by raw Discord IDs.
-4. Route durable project reads by approved project/network slugs.
-5. Ask for human approval before durable project writes.
-6. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
-7. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+1. Install the external OpenClaw Discord plugin before live validation.
+2. Name channels with `<network-slug>-<project-slug>`.
+3. Keep real guild and channel IDs outside the repo.
+4. Route channel-local memory by raw Discord IDs.
+5. Route durable project reads by approved project/network slugs.
+6. Ask for human approval before durable project writes.
+7. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
+8. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
 
 ## Naming examples
 
@@ -33,6 +34,17 @@ egdev-dashboard/project/egdev/content-ledger
 ```
 
 The canonical resolver contract lives in `docs/architecture/channel-context-namespace-mapping.md`, and `examples/discord-channel-context.fake.yaml` provides fake matched/unmapped fixtures.
+
+## Runtime prerequisite
+
+Live Discord validation requires the external OpenClaw Discord plugin. If `docker compose exec openclaw openclaw config get plugins.entries.discord` reports `plugin not installed: discord`, install it before debugging bot tokens, guild IDs, or channel names:
+
+```bash
+docker compose exec openclaw openclaw plugins install @openclaw/discord
+docker compose restart openclaw
+```
+
+A valid `channels.discord` config without this plugin leaves the bot offline and produces no useful Discord route validation.
 
 ## Routing checklist
 
