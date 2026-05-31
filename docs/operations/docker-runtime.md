@@ -24,8 +24,8 @@ Use plain `docker` if your shell has Docker integration enabled.
 ## First-time setup
 
 ```bash
-cp .env.example .env
-# edit every change-me value before storing real memory
+test -f .env || cp .env.example .env
+# edit every change-me value before storing real memory; never overwrite an existing .env blindly
 
 docker compose --profile setup run --rm openclaw-setup
 ```
