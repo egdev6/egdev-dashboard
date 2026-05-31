@@ -52,6 +52,7 @@ Included now:
 - CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, developer tooling, commit messages, and secret scanning
 - Buffer API research for read-only analytics scope and auth boundaries
 - Fake LinkedIn and X analytics snapshot schemas and local validation without live Buffer dependency
+- Contract-first dashboard/API read model docs, fake fixture, and local validation without a live server
 
 Not included or not yet validated:
 
@@ -60,7 +61,7 @@ Not included or not yet validated:
 - Host/browser access validation on every target machine
 - Live Discord bot configuration
 - Live Buffer analytics integration; current public API research found no read-only LinkedIn/X analytics endpoint
-- Dashboard or API implementation
+- Live dashboard UI or API server implementation
 
 ## Quick start
 
