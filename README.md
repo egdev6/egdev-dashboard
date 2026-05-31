@@ -67,7 +67,7 @@ Not included or not yet validated:
 ## Quick start
 
 1. Clone the repository.
-2. Copy `.env.example` to `.env`.
+2. Create `.env` from `.env.example` only if `.env` does not already exist.
 3. Replace every `change-me-*` value before storing real memory.
 4. Run OpenClaw setup once.
 5. Start the foundation services.
@@ -75,14 +75,14 @@ Not included or not yet validated:
 ```bash
 git clone <repo-url>
 cd egdev-dashboard
-cp .env.example .env
-# edit every change-me value before real use
+test -f .env || cp .env.example .env
+# edit every change-me value before real use; never overwrite an existing .env blindly
 
 docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 ```
 
-See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, `docs/operations/discord-routing.md` for channel routing rules, `docs/operations/discord-approval-responses.md` for approval-oriented response patterns, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
+See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check commands, `docs/operations/runtime-incident-runbook.md` for startup, failures, backup notes, and incident response, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, `docs/operations/discord-routing.md` for channel routing rules, `docs/operations/discord-approval-responses.md` for approval-oriented response patterns, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
 
 ## Development model
 
