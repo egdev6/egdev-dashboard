@@ -51,7 +51,7 @@ Included now:
 - Skill skeletons/contracts for brand context, content ledger, strategy planning, LinkedIn weekly planning, X queue planning, and on-demand brief workflows
 - CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, developer tooling, commit messages, and secret scanning
 - Buffer API research for read-only analytics scope and auth boundaries
-- Fake LinkedIn analytics snapshot schema and local validation without live Buffer dependency
+- Fake LinkedIn and X analytics snapshot schemas and local validation without live Buffer dependency
 
 Not included or not yet validated:
 

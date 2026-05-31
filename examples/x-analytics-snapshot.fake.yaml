@@ -1,0 +1,59 @@
+schema_version: 1
+project: egdev
+network: x
+source:
+  type: fake-manual-export
+  provider: buffer-compatible-placeholder
+  live_buffer_api: false
+snapshot_window:
+  start: 2026-06-09
+  end: 2026-06-15
+captured_at: 2026-06-16T09:15:00Z
+namespace_keys:
+  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+content_metrics:
+  - content_id: x-post-001-demo
+    planning_reference_id: historical-ledger-entry
+    content_ledger_entry_id: x-post-001-demo
+    content_ledger_status: published
+    source_link: https://example.invalid/posts/x-post-001-demo
+    published_at: 2026-05-30T09:00:00Z
+    metrics:
+      impressions: 610
+      likes: 24
+      replies: 5
+      reposts: 3
+      quote_posts: 1
+      clicks: 14
+      engagement_rate: 0.077
+      followers_gained: unknown
+  - content_id: x-post-002-demo
+    planning_reference_id: x-queue-item-02-demo
+    content_ledger_entry_id: x-post-002-demo
+    content_ledger_status: published
+    source_link: https://example.invalid/posts/x-post-002-demo
+    published_at: 2026-06-12T15:45:00Z
+    metrics:
+      impressions: 455
+      likes: 19
+      replies: 2
+      reposts: 2
+      quote_posts: unknown
+      clicks: unknown
+      engagement_rate: unknown
+      followers_gained: 3
+normalization_notes:
+  - values are fake-demo placeholders because issue #17 found no public Buffer read-only analytics endpoint for X
+  - content_id and content_ledger_entry_id are stable join keys for later project-level analytics reconciliation
+  - planning_reference_id keeps the snapshot traceable to existing ledger history or the fake X queue plan when later analytics sources are approved
+  - engagement_rate remains source-provided or unknown; this fixture does not define a canonical formula
+limitations:
+  - no live Buffer API calls, OAuth tokens, or manual exports are included
+  - fake values do not represent real audience performance
+  - future live ingestion may require additive fields after a confirmed analytics source is approved
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  note: This file contains fake X analytics snapshot data only and is safe to commit.
