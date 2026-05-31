@@ -11,6 +11,29 @@ Do **not** paste secrets, private memory, raw Discord IDs, or sensitive logs int
 3. Validate OpenClaw, Engram, skill sync, logs, and shutdown.
 4. Record only repo-safe findings and update runbooks when behavior differs.
 
+## First pilot result
+
+The first private local pilot on 2026-05-31 completed successfully with sanitized findings only:
+
+| Check | Result |
+|---|---|
+| Docker access | Docker worked through `sudo docker`; plain `docker` hit socket permission denial on this host. |
+| Compose config | Passed. |
+| Setup/startup | `openclaw-setup` completed, the local OpenClaw image built, and `postgres`, `engram`, and `openclaw` started. |
+| OpenClaw health | `GET http://127.0.0.1:18789/healthz` returned `200 {"ok":true,"status":"live"}`. |
+| Engram health | `GET http://127.0.0.1:18080/health` returned `200 {"service":"engram-cloud","status":"ok"}`. |
+| Skill sync | Six tracked skills appeared under `/home/node/.openclaw/workspace/skills`. |
+| Log safety | No generated secrets appeared in the sampled logs; only non-secret port/user values matched `.env`. |
+| Bindings | OpenClaw and Engram were bound to `127.0.0.1`. |
+| Shutdown | `docker compose down` removed containers/network and preserved `openclaw-home` plus `engram-postgres` volumes. |
+
+Non-blocking observed warnings:
+
+- Postgres reported `no usable system locales were found` during init.
+- Postgres reported `trust authentication for local connections` during init inside the container.
+
+These findings do not validate live Discord, durable Engram application sync, live Buffer analytics, or production readiness.
+
 ## Pilot boundaries
 
 | Topic | Rule |
@@ -92,6 +115,7 @@ Run:
 ```bash
 docker compose logs --tail=50 postgres engram openclaw
 docker compose exec openclaw node -e "fetch('http://127.0.0.1:18789/healthz').then(async r => { console.log(r.status, await r.text()) })"
+curl -sS http://127.0.0.1:18080/health
 ```
 
 Record:

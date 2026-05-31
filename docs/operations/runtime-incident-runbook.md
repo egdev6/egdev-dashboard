@@ -51,6 +51,7 @@ Use these checks after startup:
 ```bash
 docker compose logs --tail=50 postgres engram openclaw
 docker compose exec openclaw node -e "fetch('http://127.0.0.1:18789/healthz').then(async r => { console.log(r.status, await r.text()) })"
+curl -sS http://127.0.0.1:18080/health
 ```
 
 Expected local surfaces:
@@ -93,10 +94,10 @@ Use `down -v` only for disposable smoke environments. Do **not** use it when Doc
 
 | Failure | Typical signal | First response |
 |---|---|---|
-| Docker unavailable | `docker: command not found`, daemon not running, or compose cannot connect | Start Docker Desktop/Engine, retry `docker compose version`, and on this WSL host use `/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe` only if plain `docker` is unavailable. |
+| Docker unavailable or socket denied | `docker: command not found`, daemon not running, compose cannot connect, or permission denied on `/var/run/docker.sock` | Start Docker Desktop/Engine, retry `docker compose version`, use `sudo docker ...` when the socket is permission-denied, and on this WSL host use `/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe` only if plain `docker` is unavailable. |
 | `.env` missing or still using `change-me-*` | Auth failures, unsafe local defaults, or operator notices placeholder values | If `.env` is missing, create it from `.env.example`; if it exists, edit it in place to replace placeholders. Keep the real `.env` untracked. |
 | Image pull/build issue | Compose fails on image pull or OpenClaw build | Retry `docker compose build openclaw`, confirm network access to image registries, and review `docker/openclaw/Dockerfile` assumptions. |
-| Postgres unhealthy | `postgres` never reaches healthy state | Inspect `docker compose logs postgres`, confirm `POSTGRES_*` values in `.env`, and avoid destructive reset unless the volume is disposable. |
+| Postgres unhealthy | `postgres` never reaches healthy state | Inspect `docker compose logs postgres`, confirm `POSTGRES_*` values in `.env`, and avoid destructive reset unless the volume is disposable. The first pilot observed non-blocking init warnings for missing system locales and container-local trust authentication. |
 | Engram unhealthy or unreachable | `engram` restarts, OpenClaw cannot reach `ENGRAM_CLOUD_URL`, or health pages fail | Inspect `docker compose logs engram`, confirm Postgres is healthy first, then recheck `ENGRAM_CLOUD_TOKEN`, `ENGRAM_CLOUD_ADMIN`, and `ENGRAM_JWT_SECRET` locally without pasting them into shared channels. |
 | OpenClaw skill sync issue | Gateway starts without expected workspace skills or setup step fails | Confirm tracked `skills/` exist, inspect `docker/openclaw/sync-skills.sh`, rebuild the OpenClaw image if tracked skills changed, then restart `openclaw` so startup sync copies baked skills into the workspace. Use `docker compose --profile setup run --rm openclaw-setup` only when setup-specific workspace files need repair. |
 | Discord routing ambiguity | Channel cannot be mapped to project/network | Stay runtime-only, do not read or write durable project memory, and follow `docs/operations/discord-routing.md`. |
