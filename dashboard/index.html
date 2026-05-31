@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>egdev-dashboard static overview</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fb;
+        --panel: #ffffff;
+        --line: #d7deea;
+        --text: #172033;
+        --muted: #5c6b82;
+        --good: #17663a;
+        --warn: #8a5b00;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-top: 0;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+      }
+
+      .hero,
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 12px;
+      }
+
+      .badge-row,
+      .stat-grid,
+      .network-grid {
+        display: grid;
+        gap: 12px;
+      }
+
+      .badge-row {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .badge,
+      .stat,
+      .network-card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px;
+        background: #fbfcfe;
+      }
+
+      .stat-grid {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      }
+
+      .network-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .label {
+        display: inline-block;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .value {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .status-good {
+        color: var(--good);
+        font-weight: 700;
+      }
+
+      .status-warn {
+        color: var(--warn);
+        font-weight: 700;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 10px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+
+      code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.92em;
+        background: #eff3f9;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+
+      ul {
+        margin: 8px 0 0;
+        padding-left: 20px;
+      }
+
+      a {
+        color: #2458c6;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <span class="label">Static demo / read-only slice</span>
+        <h1>egdev dashboard overview</h1>
+        <p>
+          This page is a dependency-free static overview derived from the
+          contract-first dashboard read models. It is not a live server, does
+          not mutate memory, and does not read runtime Discord memory.
+        </p>
+        <div class="badge-row">
+          <div class="badge">
+            <span class="label">Project</span>
+            <span class="value">egdev</span>
+          </div>
+          <div class="badge">
+            <span class="label">Known routed networks</span>
+            <span class="value">5</span>
+          </div>
+          <div class="badge">
+            <span class="label">Analytics snapshot contracts</span>
+            <span class="value">2 available</span>
+          </div>
+          <div class="badge">
+            <span class="label">Delivery mode</span>
+            <span class="value">Static HTML only</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Project summary</h2>
+        <p>
+          Source contract: <code>examples/dashboard-read-models.fake.yaml</code>
+          from the dashboard read models defined in
+          <code>docs/architecture/dashboard-read-model-contracts.md</code>.
+        </p>
+        <div class="stat-grid">
+          <div class="stat">
+            <span class="label">Brand context</span>
+            <span class="value">available</span>
+          </div>
+          <div class="stat">
+            <span class="label">Strategy summary</span>
+            <span class="value">available</span>
+          </div>
+          <div class="stat">
+            <span class="label">Content ledger</span>
+            <span class="value">partial-demo</span>
+          </div>
+          <div class="stat">
+            <span class="label">Published content entries</span>
+            <span class="value">1</span>
+          </div>
+          <div class="stat">
+            <span class="label">Networks with planning coverage</span>
+            <span class="value">2</span>
+          </div>
+          <div class="stat">
+            <span class="label">Networks with analytics snapshots</span>
+            <span class="value">2</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Channels and networks</h2>
+        <p>
+          The static overview lists the approved routed channels from the
+          Discord routing contract and shows only normalized summary fields.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Channel</th>
+              <th>Network</th>
+              <th>Route status</th>
+              <th>Planning / strategy</th>
+              <th>Analytics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>linkedin-egdev</code></td>
+              <td><code>linkedin</code></td>
+              <td><span class="status-good">approved-network</span></td>
+              <td>weekly-plan-demo-available</td>
+              <td>fake-demo available through 2026-06-07</td>
+            </tr>
+            <tr>
+              <td><code>x-egdev</code></td>
+              <td><code>x</code></td>
+              <td><span class="status-good">approved-network</span></td>
+              <td>queue-plan-demo-available</td>
+              <td>fake-demo available through 2026-06-15</td>
+            </tr>
+            <tr>
+              <td><code>youtube-egdev</code></td>
+              <td><code>youtube</code></td>
+              <td><span class="status-good">approved-network</span></td>
+              <td>not-yet-modeled</td>
+              <td><span class="status-warn">unavailable</span></td>
+            </tr>
+            <tr>
+              <td><code>twitch-egdev</code></td>
+              <td><code>twitch</code></td>
+              <td><span class="status-good">approved-network</span></td>
+              <td>not-yet-modeled</td>
+              <td><span class="status-warn">unavailable</span></td>
+            </tr>
+            <tr>
+              <td><code>stack-and-flow-egdev</code></td>
+              <td><code>stack-and-flow</code></td>
+              <td><span class="status-good">approved-network</span></td>
+              <td>not-yet-modeled</td>
+              <td><span class="status-warn">unavailable</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>Strategy, content, and analytics summary</h2>
+        <div class="network-grid">
+          <article class="network-card">
+            <h3>Strategy summary</h3>
+            <ul>
+              <li>Active timeframe: <code>2026-W23</code></li>
+              <li>
+                Approval status: <code>approved-for-demo-validation</code>
+              </li>
+              <li>Goals: 2</li>
+              <li>Assumptions: 2</li>
+              <li>Review checkpoints: 2</li>
+              <li>Out of scope items: 3</li>
+            </ul>
+          </article>
+          <article class="network-card">
+            <h3>Content ledger summary</h3>
+            <ul>
+              <li>Total entries: 1</li>
+              <li>Draft: 0</li>
+              <li>Queued: 0</li>
+              <li>Published: 1</li>
+              <li>Archived: 0</li>
+              <li>Stable join keys required: true</li>
+            </ul>
+          </article>
+          <article class="network-card">
+            <h3>Analytics snapshot summary</h3>
+            <ul>
+              <li>linkedin: fake-demo-only, 2 records</li>
+              <li>x: fake-demo-only, 2 records</li>
+              <li>youtube: unavailable, 0 records</li>
+              <li>twitch: unavailable, 0 records</li>
+              <li>stack-and-flow: unavailable, 0 records</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>No-mutation and privacy boundaries</h2>
+        <ul>
+          <li>
+            No writes or mutation controls are included in this first slice.
+          </li>
+          <li>No credentials, secrets, or tokens are embedded here.</li>
+          <li>No raw Discord IDs or runtime transcripts are shown.</li>
+          <li>No live Buffer calls or provider payloads are used.</li>
+          <li>No runtime memory reads are performed.</li>
+          <li>No raw private Engram memory is exposed.</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Review path</h2>
+        <p>
+          Open this file locally in a browser or inspect it directly in the
+          repo. Then review the supporting contract and operating notes:
+        </p>
+        <ul>
+          <li>
+            <code>docs/architecture/dashboard-read-model-contracts.md</code>
+          </li>
+          <li><code>examples/dashboard-read-models.fake.yaml</code></li>
+          <li><code>docs/operations/dashboard-overview.md</code></li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
