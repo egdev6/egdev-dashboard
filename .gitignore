@@ -28,3 +28,5 @@ coverage/
 Thumbs.db
 .vscode/
 .idea/
+# Local Pi runtime state
+.atl/

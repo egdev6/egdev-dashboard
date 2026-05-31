@@ -4,6 +4,12 @@ Use this runbook for Discord responses that may change durable project memory, c
 
 This is a response contract only. It does not prove live Discord bot behavior, OpenClaw routing, Engram writes, Buffer actions, publishing, or scheduling.
 
+## Private pilot finding
+
+A private Discord pilot confirmed that Discord connectivity can work after installing the external `@openclaw/discord` plugin, but the approval boundary is not yet enforced by runtime behavior. In `#x-egdev`, a write-like request created runtime workspace files before the operator explicitly approved the write.
+
+Until the runtime skill/instruction layer is fixed and re-tested, treat this runbook as the required contract, not as proven behavior. Do not use Discord for durable memory, queue, strategy, ledger, publishing, scheduling, or Buffer-affecting writes.
+
 ## Quick path
 
 1. Summarize the request and resolved route.

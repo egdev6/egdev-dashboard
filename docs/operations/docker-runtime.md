@@ -32,6 +32,26 @@ docker compose --profile setup run --rm openclaw-setup
 
 `openclaw-setup` runs non-interactive OpenClaw onboarding with explicit risk acknowledgement and writes the baseline config/workspace into the `openclaw-home` Docker volume.
 
+## Optional Discord plugin
+
+The base OpenClaw image used by this repository does not include the Discord channel plugin by default. A private Discord pilot found that `channels.discord.enabled=true` and a valid bot token are not enough: OpenClaw reported `plugin not installed: discord` and the bot stayed offline until the external plugin was installed.
+
+Install it in the runtime before validating Discord routing:
+
+```bash
+docker compose exec openclaw openclaw plugins install @openclaw/discord
+docker compose restart openclaw
+```
+
+If the local WSL Docker socket is not available, use the Docker Desktop Windows binary from WSL:
+
+```bash
+/mnt/c/Program\ Files/Docker/Docker/resources/bin/docker.exe compose exec openclaw openclaw plugins install @openclaw/discord
+/mnt/c/Program\ Files/Docker/Docker/resources/bin/docker.exe compose restart openclaw
+```
+
+After restart, `openclaw channels status --deep --probe` should include Discord before any route validation begins. If the plugin does not survive a container rebuild or volume reset, reinstall it before repeating Discord validation.
+
 ## Start
 
 ```bash
