@@ -108,4 +108,4 @@ This backlog is optimized for the current intended architecture:
 
 ## Recommended review rule
 
-If a planned change exceeds the 600-line review budget, split it before implementation. The current M1 foundation skeleton should be submitted as at least two PRs if it goes up for review.
+If a planned change exceeds the 600-line review budget, split it before implementation. Future runtime, dashboard, or live-integration work should stay reviewable by default.

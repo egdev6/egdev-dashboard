@@ -4,14 +4,14 @@ Intended portable OpenClaw workspace for running Gentle-AI-powered social-conten
 
 ## What this repository is
 
-`egdev-dashboard` is a public M1 foundation repo for a Docker-portable setup where:
+`egdev-dashboard` is a public roadmap-baseline repo for a Docker-portable setup where:
 
 - **Pi / el Gentleman** is the development SDD harness for repo work.
 - **OpenClaw** is the intended operational runtime that receives Discord traffic.
 - **Gentle-AI SDD inside OpenClaw** is a target runtime shape, but still pending validation.
 - **Engram** is the intended persistent memory backend, but runtime wiring is still pending validation.
 
-This repository is intentionally light on implementation in M1. It focuses on runtime boundaries, portable deployment, issue-first planning, and skill scaffolding.
+This repository is intentionally contract-first after the completed M1-M7 roadmap. It focuses on runtime boundaries, portable deployment, issue-first planning, skill scaffolding, fake fixtures, and static/read-only validation artifacts.
 
 ## Intended architecture at a glance
 
@@ -39,7 +39,7 @@ Engram summaries are **operational memory**, not canonical planning artifacts, u
 
 ## Current status
 
-This is the **M1 foundation skeleton**.
+This is the completed **M1-M7 roadmap baseline**. See `docs/project/roadmap-completion.md` for the completion summary and remaining operational-validation limits.
 
 Included now:
 
@@ -54,6 +54,7 @@ Included now:
 - Fake LinkedIn and X analytics snapshot schemas and local validation without live Buffer dependency
 - Contract-first dashboard/API read model docs, fake fixture, and local validation without a live server
 - Static read-only dashboard overview artifact over the fake read models
+- Roadmap completion baseline for M1-M7
 
 Not included or not yet validated:
 
@@ -94,7 +95,7 @@ See `docs/operations/docker-runtime.md` for shutdown, volume, and health-check c
 
 ## Review guidance
 
-The current M1 foundation skeleton is larger than the configured 600-line review budget. If submitted for review, it should be split into at least two PRs.
+Keep future changes within the configured 600-line review budget. Split larger runtime, dashboard, or live-integration work before review.
 
 ## Directory guide
 
@@ -106,4 +107,4 @@ The current M1 foundation skeleton is larger than the configured 600-line review
 
 ## Next step
 
-Use the backlog in `docs/project/backlog.md` to create the first approved issues, starting with runtime validation, data-handling rules, and Docker portability.
+Use `docs/project/roadmap-completion.md` to start the next approved phase. The recommended next step is private runtime validation before live Discord, live Engram sync, live analytics, or a real dashboard/API stack.
