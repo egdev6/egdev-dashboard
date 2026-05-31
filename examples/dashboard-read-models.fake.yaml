@@ -1,0 +1,188 @@
+schema_version: 1
+project_slug: egdev
+contract_status:
+  slice_type: contract-first-read-models
+  live_server: false
+  runtime_memory_adapter: false
+namespace_keys:
+  brand_namespace_key: egdev-dashboard/project/egdev/brand
+  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  network_namespace_keys:
+    linkedin: egdev-dashboard/project/egdev/network/linkedin
+    x: egdev-dashboard/project/egdev/network/x
+    youtube: egdev-dashboard/project/egdev/network/youtube
+    twitch: egdev-dashboard/project/egdev/network/twitch
+    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+filter_contract:
+  required_project_slug: true
+  optional_network_slug:
+    allowed_values:
+      - linkedin
+      - x
+      - youtube
+      - twitch
+      - stack-and-flow
+    unknown_behavior: exclude-by-default
+  unmapped_routes_behavior: exclude-by-default
+privacy_defaults:
+  expose_secrets: false
+  expose_credentials: false
+  expose_raw_private_memory: false
+  expose_raw_discord_ids: false
+  normalized_repo_safe_fields_only: true
+read_models:
+  project_overview:
+    project_slug: egdev
+    known_networks:
+      - linkedin
+      - x
+      - youtube
+      - twitch
+      - stack-and-flow
+    context_status:
+      brand: available
+      strategy: available
+      content_ledger: partial-demo
+      analytics_snapshots: available-for-linkedin-and-x-only
+    totals:
+      approved_networks: 5
+      networks_with_strategy_or_planning_coverage: 2
+      networks_with_analytics_snapshots: 2
+      published_content_entries: 1
+  network_overview:
+    - network_slug: linkedin
+      route_status: approved-network
+      content_counts:
+        draft: 0
+        queued: 0
+        published: 0
+        archived: 0
+      strategy_status: weekly-plan-demo-available
+      analytics_snapshot_status: fake-demo-available
+      latest_snapshot_window_end: 2026-06-07
+    - network_slug: x
+      route_status: approved-network
+      content_counts:
+        draft: 0
+        queued: 0
+        published: 1
+        archived: 0
+      strategy_status: queue-plan-demo-available
+      analytics_snapshot_status: fake-demo-available
+      latest_snapshot_window_end: 2026-06-15
+    - network_slug: youtube
+      route_status: approved-network
+      content_counts:
+        draft: 0
+        queued: 0
+        published: 0
+        archived: 0
+      strategy_status: not-yet-modeled
+      analytics_snapshot_status: unavailable
+      latest_snapshot_window_end: unknown
+    - network_slug: twitch
+      route_status: approved-network
+      content_counts:
+        draft: 0
+        queued: 0
+        published: 0
+        archived: 0
+      strategy_status: not-yet-modeled
+      analytics_snapshot_status: unavailable
+      latest_snapshot_window_end: unknown
+    - network_slug: stack-and-flow
+      route_status: approved-network
+      content_counts:
+        draft: 0
+        queued: 0
+        published: 0
+        archived: 0
+      strategy_status: not-yet-modeled
+      analytics_snapshot_status: unavailable
+      latest_snapshot_window_end: unknown
+  strategy_summary:
+    project_slug: egdev
+    active_timeframe: 2026-W23
+    approval_status: approved-for-demo-validation
+    goals_count: 2
+    assumptions_count: 2
+    review_checkpoint_count: 2
+    out_of_scope_count: 3
+    covered_networks:
+      - linkedin
+      - x
+  content_ledger_summary:
+    project_slug: egdev
+    total_entries: 1
+    statuses:
+      draft: 0
+      queued: 0
+      published: 1
+      archived: 0
+    network_coverage:
+      linkedin: analytics-only-demo
+      x: ledger-and-analytics-demo
+      youtube: route-only-demo
+      twitch: route-only-demo
+      stack-and-flow: route-only-demo
+    joinability:
+      stable_join_keys_required: true
+      unknown_networks_excluded: true
+  analytics_snapshot_summary:
+    - network_slug: linkedin
+      snapshot_available: true
+      source_status: fake-demo-only
+      record_count: 2
+      latest_window_start: 2026-06-01
+      latest_window_end: 2026-06-07
+    - network_slug: x
+      snapshot_available: true
+      source_status: fake-demo-only
+      record_count: 2
+      latest_window_start: 2026-06-09
+      latest_window_end: 2026-06-15
+    - network_slug: youtube
+      snapshot_available: false
+      source_status: not-yet-modeled
+      record_count: 0
+      latest_window_start: unknown
+      latest_window_end: unknown
+    - network_slug: twitch
+      snapshot_available: false
+      source_status: not-yet-modeled
+      record_count: 0
+      latest_window_start: unknown
+      latest_window_end: unknown
+    - network_slug: stack-and-flow
+      snapshot_available: false
+      source_status: not-yet-modeled
+      record_count: 0
+      latest_window_start: unknown
+      latest_window_end: unknown
+filter_examples:
+  - name: project-all-networks
+    project_slug: egdev
+    result_scope: project-and-network-summaries
+  - name: project-linkedin-only
+    project_slug: egdev
+    network_slug: linkedin
+    result_scope: linkedin-network-and-analytics-summaries
+  - name: project-x-only
+    project_slug: egdev
+    network_slug: x
+    result_scope: x-network-and-analytics-summaries
+  - name: project-youtube-only
+    project_slug: egdev
+    network_slug: youtube
+    result_scope: youtube-route-only-summary
+  - name: unknown-network-excluded
+    project_slug: egdev
+    network_slug: bluesky
+    result_scope: none
+    behavior: excluded-by-default
+metadata:
+  fixture_type: fake-demo
+  safe_for_repo: true
+  privacy_reviewed: true
+  note: This file contains fake dashboard read model data only and is safe to commit.
