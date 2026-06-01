@@ -16,5 +16,7 @@ Current routing references:
 - `docs/operations/discord-approval-responses.md` defines approval prompts and audit trail requirements.
 - `docs/architecture/discord-topology-reconciliation.md` defines category/channel discovery and safe reconciliation states.
 - `examples/discord-topology-reconciliation.fake.yaml` provides fake topology reconciliation data for validator-driven review.
+- `docs/architecture/discord-context-namespace-provisioning.md` defines draft context artifact provisioning from approved topology actions.
+- `examples/discord-context-provisioning.fake.yaml` provides fake provisioning plans for validator-driven review.
 
 Do not store live credentials, real guild/channel IDs, or exported runtime state here.

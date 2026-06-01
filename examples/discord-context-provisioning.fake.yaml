@@ -1,0 +1,134 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-context-namespace-provisioning
+live_discord_connection: false
+uses_real_discord_ids: false
+runtime_namespace_contract: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+provisioning_defaults:
+  provisioning_mode: draft
+  requires_operator_review: true
+  global_context_inherits: []
+  global_skill_inherits: []
+  durable_writes_enabled: false
+approved_reconciliation_inputs:
+  - entity_ref: category-demo-linkedin
+    entity_type: category
+    normalized_name: egdev-linkedin
+    state: discovered
+    recommended_action: create
+    operator_decision: approved
+  - entity_ref: channel-demo-linkedin-drafts
+    entity_type: channel
+    normalized_name: drafts
+    current_parent_ref: category-demo-linkedin
+    state: discovered
+    recommended_action: create
+    operator_decision: approved
+  - entity_ref: category-demo-stack-flow
+    entity_type: category
+    normalized_name: stack-and-flow
+    state: discovered
+    recommended_action: create
+    operator_decision: approved
+  - entity_ref: channel-demo-stack-github
+    entity_type: channel
+    normalized_name: github
+    current_parent_ref: category-demo-stack-flow
+    state: discovered
+    recommended_action: create
+    operator_decision: approved
+  - entity_ref: channel-demo-linkedin-drafts
+    entity_type: channel
+    normalized_name: drafts
+    previous_normalized_name: ideas
+    current_parent_ref: category-demo-linkedin
+    state: renamed
+    recommended_action: update
+    operator_decision: approved
+  - entity_ref: channel-demo-shared-github
+    entity_type: channel
+    normalized_name: github
+    current_parent_ref: category-demo-linkedin
+    previous_parent_ref: category-demo-stack-flow
+    state: moved
+    recommended_action: needs-review
+    operator_decision: needs-review
+provisioning_plan:
+  - plan_ref: provision-category-egdev-linkedin
+    entity_ref: category-demo-linkedin
+    entity_type: category
+    normalized_name: egdev-linkedin
+    provisioning_status: draft
+    recommended_action: create-draft-category
+    global_context_inherits: []
+    global_skill_inherits: []
+    generated_artifacts:
+      metadata: openclaw/provisioning/categories/category-demo-linkedin/metadata.yaml
+      context: openclaw/provisioning/categories/category-demo-linkedin/context.md
+      active_work: openclaw/provisioning/categories/category-demo-linkedin/active-work.md
+      skills: openclaw/provisioning/categories/category-demo-linkedin/skills.yaml
+      inheritance: openclaw/provisioning/categories/category-demo-linkedin/inheritance.yaml
+  - plan_ref: provision-channel-linkedin-drafts
+    entity_ref: channel-demo-linkedin-drafts
+    entity_type: channel
+    parent_ref: category-demo-linkedin
+    normalized_name: drafts
+    provisioning_status: draft
+    recommended_action: create-draft-channel
+    generated_artifacts:
+      metadata: openclaw/provisioning/channels/channel-demo-linkedin-drafts/metadata.yaml
+      context: openclaw/provisioning/channels/channel-demo-linkedin-drafts/context.md
+      ledger: openclaw/provisioning/channels/channel-demo-linkedin-drafts/ledger.md
+      skills: openclaw/provisioning/channels/channel-demo-linkedin-drafts/skills.yaml
+  - plan_ref: provision-category-stack-and-flow
+    entity_ref: category-demo-stack-flow
+    entity_type: category
+    normalized_name: stack-and-flow
+    provisioning_status: draft
+    recommended_action: create-draft-category
+    global_context_inherits: []
+    global_skill_inherits: []
+    generated_artifacts:
+      metadata: openclaw/provisioning/categories/category-demo-stack-flow/metadata.yaml
+      context: openclaw/provisioning/categories/category-demo-stack-flow/context.md
+      active_work: openclaw/provisioning/categories/category-demo-stack-flow/active-work.md
+      skills: openclaw/provisioning/categories/category-demo-stack-flow/skills.yaml
+      inheritance: openclaw/provisioning/categories/category-demo-stack-flow/inheritance.yaml
+  - plan_ref: provision-channel-stack-github
+    entity_ref: channel-demo-stack-github
+    entity_type: channel
+    parent_ref: category-demo-stack-flow
+    normalized_name: github
+    provisioning_status: draft
+    recommended_action: create-draft-channel
+    generated_artifacts:
+      metadata: openclaw/provisioning/channels/channel-demo-stack-github/metadata.yaml
+      context: openclaw/provisioning/channels/channel-demo-stack-github/context.md
+      ledger: openclaw/provisioning/channels/channel-demo-stack-github/ledger.md
+      skills: openclaw/provisioning/channels/channel-demo-stack-github/skills.yaml
+  - plan_ref: rename-channel-linkedin-drafts
+    entity_ref: channel-demo-linkedin-drafts
+    entity_type: channel
+    parent_ref: category-demo-linkedin
+    previous_normalized_name: ideas
+    normalized_name: drafts
+    provisioning_status: metadata-update
+    recommended_action: preserve-artifact-paths
+    stable_identity_preserved: true
+  - plan_ref: block-moved-shared-github
+    entity_ref: channel-demo-shared-github
+    entity_type: channel
+    parent_ref: category-demo-linkedin
+    previous_parent_ref: category-demo-stack-flow
+    provisioning_status: blocked
+    recommended_action: needs-review
+    safe_to_apply_automatically: false
+    reason: channel moved across category context boundaries
+metadata:
+  note: This file contains fake provisioning data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_credentials: true
