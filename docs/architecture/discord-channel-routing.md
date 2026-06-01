@@ -4,6 +4,8 @@ This document defines the M4 routing convention for Discord channels that reach 
 
 It is a routing contract only. It does not validate a live Discord bot, OpenClaw channel binding, or Engram Cloud sync.
 
+For the next dynamic category-scoped context model, see `docs/architecture/discord-dynamic-context-namespaces.md`. The static channel convention below remains a compatibility baseline and fallback.
+
 ## Goals
 
 - Map Discord channels deterministically to project and network context.
