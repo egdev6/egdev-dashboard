@@ -69,7 +69,7 @@ Runner routing must stay configurable and explainable.
 | `development-orchestrator` | `gentle-sdd` | Intent is `sdd_dev_work` and the runtime only models a delegated backend selection. |
 | `clarification` | `response-only` | Route or intent is ambiguous and no durable read/write should continue. |
 
-Gentle SDD is one runner/backend for `sdd_dev_work`. It is not the primary Discord orchestrator.
+Gentle SDD is one runner/backend for `sdd_dev_work`. It is not the primary Discord orchestrator. The next contract for this backend is `docs/architecture/discord-gentle-sdd-handoff.md`.
 
 ## Permission and confirmation gates
 
