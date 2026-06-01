@@ -1,0 +1,143 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-runtime-orchestrator
+live_discord_connection: false
+live_engram_calls: false
+live_prompt_execution: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+workspace_file_writes_allowed: false
+github_mutations_enabled: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - docs/architecture/channel-context-namespace-mapping.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/architecture/discord-scoped-skills-registry.md
+  - docs/adr/0001-runtime-boundary.md
+  - skills/discord-approval-gate/SKILL.md
+scenarios:
+  - name: planning-content-flow
+    event_envelope:
+      origin_kind: discord-channel
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: linkedin
+      normalized_channel_name: drafts
+      user_role: operator-demo
+    pack_refs:
+      context_pack_fixture: examples/discord-context-skill-packs.fake.yaml#egdev-linkedin-drafts.context_pack
+      skill_pack_fixture: examples/discord-context-skill-packs.fake.yaml#egdev-linkedin-drafts.skill_pack
+    intent_classification:
+      family: planning_content
+      write_like: false
+      confidence: reviewable-demo
+    runner_selection:
+      runner_kind: content-planner
+      backend: openclaw-skill-surface
+      selected_skills:
+        - linkedin-weekly-planner
+        - brand-context
+    permission_gate:
+      state: summary-only
+      required_skill: discord-approval-gate
+      approval_needed: false
+    execution_metadata:
+      mode: fake-contract
+      prompt_execution: none
+      selected_context_pack: egdev-linkedin-drafts
+      selected_skill_pack: egdev-linkedin-drafts
+    writeback_policy:
+      classification: draft
+      via: docs/architecture/discord-memory-gateway.md
+      writeback_out_of_scope: true
+  - name: sdd-dev-work-flow
+    event_envelope:
+      origin_kind: discord-channel
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: stack-and-flow
+      normalized_channel_name: github
+      user_role: operator-demo
+    pack_refs:
+      context_pack_fixture: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.context_pack
+      skill_pack_fixture: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.skill_pack
+    intent_classification:
+      family: sdd_dev_work
+      write_like: false
+      confidence: reviewable-demo
+    runner_selection:
+      runner_kind: development-orchestrator
+      backend: gentle-sdd
+      backend_mode: delegated-contract-only
+      selected_skills:
+        - strategy-planner
+        - on-demand-brief-planner
+    permission_gate:
+      state: summary-only
+      required_skill: discord-approval-gate
+      approval_needed: false
+    execution_metadata:
+      mode: fake-contract
+      prompt_execution: none
+      selected_context_pack: stack-and-flow-github
+      selected_skill_pack: stack-and-flow-github
+      note: Gentle SDD is one backend for development work, not the primary Discord runtime.
+    writeback_policy:
+      classification: reject
+      reason: runtime handoff modeled only; no live SDD execution in this slice
+      writeback_out_of_scope: true
+  - name: clarification-fallback
+    event_envelope:
+      origin_kind: discord-channel
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: unmapped-channel
+      resolved_route:
+        project_slug: none
+        network_slug: none
+      normalized_channel_name: general
+      user_role: operator-demo
+    pack_refs:
+      context_pack_fixture: none
+      skill_pack_fixture: none
+    intent_classification:
+      family: clarification_needed
+      write_like: false
+      confidence: reviewable-demo
+    runner_selection:
+      runner_kind: clarification
+      backend: response-only
+      selected_skills:
+        - discord-approval-gate
+    permission_gate:
+      state: needs-route
+      required_skill: discord-approval-gate
+      approval_needed: false
+    execution_metadata:
+      mode: fake-contract
+      prompt_execution: none
+      selected_context_pack: none
+      selected_skill_pack: none
+    writeback_policy:
+      classification: reject
+      reason: no durable reads or writes until an approved route exists
+      writeback_out_of_scope: true
+non_goals:
+  - live Discord validation
+  - live Engram calls
+  - live prompt execution
+  - public Discord behavior
+  - production credentials
+  - GitHub mutations
+  - publishing
+  - scheduling
+  - Buffer activity

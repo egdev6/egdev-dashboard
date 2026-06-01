@@ -99,10 +99,11 @@ For this documentation-only routing slice, validate with:
 
 ```bash
 git diff --check
-npx --yes yaml-lint examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml examples/discord-context-provisioning.fake.yaml examples/discord-approval-gate.fake.yaml
+npx --yes yaml-lint examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml examples/discord-context-provisioning.fake.yaml examples/discord-approval-gate.fake.yaml examples/discord-runtime-orchestrator.fake.yaml
 bash scripts/validate-discord-topology-reconciliation.sh
 bash scripts/validate-discord-context-provisioning.sh
 bash scripts/validate-discord-approval-gate.sh
+bash scripts/validate-discord-runtime-orchestrator.sh
 npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 ```
 
