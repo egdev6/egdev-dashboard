@@ -1,6 +1,6 @@
 services:
   openclaw-setup:
-    image: ${OPENCLAW_RUNTIME_IMAGE:-egdev-dashboard-openclaw:local}
+    image: ${OPENCLAW_RUNTIME_IMAGE:-discord-project-manager-openclaw:local}
     build:
       context: .
       dockerfile: docker/openclaw/Dockerfile
@@ -24,7 +24,7 @@ services:
         && egdev-sync-skills
 
   openclaw:
-    image: ${OPENCLAW_RUNTIME_IMAGE:-egdev-dashboard-openclaw:local}
+    image: ${OPENCLAW_RUNTIME_IMAGE:-discord-project-manager-openclaw:local}
     build:
       context: .
       dockerfile: docker/openclaw/Dockerfile
@@ -40,7 +40,7 @@ services:
       DISCORD_GUILD_ID: ${DISCORD_GUILD_ID:-}
       ENGRAM_CLOUD_URL: ${ENGRAM_CLOUD_URL:-http://engram:18080}
       ENGRAM_CLOUD_TOKEN: ${ENGRAM_CLOUD_TOKEN:-change-me-local-engram-token}
-      ENGRAM_NAMESPACE_PREFIX: ${ENGRAM_NAMESPACE_PREFIX:-egdev-dashboard}
+      ENGRAM_NAMESPACE_PREFIX: ${ENGRAM_NAMESPACE_PREFIX:-discord-project-manager}
     volumes:
       - openclaw-home:/home/node/.openclaw
     ports:
@@ -84,7 +84,7 @@ services:
       ENGRAM_JWT_SECRET: ${ENGRAM_JWT_SECRET:-change-me-local-jwt-secret-32-bytes-minimum}
       ENGRAM_CLOUD_TOKEN: ${ENGRAM_CLOUD_TOKEN:-change-me-local-engram-token}
       ENGRAM_CLOUD_ADMIN: ${ENGRAM_CLOUD_ADMIN:-change-me-local-engram-admin-token}
-      ENGRAM_CLOUD_ALLOWED_PROJECTS: ${ENGRAM_CLOUD_ALLOWED_PROJECTS:-egdev-dashboard}
+      ENGRAM_CLOUD_ALLOWED_PROJECTS: ${ENGRAM_CLOUD_ALLOWED_PROJECTS:-discord-project-manager}
       ENGRAM_CLOUD_HOST: 0.0.0.0
       ENGRAM_PORT: "18080"
     command: ["cloud", "serve"]

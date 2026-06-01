@@ -38,5 +38,5 @@ jobs:
           docker build \
             --pull \
             --file docker/openclaw/Dockerfile \
-            --tag egdev-dashboard-openclaw:ci \
+            --tag discord-project-manager-openclaw:ci \
             .
