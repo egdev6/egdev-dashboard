@@ -1,0 +1,127 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-gentle-sdd-handoff
+live_discord_connection: false
+live_engram_calls: false
+live_prompt_execution: false
+live_sdd_execution: false
+github_mutations_enabled: false
+uses_real_discord_ids: false
+production_credentials: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - docs/architecture/discord-runtime-orchestrator.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/adr/0001-runtime-boundary.md
+  - docs/process/shared-artifact-serialization.md
+  - docs/adr/0002-engram-namespace-contract.md
+  - skills/discord-approval-gate/SKILL.md
+scenarios:
+  - name: matched-route-sdd-handoff
+    handoff_envelope:
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: stack-and-flow
+      intent_family: sdd_dev_work
+      context_pack_ref: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.context_pack
+      skill_pack_ref: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.skill_pack
+      mandatory_skills:
+        - discord-approval-gate
+      requested_sdd_mode: issue-first-contract-slice
+      execution_mode: delegated-contract-only
+      approval_policy: proposal-only
+    return_envelope:
+      execution_state: contract-only
+      prompt_execution: none
+      turn_summary: reviewable handoff prepared for stack-and-flow github work
+      decisions:
+        - use resolved context and skills from OpenClaw
+      tasks:
+        - prepare proposal/spec/tasks without live execution
+      artifact_proposals: none
+      writeback_proposals: none
+  - name: global-governance-approval-proposal
+    handoff_envelope:
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: stack-and-flow
+      intent_family: sdd_dev_work
+      context_pack_ref: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.context_pack
+      skill_pack_ref: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.skill_pack
+      mandatory_skills:
+        - discord-approval-gate
+      requested_sdd_mode: proposal-only
+      execution_mode: delegated-contract-only
+      approval_policy: confirmation-required
+    return_envelope:
+      execution_state: contract-only
+      prompt_execution: none
+      turn_summary: proposed global operating-principles update remains gated
+      decisions:
+        - global governance updates require approval before persistence
+      tasks:
+        - ask for exact approval phrase before any writeback
+      artifact_proposals: none
+      writeback_proposals:
+        - proposal_scope: global
+          target_namespace: discord-project-manager/project/egdev/brand
+          topic_key: discord/writeback/global-governance
+          approval_state: approval-requested
+          approval_phrase: approve write
+          runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+          write_executed: false
+  - name: repo-artifact-claim-proposal
+    handoff_envelope:
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: stack-and-flow
+      intent_family: sdd_dev_work
+      context_pack_ref: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.context_pack
+      skill_pack_ref: examples/discord-context-skill-packs.fake.yaml#stack-and-flow-github.skill_pack
+      mandatory_skills:
+        - discord-approval-gate
+      requested_sdd_mode: design-only
+      execution_mode: delegated-contract-only
+      approval_policy: proposal-only
+    return_envelope:
+      execution_state: contract-only
+      prompt_execution: none
+      turn_summary: proposed repo artifact update requires serialization claim
+      decisions:
+        - repo artifacts require single-writer claim and release metadata
+      tasks:
+        - claim the target doc path before editing
+      artifact_proposals:
+        - artifact_kind: repo-doc
+          target_path: docs/architecture/discord-runtime-orchestrator.md
+          write_executed: false
+      writeback_proposals: none
+      shared_artifact_claims:
+        - serialization_contract_ref: docs/process/shared-artifact-serialization.md
+          claim_required: true
+          release_required: true
+          single_writer: true
+          write_executed: false
+non_goals:
+  - live Discord/OpenClaw handoff
+  - live Engram calls
+  - live prompt execution
+  - live SDD execution
+  - public Discord behavior
+  - production credentials
+  - GitHub mutations
+  - publishing
+  - scheduling
+  - Buffer activity

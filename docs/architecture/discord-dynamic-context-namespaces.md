@@ -124,7 +124,7 @@ Follow-up issues own the detailed contracts:
 | #71 | Memory Gateway / Engram access policy. |
 | #72 | Context Pack and Skill Pack schemas; see `docs/architecture/discord-context-skill-packs.md`. |
 | #73 | OpenClaw Discord Runtime Orchestrator; see `docs/architecture/discord-runtime-orchestrator.md`. |
-| #74 | OpenClaw to Gentle SDD handoff. |
+| #74 | OpenClaw to Gentle SDD handoff; see `docs/architecture/discord-gentle-sdd-handoff.md`. |
 
 Gentle SDD remains a specialized development/spec workflow boundary as described in ADR 0001; this architecture does not assume Pi-native `.pi` agents or chains run inside OpenClaw.
 
