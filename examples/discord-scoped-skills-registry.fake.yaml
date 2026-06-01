@@ -1,0 +1,100 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-scoped-skills-registry
+live_discord_connection: false
+uses_real_discord_ids: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_audit_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+registry:
+  global:
+    control_channels:
+      skills: openclaw-global/skills
+      inheritance: openclaw-global/inheritance
+    skills:
+      enabled:
+        - brand-context
+        - strategy-planner
+        - discord-approval-gate
+      preferred: []
+      disabled: []
+    policy:
+      mandatory_global_skill: discord-approval-gate
+    overrides: {}
+  categories:
+    - category_ref: category-demo-linkedin
+      normalized_name: egdev-linkedin
+      control_channel: egdev-linkedin/skills
+      inherits:
+        global_skills:
+          - brand-context
+          - discord-approval-gate
+      skills:
+        enabled:
+          - linkedin-weekly-planner
+          - content-ledger
+        preferred:
+          - linkedin-weekly-planner
+        disabled: []
+      overrides: {}
+    - category_ref: category-demo-stack-flow
+      normalized_name: stack-and-flow
+      control_channel: stack-and-flow/skills
+      inherits:
+        global_skills:
+          - brand-context
+          - strategy-planner
+          - discord-approval-gate
+      skills:
+        enabled:
+          - on-demand-brief-planner
+        preferred:
+          - on-demand-brief-planner
+        disabled:
+          - linkedin-weekly-planner
+      overrides:
+        planner_mode: community-first
+  channels:
+    - channel_ref: channel-demo-linkedin-drafts
+      parent_ref: category-demo-linkedin
+      preferred:
+        - linkedin-weekly-planner
+      disabled:
+        - x-queue-planner
+      overrides:
+        draft_focus: weekly-batch
+    - channel_ref: channel-demo-stack-github
+      parent_ref: category-demo-stack-flow
+      preferred:
+        - strategy-planner
+      disabled:
+        - content-ledger
+      overrides:
+        review_mode: issue-first
+approval_request:
+  state: approval-requested
+  route: openclaw-global/skills
+  runtime_context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+  target_artifact: docs/architecture/discord-scoped-skills-registry.md
+  runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+  reply_options:
+    - approve write
+    - "revise: <instruction>"
+    - reject
+  risk_boundary:
+    - no durable registry writes before approval
+    - no workspace file writes before approval
+    - no live Discord/runtime changes from this contract
+non_goals:
+  - live Discord validation
+  - public Discord channels
+  - production credentials
+  - real Engram writes
+  - publishing
+  - scheduling
+  - Buffer activity
