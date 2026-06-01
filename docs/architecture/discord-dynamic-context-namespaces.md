@@ -125,6 +125,7 @@ Follow-up issues own the detailed contracts:
 | #72 | Context Pack and Skill Pack schemas; see `docs/architecture/discord-context-skill-packs.md`. |
 | #73 | OpenClaw Discord Runtime Orchestrator; see `docs/architecture/discord-runtime-orchestrator.md`. |
 | #74 | OpenClaw to Gentle SDD handoff; see `docs/architecture/discord-gentle-sdd-handoff.md`. |
+| #75 | Context/skill pilot migration roadmap for #57 and #61-#65; see `docs/operations/discord-context-skill-pilot-roadmap.md`. |
 
 Gentle SDD remains a specialized development/spec workflow boundary as described in ADR 0001; this architecture does not assume Pi-native `.pi` agents or chains run inside OpenClaw.
 
