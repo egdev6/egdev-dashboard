@@ -1,4 +1,4 @@
-<img width="1536" height="1024" alt="egde dashboard" src="https://github.com/user-attachments/assets/d9a80974-4d78-4ebb-a4fa-cbbab2eba840" />
+<img width="1536" height="1024" alt="project manager" src="https://github.com/user-attachments/assets/4cca1da7-896c-4b8a-8095-cc771304821b" />
 
 # egdev-dashboard
 
