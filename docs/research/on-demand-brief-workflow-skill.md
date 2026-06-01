@@ -58,20 +58,20 @@ This keeps multi-network brief intent, approval requirements, and planned durabl
 
 Read candidates:
 
-- `egdev-dashboard/project/egdev/brand`
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/content-ledger`
-- `egdev-dashboard/project/egdev/network/youtube`
-- `egdev-dashboard/project/egdev/network/twitch`
-- `egdev-dashboard/project/egdev/network/stack-and-flow`
+- `discord-project-manager/project/egdev/brand`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/network/youtube`
+- `discord-project-manager/project/egdev/network/twitch`
+- `discord-project-manager/project/egdev/network/stack-and-flow`
 
 Write candidates after human approval only:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/content-ledger`
-- `egdev-dashboard/project/egdev/network/youtube`
-- `egdev-dashboard/project/egdev/network/twitch`
-- `egdev-dashboard/project/egdev/network/stack-and-flow`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/network/youtube`
+- `discord-project-manager/project/egdev/network/twitch`
+- `discord-project-manager/project/egdev/network/stack-and-flow`
 
 Approved briefs may become ledger-write candidates after human approval, but they must still use the existing content-ledger status contract. An approved but unscheduled brief maps to `draft`; `queued` is reserved for items that also have scheduling approval. This contract does not claim the runtime already performs those writes.
 

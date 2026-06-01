@@ -12,8 +12,8 @@ This note records the fake-data validation for issue #8: persist brand-context m
 
 | Scope | Namespace key |
 |---|---|
-| Project-wide brand context | `egdev-dashboard/project/egdev/brand` |
-| Network-local LinkedIn overlay | `egdev-dashboard/project/egdev/network/linkedin` |
+| Project-wide brand context | `discord-project-manager/project/egdev/brand` |
+| Network-local LinkedIn overlay | `discord-project-manager/project/egdev/network/linkedin` |
 
 These follow ADR 0002 in `docs/adr/0002-engram-namespace-contract.md`.
 
@@ -33,8 +33,8 @@ A successful run prints lines like:
 
 ```text
 Validated fake brand-context roundtrip in Engram.
-Project namespace: egdev-dashboard/project/egdev/brand
-Network namespace: egdev-dashboard/project/egdev/network/linkedin
+Project namespace: discord-project-manager/project/egdev/brand
+Network namespace: discord-project-manager/project/egdev/network/linkedin
 ENGRAM_DATA_DIR: /tmp/tmp.<random>
 Mode: disposable temp data dir
 ```

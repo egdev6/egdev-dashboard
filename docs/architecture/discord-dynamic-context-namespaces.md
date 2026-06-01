@@ -32,7 +32,7 @@ Use raw Discord IDs as stable runtime keys. Names and slugs are human-readable m
 ADR 0002 remains the accepted runtime namespace contract:
 
 ```text
-egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 ```
 
 Category scope is additive metadata and planned context provisioning, not a replacement for channel-local runtime memory. A future implementation may add category context artifacts or Engram topic keys, but any new namespace family must update ADR 0002 first.

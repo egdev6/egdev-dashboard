@@ -16,13 +16,13 @@ This note records the fake-data validation for issue #10: read persisted brand a
 
 | Source | Namespace key |
 |---|---|
-| Project-wide brand context | `egdev-dashboard/project/egdev/brand` |
-| Durable content ledger | `egdev-dashboard/project/egdev/content-ledger` |
+| Project-wide brand context | `discord-project-manager/project/egdev/brand` |
+| Durable content ledger | `discord-project-manager/project/egdev/content-ledger` |
 
 The strategy fixture also references:
 
-- `egdev-dashboard/project/egdev/brand`
-- `egdev-dashboard/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/brand`
+- `discord-project-manager/project/egdev/content-ledger`
 - recent ledger content id `x-post-001-demo`
 
 These follow ADR 0002 in `docs/adr/0002-engram-namespace-contract.md`.
@@ -31,8 +31,8 @@ These follow ADR 0002 in `docs/adr/0002-engram-namespace-contract.md`.
 
 | Scope | Namespace key |
 |---|---|
-| Cross-network strategy memory | `egdev-dashboard/project/egdev/strategy` |
-| LinkedIn planning overlay | `egdev-dashboard/project/egdev/network/linkedin` |
+| Cross-network strategy memory | `discord-project-manager/project/egdev/strategy` |
+| LinkedIn planning overlay | `discord-project-manager/project/egdev/network/linkedin` |
 
 ## Structured strategy result validated
 
@@ -76,10 +76,10 @@ A successful run prints lines like:
 
 ```text
 Validated fake strategy planning roundtrip in Engram.
-Brand namespace read: egdev-dashboard/project/egdev/brand
-Ledger namespace read: egdev-dashboard/project/egdev/content-ledger
-Strategy namespace written: egdev-dashboard/project/egdev/strategy
-Network strategy namespace written: egdev-dashboard/project/egdev/network/linkedin
+Brand namespace read: discord-project-manager/project/egdev/brand
+Ledger namespace read: discord-project-manager/project/egdev/content-ledger
+Strategy namespace written: discord-project-manager/project/egdev/strategy
+Network strategy namespace written: discord-project-manager/project/egdev/network/linkedin
 Approval status: approved-for-demo-validation
 ENGRAM_DATA_DIR: /tmp/tmp.<random>
 Mode: disposable temp data dir
@@ -89,8 +89,8 @@ It also guarantees that:
 
 - brand context was searchable before strategy planning continued;
 - ledger context was searchable before strategy planning continued;
-- the strategy result was searchable by `egdev-dashboard/project/egdev/strategy`;
-- the LinkedIn overlay was searchable by `egdev-dashboard/project/egdev/network/linkedin`;
+- the strategy result was searchable by `discord-project-manager/project/egdev/strategy`;
+- the LinkedIn overlay was searchable by `discord-project-manager/project/egdev/network/linkedin`;
 - an Engram export contained both strategy records with the expected save title, topic key, and `approval_status: approved-for-demo-validation`.
 
 ## Failure behavior

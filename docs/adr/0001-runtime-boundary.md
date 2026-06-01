@@ -5,7 +5,7 @@
 
 ## Decision
 
-`egdev-dashboard` uses two SDD surfaces with different responsibilities:
+`discord-project-manager` uses two SDD surfaces with different responsibilities:
 
 - **Pi / el Gentleman** is the development harness for repository planning, implementation, review, and change management.
 - **OpenClaw** is the dockerized operational runtime target that serves Discord-driven workflows. Public docs and local smoke validation support Docker, workspaces, `SKILL.md` skills, Gateway health, Discord setup, and routing as target capabilities.

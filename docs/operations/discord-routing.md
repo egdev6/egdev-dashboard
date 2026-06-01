@@ -21,18 +21,18 @@ This is an operations contract only. It does not prove live Discord bot routing 
 
 | Channel name | Reads durable context from |
 |---|---|
-| `linkedin-egdev` | `egdev-dashboard/project/egdev/network/linkedin` |
-| `x-egdev` | `egdev-dashboard/project/egdev/network/x` |
-| `youtube-egdev` | `egdev-dashboard/project/egdev/network/youtube` |
-| `twitch-egdev` | `egdev-dashboard/project/egdev/network/twitch` |
-| `stack-and-flow-egdev` | `egdev-dashboard/project/egdev/network/stack-and-flow` |
+| `linkedin-egdev` | `discord-project-manager/project/egdev/network/linkedin` |
+| `x-egdev` | `discord-project-manager/project/egdev/network/x` |
+| `youtube-egdev` | `discord-project-manager/project/egdev/network/youtube` |
+| `twitch-egdev` | `discord-project-manager/project/egdev/network/twitch` |
+| `stack-and-flow-egdev` | `discord-project-manager/project/egdev/network/stack-and-flow` |
 
 All of these may also read shared project context:
 
 ```text
-egdev-dashboard/project/egdev/brand
-egdev-dashboard/project/egdev/strategy
-egdev-dashboard/project/egdev/content-ledger
+discord-project-manager/project/egdev/brand
+discord-project-manager/project/egdev/strategy
+discord-project-manager/project/egdev/content-ledger
 ```
 
 The canonical resolver contract lives in `docs/architecture/channel-context-namespace-mapping.md`, and `examples/discord-channel-context.fake.yaml` provides fake matched/unmapped fixtures.
@@ -53,7 +53,7 @@ A valid `channels.discord` config without this plugin leaves the bot offline and
 For each Discord message:
 
 - [ ] Capture runtime guild ID and channel ID from the event.
-- [ ] Build runtime namespace as `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>`.
+- [ ] Build runtime namespace as `discord-project-manager/runtime/discord/<guild-id>/<channel-id>`.
 - [ ] Normalize the channel display name to lowercase kebab-case.
 - [ ] Match the channel name to an allowed `<network-slug>-<project-slug>` route.
 - [ ] If matched, read relevant durable project context.
@@ -74,7 +74,7 @@ Example response shape:
 
 ```text
 I cannot map this channel to a project/network yet.
-Current runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Current runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Choose an approved route before I read or write durable project memory.
 ```
 

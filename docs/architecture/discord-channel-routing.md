@@ -25,11 +25,11 @@ Canonical examples:
 
 | Discord channel name | Project | Network | Durable network namespace |
 |---|---|---|---|
-| `linkedin-egdev` | `egdev` | `linkedin` | `egdev-dashboard/project/egdev/network/linkedin` |
-| `x-egdev` | `egdev` | `x` | `egdev-dashboard/project/egdev/network/x` |
-| `youtube-egdev` | `egdev` | `youtube` | `egdev-dashboard/project/egdev/network/youtube` |
-| `twitch-egdev` | `egdev` | `twitch` | `egdev-dashboard/project/egdev/network/twitch` |
-| `stack-and-flow-egdev` | `egdev` | `stack-and-flow` | `egdev-dashboard/project/egdev/network/stack-and-flow` |
+| `linkedin-egdev` | `egdev` | `linkedin` | `discord-project-manager/project/egdev/network/linkedin` |
+| `x-egdev` | `egdev` | `x` | `discord-project-manager/project/egdev/network/x` |
+| `youtube-egdev` | `egdev` | `youtube` | `discord-project-manager/project/egdev/network/youtube` |
+| `twitch-egdev` | `egdev` | `twitch` | `discord-project-manager/project/egdev/network/twitch` |
+| `stack-and-flow-egdev` | `egdev` | `stack-and-flow` | `discord-project-manager/project/egdev/network/stack-and-flow` |
 
 Supported network slugs for M4 routing:
 
@@ -47,8 +47,8 @@ Every routed Discord message has two different namespace families:
 
 | Namespace family | Example | Purpose |
 |---|---|---|
-| Runtime channel memory | `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` | Channel-local operational context, summaries, and transient coordination. |
-| Durable project memory | `egdev-dashboard/project/egdev/network/linkedin` | Approved reusable project/network context. |
+| Runtime channel memory | `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` | Channel-local operational context, summaries, and transient coordination. |
+| Durable project memory | `discord-project-manager/project/egdev/network/linkedin` | Approved reusable project/network context. |
 
 A channel name may determine which durable project/network context is relevant, but the channel-local runtime memory must still use the raw Discord IDs from ADR 0002.
 
@@ -60,7 +60,7 @@ Never use display channel names as runtime namespace IDs.
 2. Always derive runtime memory as:
 
    ```text
-   egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+   discord-project-manager/runtime/discord/<guild-id>/<channel-id>
    ```
 
 3. Normalize the display channel name to lowercase kebab-case.
@@ -73,10 +73,10 @@ Never use display channel names as runtime namespace IDs.
 5. If the network slug is supported and the project slug is known, route durable reads to:
 
    ```text
-   egdev-dashboard/project/<project-slug>/brand
-   egdev-dashboard/project/<project-slug>/strategy
-   egdev-dashboard/project/<project-slug>/content-ledger
-   egdev-dashboard/project/<project-slug>/network/<network-slug>
+   discord-project-manager/project/<project-slug>/brand
+   discord-project-manager/project/<project-slug>/strategy
+   discord-project-manager/project/<project-slug>/content-ledger
+   discord-project-manager/project/<project-slug>/network/<network-slug>
    ```
 
 6. Durable writes remain approval-gated. Runtime channel routing alone does not authorize project memory writes.
@@ -88,7 +88,7 @@ If the channel cannot be mapped deterministically:
 1. Use only the runtime namespace:
 
    ```text
-   egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+   discord-project-manager/runtime/discord/<guild-id>/<channel-id>
    ```
 
 2. Do not read or write durable project namespaces.

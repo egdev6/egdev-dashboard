@@ -45,15 +45,15 @@ This keeps post ideas, approval requirements, and planned memory destinations re
 
 Read candidates:
 
-- `egdev-dashboard/project/egdev/brand`
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/content-ledger`
-- `egdev-dashboard/project/egdev/network/linkedin`
+- `discord-project-manager/project/egdev/brand`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/network/linkedin`
 
 Write candidates after human approval only:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/network/linkedin`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/network/linkedin`
 
 These follow ADR 0002 exactly.
 

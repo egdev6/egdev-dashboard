@@ -61,7 +61,7 @@ Paths:
 - docs/process/shared-artifact-serialization.md
 - docs/adr/0001-runtime-boundary.md
 Intent: document single-writer handoff procedure for issue #7
-Optional Engram continuity: egdev-dashboard/dev/sdd/shared-artifact-serialization/design
+Optional Engram continuity: discord-project-manager/dev/sdd/shared-artifact-serialization/design
 ```
 
 A release should include:
@@ -82,7 +82,7 @@ Paths:
 - docs/adr/0001-runtime-boundary.md
 Status: handed off for review
 PR: <link>
-Optional Engram summary: egdev-dashboard/dev/sdd/shared-artifact-serialization/verify
+Optional Engram summary: discord-project-manager/dev/sdd/shared-artifact-serialization/verify
 ```
 
 ## Before editing shared artifacts
@@ -123,8 +123,8 @@ Engram is operational memory, not the canonical planning surface. Use it for con
 
 Recommended continuity keys:
 
-- `egdev-dashboard/dev/sdd/<change-id>/<phase>` for Pi development summaries;
-- `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` for channel-local OpenClaw runtime notes.
+- `discord-project-manager/dev/sdd/<change-id>/<phase>` for Pi development summaries;
+- `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` for channel-local OpenClaw runtime notes.
 
 Do not treat an Engram note as a write lock. The repo claim/release note remains the source of truth for ownership.
 

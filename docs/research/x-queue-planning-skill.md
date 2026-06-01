@@ -46,15 +46,15 @@ This keeps queue diversity, approval requirements, and planned memory destinatio
 
 Read candidates:
 
-- `egdev-dashboard/project/egdev/brand`
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/content-ledger`
-- `egdev-dashboard/project/egdev/network/x`
+- `discord-project-manager/project/egdev/brand`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/network/x`
 
 Write candidates after human approval only:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/network/x`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/network/x`
 
 These follow ADR 0002 exactly.
 
