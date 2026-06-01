@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_NAME="egdev-dashboard"
+PROJECT_NAME="discord-project-manager"
 BRAND_FIXTURE_PATH="${BRAND_CONTEXT_FIXTURE:-examples/brand-context.fake.yaml}"
 LEDGER_FIXTURE_PATH="${CONTENT_LEDGER_FIXTURE:-examples/content-ledger.fake.yaml}"
 STRATEGY_FIXTURE_PATH="${STRATEGY_PLAN_FIXTURE:-examples/strategy-plan.fake.yaml}"
 
-BRAND_NAMESPACE="egdev-dashboard/project/egdev/brand"
-BRAND_NETWORK_NAMESPACE="egdev-dashboard/project/egdev/network/linkedin"
-LEDGER_NAMESPACE="egdev-dashboard/project/egdev/content-ledger"
-LEDGER_NETWORK_NAMESPACE="egdev-dashboard/project/egdev/network/x"
-STRATEGY_NAMESPACE="egdev-dashboard/project/egdev/strategy"
-STRATEGY_NETWORK_NAMESPACE="egdev-dashboard/project/egdev/network/linkedin"
+BRAND_NAMESPACE="discord-project-manager/project/egdev/brand"
+BRAND_NETWORK_NAMESPACE="discord-project-manager/project/egdev/network/linkedin"
+LEDGER_NAMESPACE="discord-project-manager/project/egdev/content-ledger"
+LEDGER_NETWORK_NAMESPACE="discord-project-manager/project/egdev/network/x"
+STRATEGY_NAMESPACE="discord-project-manager/project/egdev/strategy"
+STRATEGY_NETWORK_NAMESPACE="discord-project-manager/project/egdev/network/linkedin"
 
 PROJECT_SLUG="egdev"
 NETWORK_SLUG="linkedin"

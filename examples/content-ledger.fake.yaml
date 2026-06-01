@@ -1,8 +1,8 @@
 schema_version: 1
 project: egdev
 network: x
-ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-network_namespace_key: egdev-dashboard/project/egdev/network/x
+ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+network_namespace_key: discord-project-manager/project/egdev/network/x
 content_entry:
   id: x-post-001-demo
   title: fake content ledger demo entry

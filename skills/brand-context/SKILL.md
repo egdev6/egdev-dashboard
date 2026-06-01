@@ -65,14 +65,14 @@ open_questions:
 
 ### Read candidates
 
-- `egdev-dashboard/project/<project-slug>/brand`
-- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- `discord-project-manager/project/<project-slug>/brand`
+- `discord-project-manager/project/<project-slug>/network/<network-slug>`
 - approved repo artifacts when the brand contract was promoted previously
 
 ### Write candidates
 
-- project-wide brand memory under `egdev-dashboard/project/<project-slug>/brand`
-- network-local adaptation under `egdev-dashboard/project/<project-slug>/network/<network-slug>` when the distinction matters
+- project-wide brand memory under `discord-project-manager/project/<project-slug>/brand`
+- network-local adaptation under `discord-project-manager/project/<project-slug>/network/<network-slug>` when the distinction matters
 
 ### Approval gate
 
@@ -82,13 +82,13 @@ Do not write or overwrite durable brand memory until a human explicitly approves
 
 Use ADR 0002 exactly:
 
-- `egdev-dashboard/project/<project-slug>/brand`
-- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- `discord-project-manager/project/<project-slug>/brand`
+- `discord-project-manager/project/<project-slug>/network/<network-slug>`
 
 Canonical ADR examples that this skill may mirror when using fake/demo values:
 
-- `egdev-dashboard/project/egdev/brand`
-- `egdev-dashboard/project/egdev/network/linkedin`
+- `discord-project-manager/project/egdev/brand`
+- `discord-project-manager/project/egdev/network/linkedin`
 
 ### Promotion to repo artifact
 

@@ -66,15 +66,15 @@ strategy_slice:
 
 ### Read candidates
 
-- `egdev-dashboard/project/<project-slug>/brand`
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- `discord-project-manager/project/<project-slug>/brand`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/<network-slug>`
 
 ### Write candidates
 
-- cross-network strategy rules under `egdev-dashboard/project/<project-slug>/strategy`
-- network-local planning context under `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- cross-network strategy rules under `discord-project-manager/project/<project-slug>/strategy`
+- network-local planning context under `discord-project-manager/project/<project-slug>/network/<network-slug>`
 
 ### Approval gate
 
@@ -84,15 +84,15 @@ Do not write or revise durable planning memory until a human approves the propos
 
 Use ADR 0002 exactly:
 
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/network/<network-slug>`
 
 Canonical ADR examples that this skill may mirror when using fake/demo values:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/network/stack-and-flow`
-- `egdev-dashboard/project/egdev/network/youtube`
-- `egdev-dashboard/project/egdev/network/twitch`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/network/stack-and-flow`
+- `discord-project-manager/project/egdev/network/youtube`
+- `discord-project-manager/project/egdev/network/twitch`
 
 ### Promotion to repo artifact
 

@@ -7,13 +7,13 @@ supported_networks:
 request_id: brief-request-001-demo
 timeframe: 2026-W24
 source_context:
-  brand_namespace_key: egdev-dashboard/project/egdev/brand
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  brand_namespace_key: discord-project-manager/project/egdev/brand
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
   network_namespace_keys:
-    youtube: egdev-dashboard/project/egdev/network/youtube
-    twitch: egdev-dashboard/project/egdev/network/twitch
-    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+    youtube: discord-project-manager/project/egdev/network/youtube
+    twitch: discord-project-manager/project/egdev/network/twitch
+    stack-and-flow: discord-project-manager/project/egdev/network/stack-and-flow
   recent_ledger_content_ids:
     - x-post-001-demo
 brief_request:
@@ -118,12 +118,12 @@ approval:
     - approve scheduling before any live slot or publishing calendar entry is created
     - approve durable memory and ledger writes before saving strategy, network, or content-ledger state
 memory_write_targets:
-  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
   network_namespace_keys:
-    youtube: egdev-dashboard/project/egdev/network/youtube
-    twitch: egdev-dashboard/project/egdev/network/twitch
-    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+    youtube: discord-project-manager/project/egdev/network/youtube
+    twitch: discord-project-manager/project/egdev/network/twitch
+    stack-and-flow: discord-project-manager/project/egdev/network/stack-and-flow
   write_mode: planned-only-until-approved
   planned_records:
     - scope: strategy

@@ -99,15 +99,15 @@ memory_write_targets:
 
 ### Read candidates
 
-- `egdev-dashboard/project/<project-slug>/brand`
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/linkedin`
+- `discord-project-manager/project/<project-slug>/brand`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/linkedin`
 
 ### Write candidates
 
-- reusable cross-network planning rules under `egdev-dashboard/project/<project-slug>/strategy`
-- approved LinkedIn-local weekly planning context under `egdev-dashboard/project/<project-slug>/network/linkedin`
+- reusable cross-network planning rules under `discord-project-manager/project/<project-slug>/strategy`
+- approved LinkedIn-local weekly planning context under `discord-project-manager/project/<project-slug>/network/linkedin`
 
 ### Approval gate
 
@@ -117,13 +117,13 @@ Do not write or revise durable LinkedIn weekly planning memory until a human app
 
 Use ADR 0002 exactly:
 
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/network/linkedin`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/network/linkedin`
 
 Canonical ADR examples that this skill may mirror when using fake/demo values:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/network/linkedin`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/network/linkedin`
 
 ### Promotion to repo artifact
 
@@ -143,10 +143,10 @@ project: egdev
 network: linkedin
 timeframe: 2026-W24
 source_context:
-  brand_namespace_key: egdev-dashboard/project/egdev/brand
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  brand_namespace_key: discord-project-manager/project/egdev/brand
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/linkedin
 planning_inputs:
   goals:
     - test whether weekly implementation trade-off posts increase qualified technical replies
@@ -185,8 +185,8 @@ approval:
   checkpoints:
     - approve durable memory writes before saving planning state
 memory_write_targets:
-  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  network_namespace_key: discord-project-manager/project/egdev/network/linkedin
   write_mode: planned-only-until-approved
 ```
 

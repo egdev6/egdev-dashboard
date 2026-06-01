@@ -3,10 +3,10 @@ project: egdev
 network: x
 timeframe: 2026-W24
 source_context:
-  brand_namespace_key: egdev-dashboard/project/egdev/brand
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  brand_namespace_key: discord-project-manager/project/egdev/brand
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/x
   recent_ledger_content_ids:
     - x-post-001-demo
 planning_inputs:
@@ -104,8 +104,8 @@ approval:
     - approve scheduling before any queue item is placed on a calendar
     - approve durable memory writes before saving strategy or network queue state
 memory_write_targets:
-  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  network_namespace_key: discord-project-manager/project/egdev/network/x
   write_mode: planned-only-until-approved
   planned_records:
     - scope: cross-network-strategy
