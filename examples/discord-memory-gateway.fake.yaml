@@ -1,0 +1,91 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-memory-gateway
+live_discord_connection: false
+live_engram_calls: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_audit_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+read_hydration_policy:
+  runtime_read: allowed
+  matched_route_durable_reads:
+    - brand
+    - strategy
+    - content-ledger
+    - network
+  unmapped_channel_durable_reads: none
+  raw_chat_log_persistence: forbidden
+topic_key_taxonomy:
+  route_resolution: discord/context/route-resolution
+  hydration_summary: discord/context/hydration-summary
+  scoped_skills: discord/context/scoped-skills
+  strategy_writeback: discord/writeback/strategy-update
+  network_writeback: discord/writeback/network-update
+  content_ledger_writeback: discord/writeback/content-ledger-entry
+  global_governance_writeback: discord/writeback/global-governance
+  approval_audit: discord/audit/approval-decision
+scenarios:
+  - name: matched-route-x-queue-proposal
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: x
+    effective_skills:
+      - discord-approval-gate
+      - x-queue-planner
+    hydrated_namespaces:
+      - discord-project-manager/project/egdev/brand
+      - discord-project-manager/project/egdev/strategy
+      - discord-project-manager/project/egdev/content-ledger
+      - discord-project-manager/project/egdev/network/x
+    writeback_classification: confirmation-required
+    writeback_topic_key: discord/writeback/network-update
+    approval_state: approval-requested
+  - name: unmapped-channel-fallback
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: unmapped-channel
+    resolved_route:
+      project_slug: none
+      network_slug: none
+    effective_skills:
+      - discord-approval-gate
+    durable_reads_allowed: false
+    writeback_classification: reject
+    writeback_topic_key: discord/audit/approval-decision
+    approval_state: rejected
+approval_request:
+  state: approval-requested
+  route: egdev/x
+  runtime_context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+  target_namespaces:
+    - discord-project-manager/project/egdev/network/x
+  runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+  reply_options:
+    - approve write
+    - "revise: <instruction>"
+    - reject
+  risk_boundary:
+    - no durable project memory writes before approval
+    - no workspace file writes before approval
+    - no raw Discord chat log persistence
+historical_anchors:
+  - issue: "3"
+    title: "docs(adr): define Engram namespace contract for shared operational memory"
+  - issue: "51"
+    title: "ops(runtime): validate first local OpenClaw Engram pilot"
+non_goals:
+  - live Engram calls
+  - live Discord validation
+  - public Discord behavior
+  - production credentials
+  - publishing
+  - scheduling
+  - Buffer activity
