@@ -1,0 +1,75 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: x-queue-source-ingestion
+project: egdev
+network: x
+live_discord_connection: false
+uses_real_discord_ids: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+writes_before_approval: false
+runtime_audit_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+source_ingestion:
+  source_type: fake-manual-input
+  source_ref: demo://discord/x-egdev/manual-source-01
+  operator_request: turn this fake source into reviewable X queue candidates about approval gates and diff hygiene
+  normalized_signals:
+    - approval gates must block durable writes before explicit operator approval
+    - reviewable diffs are easier to trust than broad workflow rewrites
+  source_context:
+    brand_namespace_key: discord-project-manager/project/egdev/brand
+    strategy_namespace_key: discord-project-manager/project/egdev/strategy
+    ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+    network_namespace_key: discord-project-manager/project/egdev/network/x
+queue_candidates:
+  - candidate_id: x-ingestion-candidate-01-demo
+    entry_type: single-post
+    working_title: approval gates are part of the product
+    proposed_summary: explain that runtime write safety is a user-facing behavior, not just internal plumbing
+    required_assets:
+      - asset://demo/x-approval-gate-card-01
+    approval_checkpoint:
+      - approve the candidate before any queue write or draft generation
+  - candidate_id: x-ingestion-candidate-02-demo
+    entry_type: thread
+    working_title: smaller diffs make AI-assisted systems easier to review
+    proposed_summary: connect source-ingestion discipline to small reviewable queue updates
+    required_assets:
+      - asset://demo/x-thread-outline-approval-flow-01
+    approval_checkpoint:
+      - approve the candidate before any queue write or draft generation
+proposed_queue_update:
+  target_namespace_key: discord-project-manager/project/egdev/network/x
+  write_mode: planned-only-until-approved
+  change_summary: append two approved demo queue candidates to the X planning namespace after explicit operator approval
+approval_request:
+  state: approval-requested
+  route: egdev/x
+  runtime_context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+  target_namespace: discord-project-manager/project/egdev/network/x
+  runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+  reply_options:
+    - approve write
+    - "revise: <instruction>"
+    - reject
+  risk_boundary:
+    - no durable memory writes before approval
+    - no workspace file writes before approval
+    - no publishing, scheduling, or Buffer activity
+runtime_audit_preview:
+  routing_status: matched-route
+  approval_status: pending
+  target_namespaces:
+    - discord-project-manager/project/egdev/network/x
+non_goals:
+  - live Discord validation
+  - real Engram writes
+  - publishing
+  - scheduling
+  - Buffer analytics
+  - production credentials
