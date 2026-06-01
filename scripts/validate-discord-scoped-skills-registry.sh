@@ -78,13 +78,13 @@ for required in \
   "channel preferred skills" \
   "skills/discord-approval-gate/SKILL.md" \
   "$RUNTIME_NAMESPACE_CONTRACT" \
-  '#61 `feat(flow): define brand context refresh workflow`' \
-  '#65 `feat(flow): define on-demand brief workflow`'; do
+  "#61 \`feat(flow): define brand context refresh workflow\`" \
+  "#65 \`feat(flow): define on-demand brief workflow\`"; do
   grep -F "$required" "$DOC_PATH" >/dev/null || fail "doc missing required contract marker: $required"
 done
 
 for required in \
-  '#70 | Scoped skills registry and control channels; see `docs/architecture/discord-scoped-skills-registry.md`. |' \
+  "#70 | Scoped skills registry and control channels; see \`docs/architecture/discord-scoped-skills-registry.md\`. |" \
   "Resolve skills in layers"; do
   grep -F "$required" "$PARENT_DOC_PATH" >/dev/null || fail "parent doc missing scoped skills reference: $required"
 done
