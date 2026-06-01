@@ -118,7 +118,7 @@ Follow-up issues own the detailed contracts:
 
 | Follow-up | Owns |
 |---|---|
-| #68 | Discord topology discovery and reconciliation. |
+| #68 | Discord topology discovery and reconciliation; see `docs/architecture/discord-topology-reconciliation.md`. |
 | #69 | Dynamic context namespace provisioning. |
 | #70 | Scoped skills registry and control channels. |
 | #71 | Memory Gateway / Engram access policy. |

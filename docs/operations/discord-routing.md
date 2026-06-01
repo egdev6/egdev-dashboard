@@ -14,6 +14,7 @@ This is an operations contract only. It does not prove live Discord bot routing 
 6. Ask for human approval before durable project writes.
 7. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
 8. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+9. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
 
 ## Naming examples
 
@@ -96,7 +97,8 @@ For this documentation-only routing slice, validate with:
 
 ```bash
 git diff --check
-npx --yes yaml-lint examples/discord-channel-context.fake.yaml
+npx --yes yaml-lint examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml
+bash scripts/validate-discord-topology-reconciliation.sh
 npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 ```
 
