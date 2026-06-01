@@ -1,12 +1,12 @@
 # OpenClaw runtime validation research
 
-- Issue: [#1](https://github.com/egdev6/egdev-dashboard/issues/1)
+- Issue: [#1](https://github.com/egdev6/discord-project-manager/issues/1)
 - Date: 2026-05-30
 - Status: Research and local Docker smoke validation complete
 
 ## Executive summary
 
-OpenClaw is a suitable target for the `egdev-dashboard` operational runtime. Public docs and a local Docker smoke test confirm:
+OpenClaw is a suitable target for the `discord-project-manager` operational runtime. Public docs and a local Docker smoke test confirm:
 
 - the official `ghcr.io/openclaw/openclaw:latest` image exists and runs;
 - OpenClaw can onboard a container-local workspace;
@@ -181,7 +181,7 @@ Sources:
 Conclusion:
 
 - Discord routing is supported at the OpenClaw level.
-- `egdev-dashboard` still needs a product decision: one OpenClaw agent with channel-derived Engram namespaces vs multiple OpenClaw agents bound by account/channel/guild rules.
+- `discord-project-manager` still needs a product decision: one OpenClaw agent with channel-derived Engram namespaces vs multiple OpenClaw agents bound by account/channel/guild rules.
 
 ## Packaging decision
 

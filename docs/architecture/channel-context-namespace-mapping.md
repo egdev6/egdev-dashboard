@@ -35,7 +35,7 @@ See `docs/architecture/discord-channel-routing.md` for the allowed network slugs
 
 | Output | Meaning |
 |---|---|
-| `runtime_namespace` | Always `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>`. |
+| `runtime_namespace` | Always `discord-project-manager/runtime/discord/<guild-id>/<channel-id>`. |
 | `resolved_route.project_slug` | Project slug derived from the approved route, or `none` for unmapped channels. |
 | `resolved_route.network_slug` | Network slug derived from the approved route, or `none` for unmapped channels. |
 | `durable_read_namespaces` | Approved project namespaces that the runtime may read after a successful route match. |
@@ -48,7 +48,7 @@ See `docs/architecture/discord-channel-routing.md` for the allowed network slugs
 2. Build runtime memory exactly as:
 
    ```text
-   egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+   discord-project-manager/runtime/discord/<guild-id>/<channel-id>
    ```
 
 3. Normalize the channel display name to lowercase kebab-case.
@@ -57,10 +57,10 @@ See `docs/architecture/discord-channel-routing.md` for the allowed network slugs
 6. If both slugs are resolved, the runtime may read:
 
    ```text
-   egdev-dashboard/project/<project-slug>/brand
-   egdev-dashboard/project/<project-slug>/strategy
-   egdev-dashboard/project/<project-slug>/content-ledger
-   egdev-dashboard/project/<project-slug>/network/<network-slug>
+   discord-project-manager/project/<project-slug>/brand
+   discord-project-manager/project/<project-slug>/strategy
+   discord-project-manager/project/<project-slug>/content-ledger
+   discord-project-manager/project/<project-slug>/network/<network-slug>
    ```
 
 7. Durable writes remain planned candidates only. A matched route does not authorize strategy, network, or content-ledger writes.
@@ -83,19 +83,19 @@ Resolver result:
 
 ```text
 routing_status: matched-route
-runtime_namespace: egdev-dashboard/runtime/discord/111111111111111111/222222222222222222
+runtime_namespace: discord-project-manager/runtime/discord/111111111111111111/222222222222222222
 resolved_route:
   project_slug: egdev
   network_slug: linkedin
 durable_read_namespaces:
-  brand_namespace_key: egdev-dashboard/project/egdev/brand
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  brand_namespace_key: discord-project-manager/project/egdev/brand
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/linkedin
 durable_write_candidates:
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/linkedin
   write_mode: planned-only-until-approved
 ```
 
@@ -116,7 +116,7 @@ Resolver result:
 
 ```text
 routing_status: unmapped-channel
-runtime_namespace: egdev-dashboard/runtime/discord/111111111111111111/333333333333333333
+runtime_namespace: discord-project-manager/runtime/discord/111111111111111111/333333333333333333
 resolved_route:
   project_slug: none
   network_slug: none

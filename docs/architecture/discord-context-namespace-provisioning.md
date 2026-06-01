@@ -11,7 +11,7 @@ It builds on topology discovery. It does not read or write Engram, create Discor
 3. Preserve stable category/channel refs across renames.
 4. Block moved, missing, unmapped, and permission-limited entities for operator review.
 5. Do not inherit global context or global skills unless an approved inheritance rule exists.
-6. Keep ADR 0002 runtime memory unchanged: `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>`.
+6. Keep ADR 0002 runtime memory unchanged: `discord-project-manager/runtime/discord/<guild-id>/<channel-id>`.
 
 ## Scope boundary
 

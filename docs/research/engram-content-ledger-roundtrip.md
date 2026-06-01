@@ -12,8 +12,8 @@ This note records the fake-data validation for issue #9: persist content-ledger 
 
 | Scope | Key or identifier |
 |---|---|
-| Durable ledger namespace | `egdev-dashboard/project/egdev/content-ledger` |
-| Network-local X overlay | `egdev-dashboard/project/egdev/network/x` |
+| Durable ledger namespace | `discord-project-manager/project/egdev/content-ledger` |
+| Network-local X overlay | `discord-project-manager/project/egdev/network/x` |
 | Project slug | `egdev` |
 | Network slug | `x` |
 | Content identifier | `x-post-001-demo` |
@@ -38,8 +38,8 @@ A successful run prints lines like:
 ```text
 Validated fake content-ledger roundtrip in Engram.
 Fixture: examples/content-ledger.fake.yaml
-Ledger namespace: egdev-dashboard/project/egdev/content-ledger
-Network namespace: egdev-dashboard/project/egdev/network/x
+Ledger namespace: discord-project-manager/project/egdev/content-ledger
+Network namespace: discord-project-manager/project/egdev/network/x
 Content identifier: x-post-001-demo
 Schema version: 1
 ENGRAM_DATA_DIR: /tmp/tmp.<random>

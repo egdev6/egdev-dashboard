@@ -38,7 +38,7 @@ Recommended prompt shape:
 ```text
 Proposed durable update
 Route: <project>/<network>
-Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Target namespace: <namespace-key>
 Change summary: <one-sentence summary>
 Risk boundary: <what this does not do>
@@ -53,7 +53,7 @@ For content-ledger entries, include the ledger status:
 
 ```text
 Ledger candidate
-Target: egdev-dashboard/project/<project-slug>/content-ledger
+Target: discord-project-manager/project/<project-slug>/content-ledger
 Content id: <content-id>
 Network: <network-slug>
 Status: draft|queued|published|archived
@@ -68,7 +68,7 @@ Record these fields in runtime memory before any durable write attempt:
 
 | Field | Requirement |
 |---|---|
-| `runtime_namespace` | `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` |
+| `runtime_namespace` | `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` |
 | `routing_status` | `matched-route`, `unmapped-channel`, or other resolver status |
 | `resolved_route` | Project/network slugs or `none` |
 | `proposal_summary` | Short description of the proposed change |
@@ -92,8 +92,8 @@ Safe response:
 ```text
 Proposed durable update
 Route: egdev/x
-Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
-Target namespace: egdev-dashboard/project/egdev/network/x
+Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+Target namespace: discord-project-manager/project/egdev/network/x
 Change summary: add an X queue variation rule for alternating single-post and thread entries this week.
 Risk boundary: this will not publish, schedule, or update Buffer.
 
@@ -118,8 +118,8 @@ Safe response:
 ```text
 Ledger candidate
 Route: egdev/x
-Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
-Target: egdev-dashboard/project/egdev/content-ledger
+Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+Target: discord-project-manager/project/egdev/content-ledger
 Content id: x-post-002-demo
 Network: x
 Status: draft
@@ -140,7 +140,7 @@ When routing status is `unmapped-channel`, do not read or write durable project 
 
 ```text
 I cannot map this channel to a project/network yet.
-Runtime context: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Durable reads: none
 Durable writes: none
 

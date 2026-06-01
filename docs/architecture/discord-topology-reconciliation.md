@@ -10,7 +10,7 @@ It extends the static routing baseline and dynamic context namespace architectur
 2. Keep real IDs private; commit only fake/demo placeholders.
 3. Compare discovery with the last approved topology registry.
 4. Classify changes as `create`, `update`, `archive`, or `needs-review`.
-5. Keep runtime memory under ADR 0002: `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>`.
+5. Keep runtime memory under ADR 0002: `discord-project-manager/runtime/discord/<guild-id>/<channel-id>`.
 
 ## Scope boundary
 

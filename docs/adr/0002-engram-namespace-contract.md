@@ -5,20 +5,20 @@
 
 ## Decision
 
-`egdev-dashboard` uses stable Engram namespace families so Pi development work, OpenClaw runtime memory, and project-level social context do not overwrite each other.
+`discord-project-manager` uses stable Engram namespace families so Pi development work, OpenClaw runtime memory, and project-level social context do not overwrite each other.
 
 The contract is:
 
-- Development SDD memory lives under `egdev-dashboard/dev/sdd/<change-id>/<phase>`.
-- Runtime Discord memory lives under `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>`.
-- Durable project memory lives under `egdev-dashboard/project/<project-slug>/...`.
+- Development SDD memory lives under `discord-project-manager/dev/sdd/<change-id>/<phase>`.
+- Runtime Discord memory lives under `discord-project-manager/runtime/discord/<guild-id>/<channel-id>`.
+- Durable project memory lives under `discord-project-manager/project/<project-slug>/...`.
 - Repo artifacts remain canonical for planning, review, and reusable behavior.
 
 ## Naming rules
 
 | Rule | Requirement |
 |---|---|
-| Root prefix | Always start with `egdev-dashboard`. |
+| Root prefix | Always start with `discord-project-manager`. |
 | Segment format | Use lowercase kebab-case for slugs: `egdev`, `stack-and-flow`, `runtime-validation`. |
 | External IDs | Keep platform IDs as raw ID strings when needed for routing: `<guild-id>`, `<channel-id>`. Do not replace them with display names. |
 | Stable paths | Keep timestamps, status, and lifecycle details inside the stored value, not in the namespace path. |
@@ -30,34 +30,34 @@ The contract is:
 
 | Namespace family | Purpose | Notes |
 |---|---|---|
-| `egdev-dashboard/dev/sdd/<change-id>/<phase>` | Development-phase working memory | Used by Pi/el Gentleman for SDD summaries, phase outputs, and review-oriented working context before promotion. |
-| `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` | Channel-local operational memory | Used by OpenClaw runtime for Discord-local context, operator summaries, and transient coordination. |
-| `egdev-dashboard/project/<project-slug>/brand` | Durable brand context | Personality, voice, audience, positioning, and constraints for one project. |
-| `egdev-dashboard/project/<project-slug>/strategy` | Durable strategy context | Cross-network planning rules, cadence, and reusable editorial decisions. |
-| `egdev-dashboard/project/<project-slug>/content-ledger` | Durable publish-history memory | Published items, asset references, statuses, and follow-up links. |
-| `egdev-dashboard/project/<project-slug>/network/<network-slug>` | Durable network-specific context | Network-local rules, queue state, and approved constraints for one network. |
+| `discord-project-manager/dev/sdd/<change-id>/<phase>` | Development-phase working memory | Used by Pi/el Gentleman for SDD summaries, phase outputs, and review-oriented working context before promotion. |
+| `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` | Channel-local operational memory | Used by OpenClaw runtime for Discord-local context, operator summaries, and transient coordination. |
+| `discord-project-manager/project/<project-slug>/brand` | Durable brand context | Personality, voice, audience, positioning, and constraints for one project. |
+| `discord-project-manager/project/<project-slug>/strategy` | Durable strategy context | Cross-network planning rules, cadence, and reusable editorial decisions. |
+| `discord-project-manager/project/<project-slug>/content-ledger` | Durable publish-history memory | Published items, asset references, statuses, and follow-up links. |
+| `discord-project-manager/project/<project-slug>/network/<network-slug>` | Durable network-specific context | Network-local rules, queue state, and approved constraints for one network. |
 
 ## Canonical examples
 
 ```text
-egdev-dashboard/dev/sdd/<change-id>/<phase>
-egdev-dashboard/dev/sdd/openclaw-runtime-validation/proposal
-egdev-dashboard/dev/sdd/openclaw-runtime-validation/spec
-egdev-dashboard/dev/sdd/openclaw-runtime-validation/design
-egdev-dashboard/dev/sdd/openclaw-runtime-validation/tasks
-egdev-dashboard/dev/sdd/openclaw-runtime-validation/verify
+discord-project-manager/dev/sdd/<change-id>/<phase>
+discord-project-manager/dev/sdd/openclaw-runtime-validation/proposal
+discord-project-manager/dev/sdd/openclaw-runtime-validation/spec
+discord-project-manager/dev/sdd/openclaw-runtime-validation/design
+discord-project-manager/dev/sdd/openclaw-runtime-validation/tasks
+discord-project-manager/dev/sdd/openclaw-runtime-validation/verify
 
-egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
-egdev-dashboard/runtime/discord/123456789012345678/234567890123456789
+discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+discord-project-manager/runtime/discord/123456789012345678/234567890123456789
 
-egdev-dashboard/project/egdev/brand
-egdev-dashboard/project/egdev/strategy
-egdev-dashboard/project/egdev/content-ledger
-egdev-dashboard/project/egdev/network/linkedin
-egdev-dashboard/project/egdev/network/x
-egdev-dashboard/project/egdev/network/stack-and-flow
-egdev-dashboard/project/egdev/network/youtube
-egdev-dashboard/project/egdev/network/twitch
+discord-project-manager/project/egdev/brand
+discord-project-manager/project/egdev/strategy
+discord-project-manager/project/egdev/content-ledger
+discord-project-manager/project/egdev/network/linkedin
+discord-project-manager/project/egdev/network/x
+discord-project-manager/project/egdev/network/stack-and-flow
+discord-project-manager/project/egdev/network/youtube
+discord-project-manager/project/egdev/network/twitch
 ```
 
 ## Separation rules

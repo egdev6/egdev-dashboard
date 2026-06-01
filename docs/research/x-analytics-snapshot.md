@@ -51,9 +51,9 @@ The snapshot associates metrics with project/network/content-ledger state in thr
 1. Global namespace keys point to:
 
    ```text
-   egdev-dashboard/project/egdev/content-ledger
-   egdev-dashboard/project/egdev/network/x
-   egdev-dashboard/project/egdev/strategy
+   discord-project-manager/project/egdev/content-ledger
+   discord-project-manager/project/egdev/network/x
+   discord-project-manager/project/egdev/strategy
    ```
 
 2. Each item has a stable `content_ledger_entry_id` for later ledger joins.

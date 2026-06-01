@@ -26,15 +26,15 @@ These read models summarize durable project namespaces from ADR 0002:
 
 | Namespace | Purpose |
 |---|---|
-| `egdev-dashboard/project/<project-slug>/brand` | Brand and audience context used for project-level summary fields |
-| `egdev-dashboard/project/<project-slug>/strategy` | Cross-network strategy summary fields |
-| `egdev-dashboard/project/<project-slug>/content-ledger` | Content status and publish-history summary fields |
-| `egdev-dashboard/project/<project-slug>/network/<network-slug>` | Network-level routing and planning overlays |
+| `discord-project-manager/project/<project-slug>/brand` | Brand and audience context used for project-level summary fields |
+| `discord-project-manager/project/<project-slug>/strategy` | Cross-network strategy summary fields |
+| `discord-project-manager/project/<project-slug>/content-ledger` | Content status and publish-history summary fields |
+| `discord-project-manager/project/<project-slug>/network/<network-slug>` | Network-level routing and planning overlays |
 
 Runtime Discord memory stays outside this slice:
 
 ```text
-egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 ```
 
 Unknown or unmapped runtime routes are excluded by default. This read-model contract only summarizes resolved project/network context.

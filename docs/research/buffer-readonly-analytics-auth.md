@@ -77,7 +77,7 @@ Potentially useful read-only fields include:
 | Area | Examples from GraphQL reference | Usefulness |
 |---|---|---|
 | Account/org | account id, organizations, timezone, owner/admin context | Identify which Buffer account/org is being queried. |
-| Channels | channel id, service, display name, external link, scopes, posting schedule, queue paused, posting goal | Map Buffer channels to `egdev-dashboard` network namespaces. |
+| Channels | channel id, service, display name, external link, scopes, posting schedule, queue paused, posting goal | Map Buffer channels to `discord-project-manager` network namespaces. |
 | Posts | post id, status, due/sent dates, text, external link, channel service, assets, tags, metadata | Reconcile planned/published content with the content ledger. |
 | Limits | daily posting limits, weekly posting limit, sent/scheduled counts | Operational capacity checks, not audience analytics. |
 
