@@ -1,6 +1,6 @@
 # Portable OpenClaw runtime
 
-This document describes the intended M1 runtime shape for `egdev-dashboard`.
+This document describes the intended M1 runtime shape for `discord-project-manager`.
 
 ## Summary
 
@@ -11,7 +11,7 @@ OpenClaw is the operational entrypoint target. Pi/el Gentleman develops the repo
 | Service | Role | Notes |
 |---|---|---|
 | `openclaw-setup` | One-shot setup job | Runs non-interactive OpenClaw onboarding into the `openclaw-home` volume before the gateway starts, then syncs tracked skills into the workspace |
-| `openclaw` | Discord-facing operational runtime | Uses a local `egdev-dashboard-openclaw:local` image built from `ghcr.io/openclaw/openclaw:latest`; runs `node openclaw.mjs gateway`, Gateway port `18789`, token auth, and `/healthz` |
+| `openclaw` | Discord-facing operational runtime | Uses a local `discord-project-manager-openclaw:local` image built from `ghcr.io/openclaw/openclaw:latest`; runs `node openclaw.mjs gateway`, Gateway port `18789`, token auth, and `/healthz` |
 | `postgres` | Engram Cloud database | Uses `postgres:16-alpine` with data in `engram-postgres` |
 | `engram` | Persistent memory backend | Uses `ghcr.io/gentleman-programming/engram:latest` in Cloud mode; client enrollment/sync still needs a memory spike |
 | `buffer-sync` | Future analytics worker | Deferred until runtime and memory contracts are stable |
@@ -23,7 +23,7 @@ OpenClaw is the operational entrypoint target. Pi/el Gentleman develops the repo
 |---|---|
 | `openclaw-home` | OpenClaw config, workspace, sessions, and runtime state kept outside the tracked repository |
 | `./skills` | Tracked OpenClaw-visible workspace skills, copied into the runtime image and synced to `/home/node/.openclaw/workspace/skills` |
-| `./openclaw/config` | Runtime notes, examples, and future config fragments copied into the runtime image under `/opt/egdev-dashboard/openclaw-config` |
+| `./openclaw/config` | Runtime notes, examples, and future config fragments copied into the runtime image under `/opt/discord-project-manager/openclaw-config` |
 | `engram-postgres` | Persistent Engram Cloud Postgres data |
 
 ## Discord routing model
@@ -45,12 +45,12 @@ ADR 0002 (`docs/adr/0002-engram-namespace-contract.md`) is the namespace contrac
 Summary examples:
 
 ```text
-egdev-dashboard/dev/sdd/<change-id>/<phase>
-egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
-egdev-dashboard/project/<project-slug>/brand
-egdev-dashboard/project/<project-slug>/strategy
-egdev-dashboard/project/<project-slug>/content-ledger
-egdev-dashboard/project/<project-slug>/network/<network-slug>
+discord-project-manager/dev/sdd/<change-id>/<phase>
+discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+discord-project-manager/project/<project-slug>/brand
+discord-project-manager/project/<project-slug>/strategy
+discord-project-manager/project/<project-slug>/content-ledger
+discord-project-manager/project/<project-slug>/network/<network-slug>
 ```
 
 ## Boundaries

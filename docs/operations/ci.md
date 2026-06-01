@@ -40,7 +40,7 @@ For Docker validation:
 ```bash
 hadolint docker/openclaw/Dockerfile
 docker compose config
-docker build --pull --file docker/openclaw/Dockerfile --tag egdev-dashboard-openclaw:ci .
+docker build --pull --file docker/openclaw/Dockerfile --tag discord-project-manager-openclaw:ci .
 ```
 
 ## Boundaries
