@@ -1,0 +1,220 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-context-skill-packs
+live_generation: false
+live_engram_calls: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+pack_generation_policy:
+  source_contracts:
+    - docs/architecture/discord-memory-gateway.md
+    - docs/architecture/discord-scoped-skills-registry.md
+    - skills/discord-approval-gate/SKILL.md
+  live_generation: false
+  writeback_out_of_scope: true
+scenarios:
+  - name: egdev-linkedin-drafts
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: linkedin
+    context_pack:
+      schema_version: 1
+      pack_kind: context-pack
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: linkedin
+      provenance:
+        generated_from: fake-demo
+        inclusion_contracts:
+          - docs/architecture/channel-context-namespace-mapping.md
+          - docs/architecture/discord-memory-gateway.md
+        live_generation: false
+      size_policy:
+        max_items: 5
+        max_chars_per_item: 240
+        truncation_behavior: summarize-tail
+      entries:
+        - scope: global
+          source_ref: identity
+          inclusion_reason: global-inherited
+          exclusion_reason: none
+          content_summary: approved project identity summary for egdev
+          truncated: false
+        - scope: global
+          source_ref: writing-style
+          inclusion_reason: global-inherited
+          exclusion_reason: none
+          content_summary: approved writing style summary for LinkedIn drafting
+          truncated: false
+        - scope: global
+          source_ref: operating-principles
+          inclusion_reason: global-inherited
+          exclusion_reason: none
+          content_summary: operating principles relevant to review-safe drafting
+          truncated: false
+        - scope: category
+          source_ref: egdev-linkedin
+          inclusion_reason: matched-route-context
+          exclusion_reason: none
+          content_summary: category-level LinkedIn context for egdev
+          truncated: false
+        - scope: channel
+          source_ref: drafts
+          inclusion_reason: matched-route-context
+          exclusion_reason: none
+          content_summary: draft-channel context summary truncated for pack budget
+          truncated: true
+    skill_pack:
+      schema_version: 1
+      pack_kind: skill-pack
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      provenance:
+        generated_from: fake-demo
+        inclusion_contracts:
+          - docs/architecture/discord-scoped-skills-registry.md
+        live_generation: false
+      mandatory_skills:
+        - discord-approval-gate
+      effective_skills:
+        - skill_name: discord-approval-gate
+          source_scope: global
+          inclusion_reason: mandatory-global-skill
+          disabled: false
+        - skill_name: brand-context
+          source_scope: global
+          inclusion_reason: global-inherited
+          disabled: false
+        - skill_name: linkedin-weekly-planner
+          source_scope: category
+          inclusion_reason: category-enabled-and-channel-preferred
+          disabled: false
+        - skill_name: content-ledger
+          source_scope: category
+          inclusion_reason: category-enabled
+          disabled: false
+      excluded_skills:
+        - skill_name: x-queue-planner
+          source_scope: channel
+          exclusion_reason: channel-disabled
+      size_policy:
+        max_items: 5
+        max_chars_per_item: 120
+        truncation_behavior: summarize-tail
+      writeback_out_of_scope: true
+  - name: stack-and-flow-github
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: stack-and-flow
+    context_pack:
+      schema_version: 1
+      pack_kind: context-pack
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      routing_status: matched-route
+      resolved_route:
+        project_slug: egdev
+        network_slug: stack-and-flow
+      provenance:
+        generated_from: fake-demo
+        inclusion_contracts:
+          - docs/architecture/channel-context-namespace-mapping.md
+          - docs/architecture/discord-memory-gateway.md
+        live_generation: false
+      size_policy:
+        max_items: 5
+        max_chars_per_item: 240
+        truncation_behavior: summarize-tail
+      entries:
+        - scope: global
+          source_ref: identity
+          inclusion_reason: global-inherited
+          exclusion_reason: none
+          content_summary: approved project identity summary for egdev
+          truncated: false
+        - scope: global
+          source_ref: operating-principles
+          inclusion_reason: global-inherited
+          exclusion_reason: none
+          content_summary: operating principles relevant to issue-first technical work
+          truncated: false
+        - scope: category
+          source_ref: stack-and-flow
+          inclusion_reason: matched-route-context
+          exclusion_reason: none
+          content_summary: category-level stack-and-flow context summary
+          truncated: false
+        - scope: channel
+          source_ref: github
+          inclusion_reason: matched-route-context
+          exclusion_reason: none
+          content_summary: channel context for GitHub-oriented issue-first review
+          truncated: false
+        - scope: thread-session
+          source_ref: current-thread-summary
+          inclusion_reason: thread-summary-available
+          exclusion_reason: none
+          content_summary: bounded session summary for the current GitHub-focused turn
+          truncated: false
+    skill_pack:
+      schema_version: 1
+      pack_kind: skill-pack
+      runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      provenance:
+        generated_from: fake-demo
+        inclusion_contracts:
+          - docs/architecture/discord-scoped-skills-registry.md
+        live_generation: false
+      mandatory_skills:
+        - discord-approval-gate
+      effective_skills:
+        - skill_name: discord-approval-gate
+          source_scope: global
+          inclusion_reason: mandatory-global-skill
+          disabled: false
+        - skill_name: brand-context
+          source_scope: global
+          inclusion_reason: global-inherited
+          disabled: false
+        - skill_name: strategy-planner
+          source_scope: channel
+          inclusion_reason: channel-preferred
+          disabled: false
+        - skill_name: on-demand-brief-planner
+          source_scope: category
+          inclusion_reason: category-enabled-and-preferred
+          disabled: false
+      excluded_skills:
+        - skill_name: content-ledger
+          source_scope: channel
+          exclusion_reason: channel-disabled
+        - skill_name: linkedin-weekly-planner
+          source_scope: category
+          exclusion_reason: category-disabled
+      size_policy:
+        max_items: 5
+        max_chars_per_item: 120
+        truncation_behavior: summarize-tail
+      writeback_out_of_scope: true
+non_goals:
+  - live pack generation
+  - live Engram calls
+  - live Discord validation
+  - public Discord behavior
+  - production credentials
+  - publishing
+  - scheduling
+  - Buffer activity

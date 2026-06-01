@@ -21,5 +21,6 @@ Current routing references:
 - `examples/discord-context-provisioning.fake.yaml` provides fake provisioning plans for validator-driven review.
 - `docs/architecture/discord-scoped-skills-registry.md` defines the fake scoped skills registry and control-channel contract.
 - `docs/architecture/discord-memory-gateway.md` defines the fake Memory Gateway / Context Broker contract for Discord flows.
+- `docs/architecture/discord-context-skill-packs.md` defines the fake Context Pack and Skill Pack schemas for Discord prompt preparation.
 
 Do not store live credentials, real guild/channel IDs, or exported runtime state here.
