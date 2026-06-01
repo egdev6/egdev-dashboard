@@ -122,7 +122,7 @@ Follow-up issues own the detailed contracts:
 | #69 | Dynamic context namespace provisioning; see `docs/architecture/discord-context-namespace-provisioning.md`. |
 | #70 | Scoped skills registry and control channels; see `docs/architecture/discord-scoped-skills-registry.md`. |
 | #71 | Memory Gateway / Engram access policy. |
-| #72 | Context Pack and Skill Pack schemas. |
+| #72 | Context Pack and Skill Pack schemas; see `docs/architecture/discord-context-skill-packs.md`. |
 | #73 | OpenClaw Discord Runtime Orchestrator. |
 | #74 | OpenClaw to Gentle SDD handoff. |
 
