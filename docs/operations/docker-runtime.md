@@ -10,7 +10,7 @@ This runbook covers the M1 portable runtime foundation. It is suitable for local
   - `ghcr.io/gentleman-programming/engram:latest`
   - `postgres:16-alpine`
 
-Compose builds a small local image, `egdev-dashboard-openclaw:local`, from `docker/openclaw/Dockerfile`. That image bakes the repo's tracked `skills/` and `openclaw/config/` seed files on top of the official OpenClaw image.
+Compose builds a small local image, `discord-project-manager-openclaw:local`, from `docker/openclaw/Dockerfile`. That image bakes the repo's tracked `skills/` and `openclaw/config/` seed files on top of the official OpenClaw image.
 
 On this WSL machine, Docker Desktop was reachable through the Windows binary:
 
@@ -26,6 +26,7 @@ Use plain `docker` if your shell has Docker integration enabled. If Docker is in
 ```bash
 test -f .env || cp .env.example .env
 # edit every change-me value before storing real memory; never overwrite an existing .env blindly
+# if this checkout existed before the rename, update .env to use discord-project-manager for project/image/namespace values
 
 docker compose --profile setup run --rm openclaw-setup
 ```

@@ -1,6 +1,6 @@
 # Runtime and incident runbook
 
-This runbook is the portable local operations guide for `egdev-dashboard`. It covers startup, shutdown, common failures, backup/export notes, and first-response incident handling for the current Docker runtime. It is **not** a full production SRE playbook.
+This runbook is the portable local operations guide for `discord-project-manager`. It covers startup, shutdown, common failures, backup/export notes, and first-response incident handling for the current Docker runtime. It is **not** a full production SRE playbook.
 
 ## Quick path
 
@@ -28,6 +28,7 @@ Before starting the runtime:
 
 - [ ] Copy `.env.example` to `.env` if the file does not exist.
 - [ ] Replace every `change-me-*` value before storing real memory or real credentials.
+- [ ] For pre-rename checkouts, update the local `.env` to use `discord-project-manager` for Compose project, image, and Engram namespace values.
 - [ ] Keep `.env`, exports, dumps, screenshots, and logs with private data out of git.
 - [ ] Confirm Docker Compose is available.
 - [ ] Review `docs/security/data-handling.md` before using real Discord, Engram, or Buffer credentials.
@@ -37,6 +38,7 @@ Happy-path commands:
 ```bash
 test -f .env || cp .env.example .env
 # edit every change-me value before real use; never overwrite an existing .env blindly
+# pre-rename .env files: use discord-project-manager for project/image/namespace values before validating
 
 docker compose config
 docker compose --profile setup run --rm openclaw-setup
