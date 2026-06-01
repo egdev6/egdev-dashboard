@@ -132,3 +132,4 @@ latest Discord topology
 | `docs/adr/0002-engram-namespace-contract.md` | Accepted runtime and durable namespace families. |
 | `examples/discord-topology-reconciliation.fake.yaml` | Fake fixture for this contract. |
 | `scripts/validate-discord-topology-reconciliation.sh` | Static validator for the fake fixture. |
+| `docs/architecture/discord-context-namespace-provisioning.md` | Follow-up contract for approved draft provisioning. |
