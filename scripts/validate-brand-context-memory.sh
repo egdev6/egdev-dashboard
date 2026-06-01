@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_NAME="egdev-dashboard"
+PROJECT_NAME="discord-project-manager"
 FIXTURE_PATH="${BRAND_CONTEXT_FIXTURE:-examples/brand-context.fake.yaml}"
-PROJECT_NAMESPACE="egdev-dashboard/project/egdev/brand"
-NETWORK_NAMESPACE="egdev-dashboard/project/egdev/network/linkedin"
+PROJECT_NAMESPACE="discord-project-manager/project/egdev/brand"
+NETWORK_NAMESPACE="discord-project-manager/project/egdev/network/linkedin"
 PROJECT_TITLE="fake brand context smoke"
 NETWORK_TITLE="fake linkedin brand overlay smoke"
 

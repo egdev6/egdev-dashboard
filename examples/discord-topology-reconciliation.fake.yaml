@@ -5,7 +5,7 @@ privacy_reviewed: true
 contract: discord-topology-reconciliation
 live_discord_connection: false
 uses_real_discord_ids: false
-runtime_namespace_contract: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 latest_topology_snapshot:
   guild:
     ref: guild-demo-main

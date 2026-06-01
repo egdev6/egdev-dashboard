@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROJECT_NAME="egdev-dashboard"
+PROJECT_NAME="discord-project-manager"
 FIXTURE_PATH="${CONTENT_LEDGER_FIXTURE:-examples/content-ledger.fake.yaml}"
-LEDGER_NAMESPACE="egdev-dashboard/project/egdev/content-ledger"
-NETWORK_NAMESPACE="egdev-dashboard/project/egdev/network/x"
+LEDGER_NAMESPACE="discord-project-manager/project/egdev/content-ledger"
+NETWORK_NAMESPACE="discord-project-manager/project/egdev/network/x"
 PROJECT_SLUG="egdev"
 NETWORK_SLUG="x"
 CONTENT_ID="x-post-001-demo"

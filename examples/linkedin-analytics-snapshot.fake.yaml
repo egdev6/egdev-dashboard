@@ -10,9 +10,9 @@ snapshot_window:
   end: 2026-06-07
 captured_at: 2026-06-08T09:00:00Z
 namespace_keys:
-  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/linkedin
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
 content_metrics:
   - content_id: linkedin-post-001-demo
     planning_reference_id: linkedin-weekly-post-01-demo

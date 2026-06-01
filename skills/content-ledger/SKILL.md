@@ -64,14 +64,14 @@ follow_up:
 
 ### Read candidates
 
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/<network-slug>`
 - approved repo artifacts that define ledger conventions or identifiers
 
 ### Write candidates
 
-- durable ledger state under `egdev-dashboard/project/<project-slug>/content-ledger`
-- network-local overlays under `egdev-dashboard/project/<project-slug>/network/<network-slug>` when queue state or temporary workflow notes are needed
+- durable ledger state under `discord-project-manager/project/<project-slug>/content-ledger`
+- network-local overlays under `discord-project-manager/project/<project-slug>/network/<network-slug>` when queue state or temporary workflow notes are needed
 
 ### Approval gate
 
@@ -81,13 +81,13 @@ Do not write a new durable ledger entry or modify an existing one until a human 
 
 Use ADR 0002 exactly:
 
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/<network-slug>`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/<network-slug>`
 
 Canonical ADR examples that this skill may mirror when using fake/demo values:
 
-- `egdev-dashboard/project/egdev/content-ledger`
-- `egdev-dashboard/project/egdev/network/x`
+- `discord-project-manager/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/network/x`
 
 ### Promotion to repo artifact
 
@@ -97,7 +97,7 @@ Promote ledger conventions, identifier rules, and reusable workflow behavior int
 
 - Do not invent analytics that were not measured.
 - Do not store credentials, private exports, or secrets in the ledger contract.
-- Do not use `egdev-dashboard/runtime/discord/<guild-id>/<channel-id>` for durable publish history.
+- Do not use `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` for durable publish history.
 - Keep examples fake unless the source is intentionally public and approved.
 
 ## Demo example (fake)

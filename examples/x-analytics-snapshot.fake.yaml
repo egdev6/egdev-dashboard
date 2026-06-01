@@ -10,9 +10,9 @@ snapshot_window:
   end: 2026-06-15
 captured_at: 2026-06-16T09:15:00Z
 namespace_keys:
-  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/x
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
+  content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/x
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
 content_metrics:
   - content_id: x-post-001-demo
     planning_reference_id: historical-ledger-entry

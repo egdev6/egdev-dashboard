@@ -123,18 +123,18 @@ memory_write_targets:
 
 ### Read candidates
 
-- `egdev-dashboard/project/<project-slug>/brand`
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/youtube`
-- `egdev-dashboard/project/<project-slug>/network/twitch`
-- `egdev-dashboard/project/<project-slug>/network/stack-and-flow`
+- `discord-project-manager/project/<project-slug>/brand`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/youtube`
+- `discord-project-manager/project/<project-slug>/network/twitch`
+- `discord-project-manager/project/<project-slug>/network/stack-and-flow`
 
 ### Write candidates
 
-- reusable cross-network brief rules under `egdev-dashboard/project/<project-slug>/strategy`
-- approved network-local brief summaries under `egdev-dashboard/project/<project-slug>/network/<network-slug>`
-- approved brief ledger candidates under `egdev-dashboard/project/<project-slug>/content-ledger` using the content-ledger status contract (`draft` before publishing/scheduling, `queued` only after scheduling approval)
+- reusable cross-network brief rules under `discord-project-manager/project/<project-slug>/strategy`
+- approved network-local brief summaries under `discord-project-manager/project/<project-slug>/network/<network-slug>`
+- approved brief ledger candidates under `discord-project-manager/project/<project-slug>/content-ledger` using the content-ledger status contract (`draft` before publishing/scheduling, `queued` only after scheduling approval)
 
 ### Approval gate
 
@@ -144,19 +144,19 @@ Do not write or revise durable brief memory or ledger entries until a human appr
 
 Use ADR 0002 exactly:
 
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/youtube`
-- `egdev-dashboard/project/<project-slug>/network/twitch`
-- `egdev-dashboard/project/<project-slug>/network/stack-and-flow`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/youtube`
+- `discord-project-manager/project/<project-slug>/network/twitch`
+- `discord-project-manager/project/<project-slug>/network/stack-and-flow`
 
 Canonical ADR examples that this skill may mirror when using fake/demo values:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/content-ledger`
-- `egdev-dashboard/project/egdev/network/youtube`
-- `egdev-dashboard/project/egdev/network/twitch`
-- `egdev-dashboard/project/egdev/network/stack-and-flow`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/content-ledger`
+- `discord-project-manager/project/egdev/network/youtube`
+- `discord-project-manager/project/egdev/network/twitch`
+- `discord-project-manager/project/egdev/network/stack-and-flow`
 
 ### Promotion to repo artifact
 
@@ -181,13 +181,13 @@ supported_networks:
 request_id: brief-request-001-demo
 timeframe: 2026-W24
 source_context:
-  brand_namespace_key: egdev-dashboard/project/egdev/brand
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  brand_namespace_key: discord-project-manager/project/egdev/brand
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
   network_namespace_keys:
-    youtube: egdev-dashboard/project/egdev/network/youtube
-    twitch: egdev-dashboard/project/egdev/network/twitch
-    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+    youtube: discord-project-manager/project/egdev/network/youtube
+    twitch: discord-project-manager/project/egdev/network/twitch
+    stack-and-flow: discord-project-manager/project/egdev/network/stack-and-flow
 brief_request:
   user_prompt: turn one reviewability theme into a video brief, a live brief, and a compact short-form brief
   goal: define reusable on-demand briefs from approved fake context
@@ -237,12 +237,12 @@ approval:
   checkpoints:
     - approve all briefs before drafting, publishing, scheduling, or durable memory writes
 memory_write_targets:
-  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  content_ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
+  project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
   network_namespace_keys:
-    youtube: egdev-dashboard/project/egdev/network/youtube
-    twitch: egdev-dashboard/project/egdev/network/twitch
-    stack-and-flow: egdev-dashboard/project/egdev/network/stack-and-flow
+    youtube: discord-project-manager/project/egdev/network/youtube
+    twitch: discord-project-manager/project/egdev/network/twitch
+    stack-and-flow: discord-project-manager/project/egdev/network/stack-and-flow
   write_mode: planned-only-until-approved
   ledger_candidates:
     - network: youtube

@@ -106,15 +106,15 @@ memory_write_targets:
 
 ### Read candidates
 
-- `egdev-dashboard/project/<project-slug>/brand`
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/content-ledger`
-- `egdev-dashboard/project/<project-slug>/network/x`
+- `discord-project-manager/project/<project-slug>/brand`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/content-ledger`
+- `discord-project-manager/project/<project-slug>/network/x`
 
 ### Write candidates
 
-- reusable cross-network queue-planning rules under `egdev-dashboard/project/<project-slug>/strategy`
-- approved X-local queue planning context under `egdev-dashboard/project/<project-slug>/network/x`
+- reusable cross-network queue-planning rules under `discord-project-manager/project/<project-slug>/strategy`
+- approved X-local queue planning context under `discord-project-manager/project/<project-slug>/network/x`
 
 ### Approval gate
 
@@ -124,13 +124,13 @@ Do not write or revise durable X queue planning memory until a human approves th
 
 Use ADR 0002 exactly:
 
-- `egdev-dashboard/project/<project-slug>/strategy`
-- `egdev-dashboard/project/<project-slug>/network/x`
+- `discord-project-manager/project/<project-slug>/strategy`
+- `discord-project-manager/project/<project-slug>/network/x`
 
 Canonical ADR examples that this skill may mirror when using fake/demo values:
 
-- `egdev-dashboard/project/egdev/strategy`
-- `egdev-dashboard/project/egdev/network/x`
+- `discord-project-manager/project/egdev/strategy`
+- `discord-project-manager/project/egdev/network/x`
 
 ### Promotion to repo artifact
 
@@ -150,10 +150,10 @@ project: egdev
 network: x
 timeframe: 2026-W24
 source_context:
-  brand_namespace_key: egdev-dashboard/project/egdev/brand
-  strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  ledger_namespace_key: egdev-dashboard/project/egdev/content-ledger
-  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  brand_namespace_key: discord-project-manager/project/egdev/brand
+  strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+  network_namespace_key: discord-project-manager/project/egdev/network/x
 planning_inputs:
   topics:
     - technical specificity in short-form posts
@@ -200,8 +200,8 @@ approval:
   checkpoints:
     - approve queue entries before drafting or publishing
 memory_write_targets:
-  project_strategy_namespace_key: egdev-dashboard/project/egdev/strategy
-  network_namespace_key: egdev-dashboard/project/egdev/network/x
+  project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+  network_namespace_key: discord-project-manager/project/egdev/network/x
   write_mode: planned-only-until-approved
 ```
 

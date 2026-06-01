@@ -1,7 +1,7 @@
 project: egdev
 network: linkedin
-project_namespace_key: egdev-dashboard/project/egdev/brand
-network_namespace_key: egdev-dashboard/project/egdev/network/linkedin
+project_namespace_key: discord-project-manager/project/egdev/brand
+network_namespace_key: discord-project-manager/project/egdev/network/linkedin
 brand_context:
   voice:
     - direct

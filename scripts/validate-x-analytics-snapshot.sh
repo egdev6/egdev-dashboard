@@ -4,9 +4,9 @@ set -euo pipefail
 FIXTURE_PATH="${X_ANALYTICS_FIXTURE:-examples/x-analytics-snapshot.fake.yaml}"
 PROJECT_SLUG="egdev"
 NETWORK_SLUG="x"
-CONTENT_LEDGER_NAMESPACE="egdev-dashboard/project/egdev/content-ledger"
-X_NAMESPACE="egdev-dashboard/project/egdev/network/x"
-STRATEGY_NAMESPACE="egdev-dashboard/project/egdev/strategy"
+CONTENT_LEDGER_NAMESPACE="discord-project-manager/project/egdev/content-ledger"
+X_NAMESPACE="discord-project-manager/project/egdev/network/x"
+STRATEGY_NAMESPACE="discord-project-manager/project/egdev/strategy"
 
 fail() {
   echo "ERROR: $*" >&2

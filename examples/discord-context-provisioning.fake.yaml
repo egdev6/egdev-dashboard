@@ -5,7 +5,7 @@ privacy_reviewed: true
 contract: discord-context-namespace-provisioning
 live_discord_connection: false
 uses_real_discord_ids: false
-runtime_namespace_contract: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 provisioning_defaults:
   provisioning_mode: draft
   requires_operator_review: true

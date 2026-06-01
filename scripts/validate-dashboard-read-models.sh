@@ -3,14 +3,14 @@ set -euo pipefail
 
 FIXTURE_PATH="${DASHBOARD_READ_MODELS_FIXTURE:-examples/dashboard-read-models.fake.yaml}"
 PROJECT_SLUG="egdev"
-BRAND_NAMESPACE="egdev-dashboard/project/egdev/brand"
-STRATEGY_NAMESPACE="egdev-dashboard/project/egdev/strategy"
-CONTENT_LEDGER_NAMESPACE="egdev-dashboard/project/egdev/content-ledger"
-LINKEDIN_NAMESPACE="egdev-dashboard/project/egdev/network/linkedin"
-X_NAMESPACE="egdev-dashboard/project/egdev/network/x"
-YOUTUBE_NAMESPACE="egdev-dashboard/project/egdev/network/youtube"
-TWITCH_NAMESPACE="egdev-dashboard/project/egdev/network/twitch"
-STACK_AND_FLOW_NAMESPACE="egdev-dashboard/project/egdev/network/stack-and-flow"
+BRAND_NAMESPACE="discord-project-manager/project/egdev/brand"
+STRATEGY_NAMESPACE="discord-project-manager/project/egdev/strategy"
+CONTENT_LEDGER_NAMESPACE="discord-project-manager/project/egdev/content-ledger"
+LINKEDIN_NAMESPACE="discord-project-manager/project/egdev/network/linkedin"
+X_NAMESPACE="discord-project-manager/project/egdev/network/x"
+YOUTUBE_NAMESPACE="discord-project-manager/project/egdev/network/youtube"
+TWITCH_NAMESPACE="discord-project-manager/project/egdev/network/twitch"
+STACK_AND_FLOW_NAMESPACE="discord-project-manager/project/egdev/network/stack-and-flow"
 
 fail() {
   echo "ERROR: $*" >&2
@@ -138,7 +138,7 @@ validate_filter_examples
 validate_network_summary_records
 validate_analytics_summary_records
 
-if grep -F "egdev-dashboard/runtime/discord/" "$FIXTURE_PATH" >/dev/null; then
+if grep -F "discord-project-manager/runtime/discord/" "$FIXTURE_PATH" >/dev/null; then
   fail "fixture must not expose runtime Discord namespaces"
 fi
 

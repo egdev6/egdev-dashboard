@@ -3,7 +3,7 @@ set -euo pipefail
 
 FIXTURE_PATH="${DISCORD_TOPOLOGY_FIXTURE:-examples/discord-topology-reconciliation.fake.yaml}"
 DOC_PATH="docs/architecture/discord-topology-reconciliation.md"
-RUNTIME_NAMESPACE_CONTRACT="egdev-dashboard/runtime/discord/<guild-id>/<channel-id>"
+RUNTIME_NAMESPACE_CONTRACT="discord-project-manager/runtime/discord/<guild-id>/<channel-id>"
 
 fail() {
   echo "ERROR: $*" >&2
@@ -62,7 +62,7 @@ if grep -F "recommended_action: delete" "$FIXTURE_PATH" >/dev/null; then
   fail "fixture must not recommend destructive delete actions"
 fi
 
-if grep -E 'egdev-dashboard/runtime/discord/<guild-id>/<category-id>/<channel-id>|egdev-dashboard/runtime/discord/[0-9]{17,20}' "$FIXTURE_PATH" >/dev/null; then
+if grep -E 'discord-project-manager/runtime/discord/<guild-id>/<category-id>/<channel-id>|discord-project-manager/runtime/discord/[0-9]{17,20}' "$FIXTURE_PATH" >/dev/null; then
   fail "fixture must not introduce category IDs into runtime namespace paths or expose raw runtime namespaces"
 fi
 

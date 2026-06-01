@@ -4,9 +4,9 @@ set -euo pipefail
 FIXTURE_PATH="${LINKEDIN_ANALYTICS_FIXTURE:-examples/linkedin-analytics-snapshot.fake.yaml}"
 PROJECT_SLUG="egdev"
 NETWORK_SLUG="linkedin"
-CONTENT_LEDGER_NAMESPACE="egdev-dashboard/project/egdev/content-ledger"
-LINKEDIN_NAMESPACE="egdev-dashboard/project/egdev/network/linkedin"
-STRATEGY_NAMESPACE="egdev-dashboard/project/egdev/strategy"
+CONTENT_LEDGER_NAMESPACE="discord-project-manager/project/egdev/content-ledger"
+LINKEDIN_NAMESPACE="discord-project-manager/project/egdev/network/linkedin"
+STRATEGY_NAMESPACE="discord-project-manager/project/egdev/strategy"
 
 fail() {
   echo "ERROR: $*" >&2
