@@ -4,6 +4,8 @@ Use this runbook when configuring or reviewing Discord channels for the OpenClaw
 
 This is an operations contract only. It does not prove live Discord bot routing yet.
 
+For pilot sequencing after #70-#74, use `docs/operations/discord-context-skill-pilot-roadmap.md`. The channel-first routing rules here remain a transport baseline/fallback, not the target workflow model.
+
 ## Quick path
 
 1. Install the external OpenClaw Discord plugin before live validation.
