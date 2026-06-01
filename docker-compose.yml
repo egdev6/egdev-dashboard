@@ -21,7 +21,7 @@ services:
         node openclaw.mjs onboard --non-interactive --accept-risk --mode local
         --auth-choice skip --skip-channels --skip-daemon --skip-health
         --skip-ui --skip-search --no-install-daemon --json
-        && egdev-sync-skills
+        && discord-project-manager-sync-skills
 
   openclaw:
     image: ${OPENCLAW_RUNTIME_IMAGE:-discord-project-manager-openclaw:local}
@@ -49,7 +49,7 @@ services:
       - sh
       - -lc
       - >-
-        egdev-sync-skills
+        discord-project-manager-sync-skills
         && exec node openclaw.mjs gateway --port 18789 --bind lan --auth token
     depends_on:
       engram:
