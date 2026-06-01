@@ -63,9 +63,9 @@ for required in \
 done
 
 for required in \
-  'Before explicit approval, do not call file, memory, ledger, queue, publishing, scheduling, or workspace persistence tools.' \
-  'Accept only the exact phrase `approve write` as approval.' \
-  'Keep the pre-approval audit trail in the response' \
+  "Before explicit approval, do not call file, memory, ledger, queue, publishing, scheduling, or workspace persistence tools." \
+  "Accept only the exact phrase \`approve write\` as approval." \
+  "Keep the pre-approval audit trail in the response" \
   "$RUNTIME_NAMESPACE_CONTRACT"; do
   grep -F "$required" "$SKILL_PATH" >/dev/null || fail "skill missing enforcement rule: $required"
 done
