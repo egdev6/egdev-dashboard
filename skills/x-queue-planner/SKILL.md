@@ -1,12 +1,12 @@
 ---
 name: x-queue-planner
-description: "Define a reviewable X queue planning slice from approved context, cadence, tone, and known assets."
+description: "Define a reviewable X queue planning slice from approved context or source ingestion before any persistence."
 license: MIT
 ---
 
 # X Queue Planner
 
-Use this skill to turn approved project context into a small X queue plan that humans can review before any drafting, publishing, scheduling, or durable memory write happens.
+Use this skill to turn approved project context or source ingestion into a small X queue plan that humans can review before any drafting, publishing, scheduling, or durable memory write happens.
 
 This skill defines a planning contract only. It does **not** publish, schedule, sync to Buffer, route Discord traffic, or claim that memory writes are already wired.
 
@@ -30,16 +30,19 @@ Optional inputs:
 - `queue_goal`
 - `review_preferences`
 - `source_context`
+- `source_ingestion`
 
 ## Behavior
 
 1. Start from approved brand context and recent ledger context when they are available.
-2. Keep X queue planning separate from cross-network strategy rules.
-3. Separate confirmed facts, assumptions, and variation rules or proposed angles.
-4. Keep each queued item small enough for human review before any drafting or publishing.
-5. Treat memory writes as planned targets until a human approves the queue.
-6. Use only fake/demo values in repository-facing examples.
-7. Follow ADR 0002 for all namespace references.
+2. Treat source ingestion as a normalization step that produces proposal-only queue candidates, never a durable write.
+3. Keep X queue planning separate from cross-network strategy rules.
+4. Separate confirmed facts, assumptions, variation rules, and proposed angles or candidate updates.
+5. Keep each queued item small enough for human review before any drafting or publishing.
+6. Treat memory writes as planned targets until a human approves the queue.
+7. For write-like Discord requests, load `skills/discord-approval-gate/SKILL.md` and ask for explicit approval before any persistence.
+8. Use only fake/demo values in repository-facing examples.
+9. Follow ADR 0002 for all namespace references.
 
 ## Output shape
 
@@ -54,6 +57,10 @@ source_context:
   strategy_namespace_key: <strategy namespace>
   ledger_namespace_key: <content ledger namespace>
   network_namespace_key: <x namespace>
+source_ingestion:
+  source_type: <fake-manual-input|approved normalized source>
+  normalized_signals:
+    - <reviewable source cue>
 planning_inputs:
   topics:
     - <topic>
@@ -96,6 +103,12 @@ approval:
   status: <pending-human-approval|approved-for-demo-validation>
   checkpoints:
     - <approval rule>
+approval_request:
+  state: <approval-requested>
+  reply_options:
+    - approve write
+    - "revise: <instruction>"
+    - reject
 memory_write_targets:
   project_strategy_namespace_key: <strategy namespace>
   network_namespace_key: <x namespace>
@@ -118,7 +131,7 @@ memory_write_targets:
 
 ### Approval gate
 
-Do not write or revise durable X queue planning memory until a human approves the queue.
+Do not write or revise durable X queue planning memory until a human approves the queue. Source ingestion must stop at proposal-only queue candidates until the operator replies with `approve write`.
 
 ### Namespace target
 
