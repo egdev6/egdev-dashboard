@@ -2,7 +2,7 @@
 set -eu
 
 workspace="${OPENCLAW_WORKSPACE:-/home/node/.openclaw/workspace}"
-source_dir="${EGDEV_SKILLS_SOURCE:-/opt/discord-project-manager/skills}"
+source_dir="${DISCORD_PROJECT_MANAGER_SKILLS_SOURCE:-/opt/discord-project-manager/skills}"
 target_dir="$workspace/skills"
 
 mkdir -p "$target_dir"
