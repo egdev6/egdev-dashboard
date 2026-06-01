@@ -1,6 +1,6 @@
 project:
-  name: egdev-dashboard
-  description: Portable OpenClaw workspace and planning repo for Gentle-AI social operations.
+  name: discord-project-manager
+  description: Portable Discord-driven project operations baseline for OpenClaw, Gentle-AI, and Engram.
 
 sdd:
   mode: interactive

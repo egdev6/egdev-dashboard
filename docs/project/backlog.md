@@ -1,12 +1,12 @@
-# Project backlog
+# discord-project-manager backlog
 
 GitHub tracking:
 
-- Repository: <https://github.com/egdev6/egdev-dashboard>
+- Repository: <https://github.com/egdev6/discord-project-manager>
 - Project: <https://github.com/users/egdev6/projects/3>
-- Initial issues: <https://github.com/egdev6/egdev-dashboard/issues>
+- Initial issues: <https://github.com/egdev6/discord-project-manager/issues>
 
-This backlog is optimized for the current intended architecture:
+This backlog is optimized for the current intended architecture of `discord-project-manager`:
 
 - OpenClaw is the dockerized runtime target.
 - Pi/el Gentleman is the repo-development SDD harness.

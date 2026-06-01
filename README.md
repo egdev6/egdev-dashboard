@@ -1,124 +1,77 @@
-<img width="1536" height="1024" alt="project manager" src="https://github.com/user-attachments/assets/4cca1da7-896c-4b8a-8095-cc771304821b" />
+<img width="1536" alt="discord-project-manager dashboard" src="https://github.com/user-attachments/assets/d9a80974-4d78-4ebb-a4fa-cbbab2eba840" />
 
-# egdev-dashboard
+# discord-project-manager
 
-Intended portable OpenClaw workspace for running Gentle-AI-powered social-content operations with persistent Engram memory.
+<div align="center">
 
-## What this repository is
+[![Version][version-shield]][releases-url]
+[![Issues][issues-shield]][issues-url]
+[![Stars][stars-shield]][stars-url]
 
-`egdev-dashboard` is a public roadmap-baseline repo for a Docker-portable setup where:
+</div>
 
-- **Pi / el Gentleman** is the development SDD harness for repo work.
-- **OpenClaw** is the intended operational runtime that receives Discord traffic.
-- **Gentle-AI SDD inside OpenClaw** is a target runtime shape, but still pending validation.
-- **Engram** is the intended persistent memory backend, but runtime wiring is still pending validation.
+Portable Discord-first project operations cockpit for turning ideas into issues, specs, context, and AI-assisted workflows. `discord-project-manager` combines OpenClaw runtime experiments, Gentle-AI SDD practices, and Engram-backed memory in one repo so planning, coordination, and future automation share the same baseline.
 
-This repository is intentionally contract-first after the completed M1-M7 roadmap. It focuses on runtime boundaries, portable deployment, issue-first planning, skill scaffolding, fake fixtures, and static/read-only validation artifacts.
+## What this project is
 
-## Intended architecture at a glance
+`discord-project-manager` is a **planning-first and runtime-baseline repository** for a future Discord-driven workflow where:
+
+- **Discord** is the human-facing entry point for requests, approvals, and coordination.
+- **OpenClaw** is the operational runtime being shaped and validated.
+- **Gentle-AI / el Gentleman** provides the repo-side SDD workflow for specs, tasks, and implementation discipline.
+- **Engram** is the persistent memory layer for durable operational context.
+
+Today, the repo is best understood as a strong foundation for the system, not as a finished SaaS product. It documents the architecture, keeps the planning artifacts in version control, and makes the local runtime easier to validate and evolve.
+
+## What it helps with
+
+Instead of scattering context across chat, docs, and ad-hoc scripts, this project aims to centralize the operational model for:
+
+- planning issues and OpenSpec changes from a shared source of truth;
+- organizing project and network context before automation grows;
+- validating how Discord, OpenClaw, and persistent memory should interact;
+- preparing a future dashboard or read-model layer without inventing it blindly.
+
+## Technology stack
+
+<div align="center">
+
+![Discord](https://img.shields.io/badge/Discord-entry%20point-5865F2?style=for-the-badge&logo=discord&logoColor=white)
+![OpenClaw](https://img.shields.io/badge/OpenClaw-runtime-111827?style=for-the-badge&logo=docker&logoColor=white)
+![Gentle-AI](https://img.shields.io/badge/Gentle--AI-SDD%20workflow-7C3AED?style=for-the-badge)
+![Engram](https://img.shields.io/badge/Engram-persistent%20memory-0EA5E9?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-portable%20services-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Postgres](https://img.shields.io/badge/Postgres-storage-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![OpenSpec](https://img.shields.io/badge/OpenSpec-planning%20artifacts-16A34A?style=for-the-badge)
+
+</div>
+
+## Architecture at a glance
 
 ```text
 Discord
-  -> OpenClaw Gateway (pending validation)
-  -> OpenClaw workspace with Gentle-AI skills/chains (pending validation)
-  -> Engram memory + future Buffer integration (pending validation)
+  -> OpenClaw gateway and workspace
+  -> Gentle-AI-oriented skills, chains, and planning flows
+  -> Engram memory for durable operational context
+  -> Future read models, dashboards, and reporting surfaces
 ```
 
-## Canonical planning artifacts
-
-Canonical shared-planning artifacts live in this repo:
-
-- `openspec/`
-- `docs/adr/`
-- `docs/architecture/`
-- `docs/project/`
-- `docs/process/`
-- `docs/security/`
-- `skills/`
-- GitHub issues and GitHub Project metadata
-
-Engram summaries are **operational memory**, not canonical planning artifacts, unless they are later promoted into a versioned repo artifact.
-
-## Current status
-
-This is the completed **M1-M7 roadmap baseline**. See `docs/project/roadmap-completion.md` for the completion summary and remaining operational-validation limits.
-
-Included now:
-
-- Docker Compose foundation for OpenClaw, Engram Cloud, and Postgres
-- SDD/OpenSpec project config
-- ADRs and architecture notes
-- Issue-first GitHub templates
-- Backlog and roadmap
-- Skill skeletons/contracts for brand context, content ledger, strategy planning, LinkedIn weekly planning, X queue planning, and on-demand brief workflows
-- CI checks for repository hygiene, local Engram memory roundtrips, Docker smoke validation, developer tooling, commit messages, and secret scanning
-- Buffer API research for read-only analytics scope and auth boundaries
-- Fake LinkedIn and X analytics snapshot schemas and local validation without live Buffer dependency
-- Contract-first dashboard/API read model docs, fake fixture, and local validation without a live server
-- Static read-only dashboard overview artifact over the fake read models
-- Roadmap completion baseline for M1-M7
-
-Not included or not yet validated:
-
-- Native Pi `.pi` agents/chains running directly inside OpenClaw
-- Confirmed live Engram enrollment/sync behavior from OpenClaw skills
-- Host/browser access validation on every target machine
-- Fully validated live Discord routing and approval behavior; a private pilot confirmed the external Discord plugin prerequisite and found that write-like Discord requests still need stricter approval gating
-- Live Buffer analytics integration; current public API research found no read-only LinkedIn/X analytics endpoint
-- Live dashboard UI or API server implementation
+The repo keeps the planning artifacts, runtime notes, skill contracts, and validation fixtures together so the architecture can evolve intentionally instead of through one-off experiments.
 
 ## Quick start
 
-1. Clone the repository.
-2. Create `.env` from `.env.example` only if `.env` does not already exist.
-3. Replace every `change-me-*` value before storing real memory.
-4. Run OpenClaw setup once.
-5. Start the foundation services.
-
 ```bash
-git clone <repo-url>
-cd egdev-dashboard
+git clone https://github.com/egdev6/discord-project-manager.git
+cd discord-project-manager
 test -f .env || cp .env.example .env
-# edit every change-me value before real use; never overwrite an existing .env blindly
+# replace every change-me value before storing real memory
+# existing pre-rename .env files should use discord-project-manager for project/image/namespace values
 
 docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 ```
 
-See `docs/operations/docker-runtime.md` for shutdown, volume, plugin, and health-check commands, `docs/operations/runtime-incident-runbook.md` for startup, failures, backup notes, and incident response, `docs/operations/ci.md` for automated checks, `docs/operations/dev-tooling.md` for local hooks and commit conventions, `docs/operations/discord-routing.md` for channel routing rules, `docs/operations/discord-approval-responses.md` for approval-oriented response patterns, and `docs/security/data-handling.md` before using real memory, Discord, or Buffer credentials.
-
-### Discord pilot prerequisite
-
-The base OpenClaw runtime image does not include the Discord channel plugin by default. Before live Discord route validation, install the external plugin and restart OpenClaw:
-
-```bash
-docker compose exec openclaw openclaw plugins install @openclaw/discord
-docker compose restart openclaw
-docker compose exec openclaw openclaw channels status --deep --probe
-```
-
-Only proceed when Discord appears in channel status. A configured bot token alone is not enough if the plugin is missing.
-
-## Try it on another PC
-
-Use a fresh clone and fresh local secrets on every machine. Do **not** copy `.env`, Docker volumes, private memory, raw logs, Discord IDs, or credentials between PCs unless you are deliberately doing a private migration.
-
-```bash
-git clone https://github.com/egdev6/egdev-dashboard.git
-cd egdev-dashboard
-
-test -f .env || cp .env.example .env
-# edit every change-me value before storing real memory
-
-docker compose config
-docker compose --profile setup run --rm openclaw-setup
-docker compose up -d postgres engram openclaw
-docker compose ps
-```
-
-If Docker is installed but the socket is permission-denied, use `sudo docker ...` for the pilot or fix local Docker permissions outside the repo.
-
-Validate local health and skill sync:
+After the services are up, validate health and skill sync:
 
 ```bash
 docker compose exec openclaw node -e "fetch('http://127.0.0.1:18789/healthz').then(async r => { console.log(r.status, await r.text()) })"
@@ -126,35 +79,66 @@ curl -sS http://127.0.0.1:18080/health
 docker compose exec openclaw sh -lc 'find /home/node/.openclaw/workspace/skills -maxdepth 3 -type f | sort'
 ```
 
-Shut down without deleting volumes:
+## Current status and scope
 
-```bash
-docker compose down
-docker volume ls | grep 'egdev-dashboard' || true
-```
+This repository is currently a **baseline for planning, validation, and runtime shaping**.
 
-This validates portability only. It does not configure live Discord, live Buffer analytics, durable Engram application sync, or production hosting.
+Included now:
 
-## Development model
+- Docker Compose foundation for OpenClaw, Engram Cloud, and Postgres
+- OpenSpec configuration and repo-level planning structure
+- architecture notes, ADRs, process docs, and validation scripts
+- issue-first GitHub workflow foundations
+- project skill contracts for content and planning operations
+- fake fixtures and static validation for future read models
 
-- Repo development happens through Pi/el Gentleman SDD.
-- Operational Discord usage is intended to happen inside OpenClaw once validated.
-- Canonical planning artifacts are OpenSpec changes, ADRs, `docs/architecture/`, `docs/project/`, `docs/process/`, `docs/security/`, skills, and GitHub issue/project metadata.
-- Engram holds operational memory and summaries until something is promoted into the repo.
-- Concurrent SDD writes to shared planning artifacts are not allowed; follow `docs/process/shared-artifact-serialization.md` for claim/release and recovery.
+Not finished yet:
 
-## Review guidance
+- a mature production dashboard or API service;
+- fully validated live Discord routing on every target environment;
+- confirmed end-to-end Engram behavior for all planned workflows;
+- complete productization of the AI-agent operating model inside OpenClaw.
 
-Keep future changes within the configured 600-line review budget. Split larger runtime, dashboard, or live-integration work before review.
+## Project docs
 
-## Directory guide
+Start with the shortest path that matches your goal:
 
-- `openclaw/` — tracked config notes, placeholders, and runtime docs
-- `skills/` — project-specific skill skeletons
-- `docs/` — ADRs, architecture notes, and roadmap
-- `openspec/` — project planning configuration
-- `.github/` — issue-first workflow templates and CI workflows
+- **Roadmap baseline:** [`docs/project/roadmap-completion.md`](./docs/project/roadmap-completion.md)
+- **Backlog and issue framing:** [`docs/project/backlog.md`](./docs/project/backlog.md)
+- **Runtime model:** [`docs/architecture/portable-openclaw-runtime.md`](./docs/architecture/portable-openclaw-runtime.md)
+- **Operational Docker guidance:** [`docs/operations/docker-runtime.md`](./docs/operations/docker-runtime.md)
+- **Security and data handling:** [`docs/security/data-handling.md`](./docs/security/data-handling.md)
+- **Shared artifact rules:** [`docs/process/shared-artifact-serialization.md`](./docs/process/shared-artifact-serialization.md)
+
+## Working model
+
+The intended split is simple:
+
+| Surface | Role |
+| --- | --- |
+| GitHub + OpenSpec | Canonical planning, specs, backlog, and reviewable changes |
+| OpenClaw | Discord-facing operational runtime |
+| Gentle-AI / el Gentleman | Structured development and documentation workflow |
+| Engram | Persistent operational memory until promoted into repo artifacts |
+
+That separation keeps the repository useful even before the live operational loop is fully validated.
 
 ## Next step
 
-Use `docs/project/roadmap-completion.md` to start the next approved phase. The recommended next step is private runtime validation before live Discord, live Engram sync, live analytics, or a real dashboard/API stack.
+Use the backlog and roadmap artifacts to decide the next approved slice, then validate the corresponding runtime or memory contract before expanding into bigger dashboard or automation work.
+
+---
+
+<div align="center">
+
+**If this direction resonates, star the repo and use it as the planning baseline for the next Discord-driven workflow iteration.**
+
+</div>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[version-shield]: https://img.shields.io/badge/version-pre--release-7C3AED?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/egdev6/discord-project-manager?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/egdev6/discord-project-manager?style=for-the-badge
+[releases-url]: ./docs/project/roadmap-completion.md
+[issues-url]: https://github.com/egdev6/discord-project-manager/issues
+[stars-url]: https://github.com/egdev6/discord-project-manager/stargazers

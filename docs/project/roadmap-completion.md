@@ -1,6 +1,6 @@
 # Roadmap completion baseline
 
-The seeded `egdev-dashboard` roadmap is complete. Issues #8-#23 are closed, PRs #24-#49 have been merged, and milestones M1-M7 have no remaining open issues.
+The seeded `discord-project-manager` roadmap is complete. Issues #8-#23 are closed, PRs #24-#49 have been merged, and milestones M1-M7 have no remaining open issues.
 
 This document marks the repository baseline after the first contract-first implementation pass. It does **not** claim production readiness.
 
