@@ -12,10 +12,11 @@ This is an operations contract only. It does not prove live Discord bot routing 
 4. Route channel-local memory by raw Discord IDs.
 5. Route durable project reads by approved project/network slugs.
 6. Ask for human approval before durable project writes.
-7. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
-8. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
-9. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
-10. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
+7. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
+8. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
+9. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+10. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
+11. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
 
 ## Naming examples
 
@@ -64,11 +65,11 @@ For each Discord message:
 
 Unknown channels are safe by default:
 
-- use runtime Discord memory only;
+- use response-only fallback unless the runtime provides explicitly non-durable scratch state;
 - do not read project brand, strategy, ledger, or network memory;
-- do not write durable project memory;
+- do not write durable project memory or workspace files;
 - ask the operator to select or create an approved route;
-- keep temporary notes in channel-local runtime memory until approved.
+- keep temporary notes out of persistent channel-local runtime memory until a route and write are approved.
 
 Example response shape:
 
@@ -98,9 +99,10 @@ For this documentation-only routing slice, validate with:
 
 ```bash
 git diff --check
-npx --yes yaml-lint examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml examples/discord-context-provisioning.fake.yaml
+npx --yes yaml-lint examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml examples/discord-context-provisioning.fake.yaml examples/discord-approval-gate.fake.yaml
 bash scripts/validate-discord-topology-reconciliation.sh
 bash scripts/validate-discord-context-provisioning.sh
+bash scripts/validate-discord-approval-gate.sh
 npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 ```
 

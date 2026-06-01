@@ -91,9 +91,9 @@ If the channel cannot be mapped deterministically:
    discord-project-manager/runtime/discord/<guild-id>/<channel-id>
    ```
 
-2. Do not read or write durable project namespaces.
+2. Do not read or write durable project namespaces or workspace files.
 3. Ask a human operator to choose the intended project/network mapping.
-4. Keep any temporary notes channel-local until the mapping is approved and promoted to repo configuration or docs.
+4. Keep any temporary notes response-only unless the runtime provides explicitly non-durable scratch state.
 
 Unknown channels must not silently default to `egdev`, `linkedin`, or any other project/network.
 

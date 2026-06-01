@@ -10,13 +10,19 @@ A private Discord pilot confirmed that Discord connectivity can work after insta
 
 Until the runtime skill/instruction layer is fixed and re-tested, treat this runbook as the required contract, not as proven behavior. Do not use Discord for durable memory, queue, strategy, ledger, publishing, scheduling, or Buffer-affecting writes.
 
+## Runtime enforcement skill
+
+Load `skills/discord-approval-gate/SKILL.md` for Discord-originated requests that include `save`, `write`, `update`, `remember`, `store`, `queue`, `ledger`, `publish`, or `schedule` intent.
+
+Before approval, the safe default is response-only: show the proposal and approval prompt, but do not create project memory, ledger entries, queue state, publishing actions, scheduling actions, or workspace files. Persist only after the operator replies with the exact phrase `approve write`, and only to the displayed target namespace or displayed runtime audit namespace.
+
 ## Quick path
 
 1. Summarize the request and resolved route.
 2. Show the proposed change before writing anything durable.
 3. Ask for an explicit approval phrase.
-4. Record an audit trail in channel-local runtime memory.
-5. Write durable project memory or ledger state only after approval and only to approved namespaces.
+4. Keep audit trail fields in the response until the operator decides.
+5. After approval, write durable project memory, ledger state, and runtime audit notes only to displayed namespaces.
 
 ## Response states
 
@@ -40,6 +46,7 @@ Proposed durable update
 Route: <project>/<network>
 Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Target namespace: <namespace-key>
+Runtime audit namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Change summary: <one-sentence summary>
 Risk boundary: <what this does not do>
 
@@ -54,6 +61,7 @@ For content-ledger entries, include the ledger status:
 ```text
 Ledger candidate
 Target: discord-project-manager/project/<project-slug>/content-ledger
+Runtime audit namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Content id: <content-id>
 Network: <network-slug>
 Status: draft|queued|published|archived
@@ -64,7 +72,7 @@ Approval needed: confirm identity and status before write
 
 Every approval-oriented response must leave enough channel-local context for later review.
 
-Record these fields in runtime memory before any durable write attempt:
+Before approval, keep these fields in the response when channel-local runtime memory would create persistent workspace files. Record them persistently only after an explicit operator decision, or when the runtime provides explicitly non-durable scratch state:
 
 | Field | Requirement |
 |---|---|
@@ -94,6 +102,7 @@ Proposed durable update
 Route: egdev/x
 Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Target namespace: discord-project-manager/project/egdev/network/x
+Runtime audit namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Change summary: add an X queue variation rule for alternating single-post and thread entries this week.
 Risk boundary: this will not publish, schedule, or update Buffer.
 
@@ -103,7 +112,7 @@ Reply with exactly one option:
 - reject
 ```
 
-If approved, the durable write target is limited to the approved network namespace. The runtime audit note remains under the runtime Discord namespace.
+If approved, the durable write target is limited to the approved network namespace. The runtime audit note remains under the displayed runtime Discord namespace.
 
 ## Content-ledger update example
 
@@ -120,6 +129,7 @@ Ledger candidate
 Route: egdev/x
 Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Target: discord-project-manager/project/egdev/content-ledger
+Runtime audit namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
 Content id: x-post-002-demo
 Network: x
 Status: draft
