@@ -129,8 +129,8 @@ durable_write_candidates:
 Safe fallback rules:
 
 - do not read durable brand, strategy, ledger, or network namespaces;
-- do not write durable project namespaces;
-- keep temporary notes channel-local under the runtime namespace only;
+- do not write durable project namespaces or workspace files;
+- keep temporary notes response-only unless the runtime provides explicitly non-durable scratch state;
 - ask a human operator to define or choose an approved route.
 
 ## Approval boundary

@@ -84,6 +84,16 @@ jobs:
       - name: Lint Markdown
         run: npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 
+      - name: Validate Discord contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          find scripts -type f -name "validate-discord-*.sh" -print0 | sort -z | while IFS= read -r -d '' script; do
+            echo "::group::${script}"
+            "${script}"
+            echo "::endgroup::"
+          done
+
       - name: Lint commit messages
         shell: bash
         env:

@@ -1,0 +1,59 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-approval-gate
+live_discord_connection: false
+uses_real_discord_ids: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+approval_phrase: approve write
+write_like_terms:
+  - save
+  - write
+  - update
+  - remember
+  - store
+  - queue
+  - ledger
+  - publish
+  - schedule
+pre_approval:
+  state: approval-requested
+  persistent_writes_allowed: false
+  durable_project_writes_allowed: false
+  workspace_file_writes_allowed: false
+  allowed_output: discord-response-only
+  audit_trail_mode: response-local-until-decision
+approval_prompt_options:
+  - approve write
+  - "revise: <instruction>"
+  - reject
+scenarios:
+  - name: matched-route-save-request
+    route_status: matched-route
+    channel_name: x-egdev
+    request: save a fake X queue variation rule
+    expected_state: approval-requested
+    target_namespace: discord-project-manager/project/egdev/network/x
+    writes_before_approval: false
+  - name: matched-route-reject
+    route_status: matched-route
+    channel_name: x-egdev
+    request: reject a fake X queue variation rule
+    expected_state: rejected
+    target_namespace: discord-project-manager/project/egdev/network/x
+    writes_after_reject: false
+  - name: unmapped-route-write-request
+    route_status: unmapped-channel
+    channel_name: general
+    request: remember this fake planning note
+    expected_state: needs-route
+    target_namespace: none
+    durable_reads_allowed: false
+    writes_before_approval: false
+non_goals:
+  - live Buffer analytics
+  - public Discord channels
+  - publishing
+  - scheduling
+  - durable writes before explicit approval

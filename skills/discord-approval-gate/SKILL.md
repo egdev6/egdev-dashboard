@@ -1,0 +1,69 @@
+---
+name: discord-approval-gate
+description: "Trigger: Discord save, write, update, remember, store, queue, ledger, publish, schedule. Gate persistent writes."
+license: Apache-2.0
+metadata:
+  author: gentleman-programming
+  version: "1.0"
+---
+
+## Activation Contract
+
+Use this skill for any Discord-originated request that includes `save`, `write`, `update`, `remember`, `store`, `queue`, `ledger`, `publish`, or `schedule` intent, or otherwise may persist state.
+
+Also use it when a route-resolved skill proposes writes to project, network, strategy, brand, content-ledger, or runtime workspace state.
+
+## Hard Rules
+
+- Treat `save`, `write`, `update`, `remember`, `store`, `queue`, `ledger`, `publish`, and `schedule` as write-like until proven safe.
+- Before explicit approval, do not call file, memory, ledger, queue, publishing, scheduling, or workspace persistence tools.
+- The first response must be `proposal` or `approval-requested`; show the exact target namespace, runtime audit namespace, and change summary.
+- Accept only the exact phrase `approve write` as approval. Treat silence, emoji, and unrelated replies as no approval.
+- If the operator replies `revise: <instruction>`, produce a revised proposal and ask again.
+- If the operator replies `reject`, stop without persistence and summarize what did not happen.
+- After approval, write only the displayed target namespaces and keep publishing, scheduling, Buffer, and unrelated memory out of scope unless separately approved.
+- Do not store secrets, raw private transcripts, real exports, or unredacted Discord IDs in durable project memory.
+
+## Decision Gates
+
+| Situation | Response |
+| --- | --- |
+| Matched route + write-like request | Ask for `approve write` before any persistence. |
+| Unmapped route | Do not read or write durable project memory; ask for an approved route. |
+| Read-only question | Answer from allowed context without proposing writes. |
+| Approval phrase received | Persist only the previously displayed change and displayed namespaces. |
+| Revision or rejection | No persistence; revise proposal or stop. |
+
+## Execution Steps
+
+1. Resolve runtime context as `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` without exposing raw IDs in repo artifacts.
+2. Resolve durable read candidates only when the route is matched.
+3. Classify the request as read-only or write-like.
+4. For write-like requests, return the approval prompt from `docs/operations/discord-approval-responses.md`.
+5. Keep the pre-approval audit trail in the response unless the runtime provides explicitly non-durable channel-local scratch state.
+6. After `approve write`, perform the approved write and record the final audit trail.
+
+## Output Contract
+
+For write-like requests, return:
+
+```text
+Proposed durable update
+Route: <project>/<network>
+Runtime context: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+Target namespace: <namespace-key>
+Runtime audit namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+Change summary: <one-sentence summary>
+Risk boundary: <what this does not do>
+
+Reply with exactly one option:
+- approve write
+- revise: <instruction>
+- reject
+```
+
+## References
+
+- `docs/operations/discord-approval-responses.md`
+- `docs/operations/discord-routing.md`
+- `docs/architecture/channel-context-namespace-mapping.md`
