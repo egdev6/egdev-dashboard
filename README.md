@@ -1,4 +1,4 @@
-<img width="1536" alt="discord-project-manager dashboard" src="https://github.com/user-attachments/assets/d9a80974-4d78-4ebb-a4fa-cbbab2eba840" />
+<img width="1536" height="1024" alt="project manager" src="https://github.com/user-attachments/assets/ba59f190-c8e0-4be0-bd6e-aa69f4f7f415" />
 
 # discord-project-manager
 
