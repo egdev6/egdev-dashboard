@@ -1,0 +1,172 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-topology-reconciliation
+live_discord_connection: false
+uses_real_discord_ids: false
+runtime_namespace_contract: egdev-dashboard/runtime/discord/<guild-id>/<channel-id>
+latest_topology_snapshot:
+  guild:
+    ref: guild-demo-main
+    visibility: visible
+  categories:
+    - ref: category-demo-global
+      name: OpenClaw Global
+      normalized_name: openclaw-global
+      reserved_role: openclaw-global
+      visibility: visible
+      channels:
+        - ref: channel-demo-global-identity
+          normalized_name: identity
+          visibility: visible
+        - ref: channel-demo-global-writing-style
+          normalized_name: writing-style
+          visibility: visible
+        - ref: channel-demo-global-operating-principles
+          normalized_name: operating-principles
+          visibility: visible
+        - ref: channel-demo-global-boundaries
+          normalized_name: boundaries
+          visibility: visible
+        - ref: channel-demo-global-inheritance
+          normalized_name: inheritance
+          visibility: visible
+        - ref: channel-demo-global-skills
+          normalized_name: skills
+          visibility: visible
+    - ref: category-demo-linkedin
+      name: egdev-linkedin
+      normalized_name: egdev-linkedin
+      reserved_role: none
+      visibility: visible
+      channels:
+        - ref: channel-demo-linkedin-drafts
+          normalized_name: drafts
+          visibility: visible
+        - ref: channel-demo-shared-github
+          normalized_name: github
+          visibility: visible
+    - ref: category-demo-stack-flow
+      name: Stack and Flow
+      normalized_name: stack-and-flow
+      reserved_role: none
+      visibility: visible
+      channels:
+        - ref: channel-demo-stack-initiatives
+          normalized_name: iniciativas
+          visibility: visible
+        - ref: channel-demo-stack-linkedin
+          normalized_name: linkedin
+          visibility: visible
+    - ref: category-demo-new-community
+      name: new-community
+      normalized_name: new-community
+      reserved_role: none
+      visibility: visible
+      channels: []
+    - ref: category-demo-limited
+      name: private-limited
+      normalized_name: private-limited
+      reserved_role: none
+      visibility: permission-limited
+      channels: []
+approved_topology_registry:
+  guild:
+    ref: guild-demo-main
+  categories:
+    - ref: category-demo-global
+      normalized_name: openclaw-global
+      channels:
+        - ref: channel-demo-global-skills
+          normalized_name: skills
+          parent_ref: category-demo-global
+    - ref: category-demo-linkedin
+      normalized_name: egdev-linkedin
+      channels:
+        - ref: channel-demo-linkedin-drafts
+          normalized_name: ideas
+          parent_ref: category-demo-linkedin
+    - ref: category-demo-stack-flow
+      normalized_name: stack-and-flow
+      channels:
+        - ref: channel-demo-shared-github
+          normalized_name: github
+          parent_ref: category-demo-stack-flow
+        - ref: channel-demo-stack-github-missing
+          normalized_name: github
+          parent_ref: category-demo-stack-flow
+    - ref: category-demo-old
+      normalized_name: archived-community
+      channels: []
+reconciliation_results:
+  - entity_ref: category-demo-global
+    entity_type: category
+    state: unchanged
+    recommended_action: no-op
+    safe_to_apply_automatically: true
+    reason: reserved OpenClaw Global category is present with the same stable identity
+  - entity_ref: channel-demo-linkedin-drafts
+    entity_type: channel
+    current_parent_ref: category-demo-linkedin
+    previous_parent_ref: category-demo-linkedin
+    state: renamed
+    recommended_action: update
+    safe_to_apply_automatically: true
+    reason: stable channel identity changed normalized name from ideas to drafts
+  - entity_ref: channel-demo-shared-github
+    entity_type: channel
+    current_parent_ref: category-demo-linkedin
+    previous_parent_ref: category-demo-stack-flow
+    state: moved
+    recommended_action: needs-review
+    safe_to_apply_automatically: false
+    reason: channel moved across category context boundaries
+  - entity_ref: category-demo-limited
+    entity_type: category
+    state: permission-limited
+    recommended_action: needs-review
+    safe_to_apply_automatically: false
+    reason: bot cannot see enough category detail to classify safely
+  - entity_ref: category-demo-new-community
+    entity_type: category
+    state: discovered
+    recommended_action: create
+    safe_to_apply_automatically: false
+    reason: visible category is not present in the approved registry
+  - entity_ref: category-demo-old
+    entity_type: category
+    state: missing
+    recommended_action: archive
+    safe_to_apply_automatically: false
+    reason: previously approved category is absent from latest topology
+  - entity_ref: channel-demo-stack-github-missing
+    entity_type: channel
+    current_parent_ref: none
+    previous_parent_ref: category-demo-stack-flow
+    state: missing
+    recommended_action: archive
+    safe_to_apply_automatically: false
+    reason: previously approved channel is absent from latest topology
+  - entity_ref: channel-demo-stack-linkedin
+    entity_type: channel
+    current_parent_ref: category-demo-stack-flow
+    previous_parent_ref: none
+    state: discovered
+    recommended_action: create
+    safe_to_apply_automatically: false
+    reason: visible channel is not present in the approved registry
+  - entity_ref: channel-demo-unmapped-general
+    entity_type: channel
+    current_parent_ref: none
+    previous_parent_ref: none
+    state: unmapped
+    recommended_action: needs-review
+    safe_to_apply_automatically: false
+    reason: visible channel is not attached to an approved category context
+metadata:
+  note: This file contains fake Discord topology data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_credentials: true
