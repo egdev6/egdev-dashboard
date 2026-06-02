@@ -1,0 +1,204 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: linkedin-weekly-planning-flow
+live_discord_connection: false
+live_openclaw_execution: false
+live_linkedin_publishing: false
+live_engram_calls: false
+live_analytics: false
+durable_memory_writes_allowed: false
+runtime_enforcement_proven: false
+runtime_prompt_execution_enabled: false
+queue_execution_enabled: false
+final_copy_generation_enabled: false
+uses_real_discord_ids: false
+credential_material_included: false
+raw_transcripts_included: false
+production_credentials: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - "#57"
+  - "#61"
+  - "#62"
+  - "#63"
+  - "#70"
+  - "#71"
+  - "#72"
+  - "#73"
+  - "#74"
+  - "#75"
+  - skills/linkedin-weekly-planner/SKILL.md
+  - skills/discord-approval-gate/SKILL.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/architecture/discord-scoped-skills-registry.md
+  - docs/operations/category-strategy-planning-flow.md
+  - docs/operations/openclaw-global-brand-context-refresh.md
+  - docs/operations/content-ledger-utility-flow.md
+  - docs/operations/discord-approval-responses.md
+  - docs/security/data-handling.md
+scenario:
+  name: egdev-linkedin-weekly-planning
+  route_context:
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: linkedin
+    transport_anchor: "#57 transport/routing only"
+  pack_refs:
+    context_pack_contract: docs/architecture/discord-context-skill-packs.md
+    scope_summary:
+      - global
+      - category
+      - channel
+      - thread-session
+      - scoped-skill-context
+    effective_skills:
+      - discord-approval-gate
+      - linkedin-weekly-planner
+  input_context_summary:
+    approved_global_context:
+      source: docs/operations/openclaw-global-brand-context-refresh.md
+      inherited_control_areas:
+        - identity
+        - writing-style
+        - operating-principles
+      confirmed_facts:
+        - approved voice favors direct technical framing
+    linkedin_category_context:
+      namespace: discord-project-manager/project/egdev/network/linkedin
+      confirmed_facts:
+        - linkedin planning remains review-only in this pilot
+    content_ledger_summary:
+      source: docs/operations/content-ledger-utility-flow.md
+      safe_summary:
+        published_count: 1
+        draft_count: 2
+        latest_status_mix: draft-heavy
+    strategy_summary:
+      source: docs/operations/category-strategy-planning-flow.md
+      safe_summary:
+        approval_status: approved-for-demo-validation
+        covered_networks:
+          - linkedin
+        goals_count: 2
+        assumptions_count: 2
+    optional_read_model_summary:
+      source_status: fake-demo-only
+      analytics_snapshot_summary:
+        coverage_status: unavailable
+        record_count: 0
+    assumptions:
+      - no approved asset shortlist exists beyond two demo outlines
+      - the latest draft-heavy ledger mix means weekly planning should stay lightweight and review-first
+    missing_context:
+      - no approved performance analytics are available for this week
+      - no approved campaign brief exists for a secondary LinkedIn angle
+  weekly_plan_candidate:
+    project: egdev
+    network: linkedin
+    timeframe: 2026-W24
+    source_context:
+      brand_namespace_key: discord-project-manager/project/egdev/brand
+      strategy_namespace_key: discord-project-manager/project/egdev/strategy
+      ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+      network_namespace_key: discord-project-manager/project/egdev/network/linkedin
+    planning_inputs:
+      goals:
+        - keep weekly LinkedIn planning reviewable and technical
+      cadence:
+        posts_per_week: 2
+        preferred_publish_days:
+          - tuesday
+          - thursday
+      constraints:
+        - english artifacts only
+        - no publishing or scheduling without separate approval
+      known_assets:
+        - asset://demo/linkedin-outline-05
+        - asset://demo/linkedin-outline-06
+    planning_basis:
+      confirmed_facts:
+        - approved global context prefers direct, technical, calm communication
+        - approved LinkedIn category context stays review-only in this pilot
+      assumptions:
+        - engineering leads still prefer practical implementation lessons over motivational framing
+      proposed_angles:
+        - single writer thread reviewability lesson
+        - technical trade-off recap from approved strategy context
+    weekly_plan:
+      posts:
+        - id: linkedin-weekly-post-03-demo
+          working_title: why reviewable AI changes need a single writer thread
+          objective: open a technical discussion with engineering leads
+          rationale:
+            ties_to_goal: supports weekly technical-depth testing on LinkedIn
+            brand_alignment: explains decisions before code and avoids hype framing
+            ledger_reference: reuse a review-first angle from approved ledger context without publishing it
+          required_assets:
+            - asset://demo/linkedin-outline-05
+          approval_checkpoint:
+            - approve the first weekly angle before drafting
+        - id: linkedin-weekly-post-04-demo
+          working_title: when strategy summaries should stay proposal-only
+          objective: turn one approved planning lesson into a second weekly post candidate
+          rationale:
+            ties_to_goal: keeps weekly planning bounded to reviewable operational lessons
+            brand_alignment: stays practical, technical, and explicit about limits
+            ledger_reference: reuse the latest draft-heavy mix as a planning caution, not a publish trigger
+          required_assets:
+            - asset://demo/linkedin-outline-06
+          approval_checkpoint:
+            - approve the second weekly angle before any writeback
+    approval:
+      status: pending-human-approval
+      checkpoints:
+        - confirm weekly goals still match approved brand and strategy context
+        - approve each post angle before drafting or durable writes
+    memory_write_targets:
+      project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+      network_namespace_key: discord-project-manager/project/egdev/network/linkedin
+      write_mode: planned-only-until-approved
+    out_of_scope:
+      - final copy generation
+      - live LinkedIn publishing
+      - scheduling or queue execution
+      - Buffer activity
+      - live analytics ingestion
+  writeback_proposal:
+    classification: confirmation-required
+    approval_state: approval-requested
+    approval_phrase: approve write
+    target_namespace: discord-project-manager/project/egdev/network/linkedin
+    runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    topic_key: discord/writeback/network-update
+    write_executed: false
+  operator_responses:
+    revise_response:
+      operator_reply: "revise: narrow the weekly plan to one post and one fallback"
+      persistence: runtime-local/audit-only
+    reject_response:
+      operator_reply: reject
+      persistence: runtime-local/audit-only
+non_goals:
+  - live Discord execution
+  - live OpenClaw execution
+  - live LinkedIn publishing
+  - live Engram writes
+  - live analytics
+  - durable memory writes
+  - runtime prompt execution
+  - queue execution
+  - final copy generation
+  - scheduling
+  - publishing
+  - Buffer activity
+  - runtime provisioning
+  - raw transcript persistence
+  - production credentials
