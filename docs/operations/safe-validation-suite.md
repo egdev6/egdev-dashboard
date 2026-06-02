@@ -8,6 +8,12 @@ Use this suite as the first verification step after the roadmap baseline is comp
 bash scripts/run-safe-validation-suite.sh
 ```
 
+For CI-style validator-only reproduction after the hygiene/lint steps already passed:
+
+```bash
+SAFE_VALIDATION_SKIP_STAGE0=1 bash scripts/run-safe-validation-suite.sh
+```
+
 ## What it does
 
 The suite runs two safe local stages:
@@ -22,6 +28,8 @@ The suite runs two safe local stages:
    - stops on the first failing command and prints the failing step
 
 Validator discovery is dynamic, so new fake-first validators are picked up automatically without editing this runner.
+
+If `SAFE_VALIDATION_SKIP_STAGE0=1` is set, the suite skips the static hygiene/lint stage and only runs the safe validator stage. This is intended for CI jobs that already ran repo-wide whitespace, syntax, and lint checks earlier in the workflow.
 
 ## Coverage by feature area
 
@@ -84,3 +92,16 @@ Use later stages for:
 - QA/manual walkthroughs and release evidence
 
 Those stages belong to the later verification issues and should only start after this safe suite is green.
+
+## CI usage
+
+GitHub Actions uses this suite in two parts:
+
+1. `Repository contracts` keeps the repo-wide whitespace, syntax, formatting, YAML, Markdown, and commit-message checks.
+2. `Safe validator suite` installs the local Engram CLI and runs `SAFE_VALIDATION_SKIP_STAGE0=1 bash scripts/run-safe-validation-suite.sh` so CI covers dashboard, analytics, planning-flow, memory, Discord, and X queue validators without duplicating the hygiene stage.
+
+Local reproduction for the CI validator phase is the same command:
+
+```bash
+SAFE_VALIDATION_SKIP_STAGE0=1 bash scripts/run-safe-validation-suite.sh
+```

@@ -81,6 +81,22 @@ run_optional_tool() {
   fi
 }
 
+run_stage_0() {
+  run_cmd "Stage 0: git diff --check" git diff --check
+
+  echo
+  printf 'Discovered %d shell scripts for syntax checks.\n' "${#shell_scripts[@]}"
+  for script in "${shell_scripts[@]}"; do
+    run_cmd "Stage 0: bash -n ${script}" bash -n "$script"
+  done
+
+  run_optional_tool actionlint actionlint
+  run_optional_tool shellcheck shellcheck "${shell_scripts[@]}"
+  run_optional_tool shfmt shfmt -d -i 2 -ci scripts docker/openclaw/sync-skills.sh
+  run_optional_tool yamllint yamllint .
+  run_optional_markdown_lint
+}
+
 require_cmd bash
 require_cmd find
 require_cmd git
@@ -99,19 +115,12 @@ done < <(find scripts -maxdepth 1 -type f -name 'validate-*.sh' -print | LC_ALL=
 [[ ${#shell_scripts[@]} -gt 0 ]] || fail "no shell scripts found under scripts/ or docker/"
 [[ ${#validator_scripts[@]} -gt 0 ]] || fail "no validator scripts found under scripts/"
 
-run_cmd "Stage 0: git diff --check" git diff --check
-
-echo
-printf 'Discovered %d shell scripts for syntax checks.\n' "${#shell_scripts[@]}"
-for script in "${shell_scripts[@]}"; do
-  run_cmd "Stage 0: bash -n ${script}" bash -n "$script"
-done
-
-run_optional_tool actionlint actionlint
-run_optional_tool shellcheck shellcheck "${shell_scripts[@]}"
-run_optional_tool shfmt shfmt -d -i 2 -ci scripts docker/openclaw/sync-skills.sh
-run_optional_tool yamllint yamllint .
-run_optional_markdown_lint
+if [[ "${SAFE_VALIDATION_SKIP_STAGE0:-0}" == "1" ]]; then
+  echo
+  echo "==> SKIP: Stage 0 static hygiene (SAFE_VALIDATION_SKIP_STAGE0=1)"
+else
+  run_stage_0
+fi
 
 echo
 printf 'Discovered %d safe validators:\n' "${#validator_scripts[@]}"

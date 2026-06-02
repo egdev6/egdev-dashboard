@@ -6,7 +6,7 @@ This repository uses lightweight GitHub Actions checks to protect public repo co
 
 | Workflow | File | Purpose |
 |---|---|---|
-| CI | `.github/workflows/ci.yml` | Repository hygiene, workflow linting, shell linting/format checks, YAML/Markdown linting, commit message linting, and local Engram memory roundtrips with a pinned Engram CLI. |
+| CI | `.github/workflows/ci.yml` | Repository hygiene, workflow linting, shell linting/format checks, YAML/Markdown linting, commit message linting, and the safe validator suite with a pinned Engram CLI. |
 | Docker smoke | `.github/workflows/docker.yml` | Lints the OpenClaw Dockerfile, validates Docker Compose rendering, and builds the OpenClaw runtime image. |
 | Security scan | `.github/workflows/security.yml` | Runs Gitleaks to catch accidentally committed secrets. |
 
@@ -27,13 +27,19 @@ npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 npx --yes @commitlint/cli@19.8.1 --config .commitlintrc.json --last
 ```
 
-For memory validations, each script creates a disposable `ENGRAM_DATA_DIR` by default:
+For the complete safe validator suite, use the shared runner. It discovers every `scripts/validate-*.sh`, including memory, Discord, dashboard, analytics, planning-flow, and X queue validators:
 
 ```bash
-scripts/validate-brand-context-memory.sh
-scripts/validate-content-ledger-memory.sh
-scripts/validate-strategy-planning-memory.sh
+bash scripts/run-safe-validation-suite.sh
 ```
+
+For CI-style validator-only reproduction after local hygiene already passed:
+
+```bash
+SAFE_VALIDATION_SKIP_STAGE0=1 bash scripts/run-safe-validation-suite.sh
+```
+
+Memory validators create a disposable `ENGRAM_DATA_DIR` by default.
 
 For Docker validation:
 
