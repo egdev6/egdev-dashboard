@@ -17,7 +17,7 @@ Use this doc to run the QA track after AGENT verification is green. It gives QA 
 | 3 | #104 AGENT-03 | `agent` | Private Docker runtime health | `docs/operations/private-docker-runtime-validation.md` |
 | 4 | #105 AGENT-04 | `agent` | OpenClaw skill sync plus local Engram roundtrips | `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md` |
 | 5 | #106 QA-01 | `QA+agent` | Accept the matrix and evidence pack format | This document |
-| 6 | #107 QA-02 | `QA` | Onboarding/docs walkthrough | QA evidence pack |
+| 6 | #107 QA-02 | `QA+agent` | Onboarding/docs walkthrough | `docs/operations/qa-onboarding-docs-walkthrough.md` |
 | 7 | #108 QA-03 | `QA+agent` | Skills and fake workflow contract walkthrough | QA evidence pack + runbooks |
 | 8 | #109 QA-04 | `QA+agent` | Memory and approval-gate walkthrough | QA evidence pack + runtime-safe docs |
 | 9 | #110 QA-05 | `QA` | Dashboard and analytics read-only walkthrough | QA evidence pack |
