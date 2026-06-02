@@ -1,0 +1,239 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: on-demand-brief-flow
+live_source_fetching: false
+live_discord_connection: false
+live_openclaw_execution: false
+live_engram_calls: false
+live_analytics: false
+durable_memory_writes_allowed: false
+runtime_enforcement_proven: false
+runtime_prompt_execution_enabled: false
+github_mutations_enabled: false
+uses_real_discord_ids: false
+credential_material_included: false
+raw_transcripts_included: false
+raw_source_dumps_included: false
+production_credentials: false
+publishing_enabled: false
+scheduling_enabled: false
+queue_execution_enabled: false
+buffer_activity_enabled: false
+public_channel_behavior_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - "#57"
+  - "#61"
+  - "#62"
+  - "#63"
+  - "#64"
+  - "#70"
+  - "#71"
+  - "#72"
+  - "#73"
+  - "#74"
+  - "#75"
+  - skills/on-demand-brief-planner/SKILL.md
+  - skills/discord-approval-gate/SKILL.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/architecture/discord-runtime-orchestrator.md
+  - docs/architecture/discord-gentle-sdd-handoff.md
+  - docs/operations/openclaw-global-brand-context-refresh.md
+  - docs/operations/category-strategy-planning-flow.md
+  - docs/operations/content-ledger-utility-flow.md
+  - docs/operations/discord-approval-responses.md
+  - docs/security/data-handling.md
+scenario:
+  name: egdev-stack-and-flow-on-demand-briefs
+  route_context:
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: stack-and-flow
+    transport_anchor: "#57 transport/routing only"
+  pack_refs:
+    context_pack_contract: docs/architecture/discord-context-skill-packs.md
+    scope_summary:
+      - global
+      - category
+      - channel
+      - thread-session
+      - scoped-skill-context
+    effective_skills:
+      - discord-approval-gate
+      - on-demand-brief-planner
+    mandatory_skills:
+      - discord-approval-gate
+    intent_classification:
+      family: planning_content
+      write_like: true
+      confidence: reviewable-demo
+  input_context_summary:
+    approved_global_context:
+      source: docs/operations/openclaw-global-brand-context-refresh.md
+      confirmed_facts:
+        - approved voice favors direct, technical, calm framing
+    approved_strategy_summary:
+      source: docs/operations/category-strategy-planning-flow.md
+      safe_summary:
+        approval_status: approved-for-demo-validation
+        covered_networks:
+          - stack-and-flow
+        goals_count: 2
+    approved_content_ledger_summary:
+      source: docs/operations/content-ledger-utility-flow.md
+      safe_summary:
+        published_count: 1
+        draft_count: 2
+        latest_status_mix: draft-heavy
+    category_context:
+      namespace: discord-project-manager/project/egdev/network/stack-and-flow
+      confirmed_facts:
+        - stack-and-flow remains review-only in this pilot
+    optional_read_model_summary:
+      source_status: fake-demo-only
+      coverage_status: unavailable
+    no_source_dumps: true
+  brief_candidate:
+    schema_version: 1
+    project: egdev
+    supported_networks:
+      - youtube
+      - stack-and-flow
+    request_id: brief-request-002-demo
+    timeframe: 2026-W25
+    source_context:
+      brand_namespace_key: discord-project-manager/project/egdev/brand
+      strategy_namespace_key: discord-project-manager/project/egdev/strategy
+      ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+      network_namespace_keys:
+        youtube: discord-project-manager/project/egdev/network/youtube
+        stack-and-flow: discord-project-manager/project/egdev/network/stack-and-flow
+    brief_request:
+      user_prompt: turn one reviewability theme into a YouTube brief and a Stack and Flow compact brief
+      goal: define reusable on-demand briefs from approved fake context only
+      audience:
+        primary:
+          - engineering leads
+      desired_networks:
+        - youtube
+        - stack-and-flow
+      constraints:
+        - english artifacts only
+        - no publishing or scheduling without human approval
+      known_assets:
+        - asset://demo/brief-outline-02
+    planning_basis:
+      confirmed_facts:
+        - approved brand context prefers practical technical framing
+        - approved strategy summary already treats reviewability as a proposal-only theme
+      assumptions:
+        - one theme can be adapted across long-form and compact formats without reusing the same opening hook
+      missing_context:
+        - no approved source transcript or live recording notes are available for this request
+      format_rules:
+        - youtube brief should support a longer explanatory outline
+        - stack-and-flow brief should stay compact and clip-friendly
+      proposed_angles:
+        - why fake fixtures are the right proof surface for workflow contracts
+        - why approval gates belong in the product, not only in process docs
+    briefs:
+      - network: youtube
+        status: draft-review
+        brief_goal: explain one workflow-contract lesson in long-form detail
+        audience: engineering leads evaluating AI-assisted development workflows
+        outline:
+          - opener on reviewability constraints
+          - fixture-first proof of behavior without production claims
+          - checklist for technical reviewers
+        required_assets:
+          - asset://demo/brief-outline-02
+        call_to_action: invite viewers to compare which workflow boundary they would protect first
+        rationale:
+          prompt_alignment: expands the request into a longer teaching brief
+          brand_alignment: explains trade-offs before implementation and avoids hype framing
+          ledger_reference: uses prior approved content history as a cue, not as final copy
+        approval_checkpoint:
+          - approve the YouTube brief before scripting
+      - network: stack-and-flow
+        status: draft-review
+        brief_goal: compress the reviewability lesson into a compact short-form brief
+        audience: developers who prefer short, dense operational lessons
+        outline:
+          - one-sentence hook on reviewability discipline
+          - one compact example about fake fixtures proving contract shape
+          - CTA toward deeper long-form discussion
+        required_assets:
+          - asset://demo/brief-outline-02
+        call_to_action: invite the audience to pick the next workflow boundary to unpack in depth
+        rationale:
+          prompt_alignment: condenses the request into a compact short-form brief
+          brand_alignment: keeps the lesson technical, specific, and reviewable
+          ledger_reference: complements prior planning examples without implying reuse of final copy
+        approval_checkpoint:
+          - approve the Stack and Flow brief before drafting or clipping
+    approval:
+      status: pending-human-approval
+      checkpoints:
+        - confirm the requested networks and shared theme still match approved context
+        - approve each brief before drafting
+        - approve durable memory and ledger writes before saving state
+    memory_write_targets:
+      project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
+      content_ledger_namespace_key: discord-project-manager/project/egdev/content-ledger
+      network_namespace_keys:
+        youtube: discord-project-manager/project/egdev/network/youtube
+        stack-and-flow: discord-project-manager/project/egdev/network/stack-and-flow
+      write_mode: planned-only-until-approved
+      ledger_candidates:
+        - network: youtube
+          candidate_id: youtube-brief-002-demo
+          intended_status: draft
+          save_after: human approval plus draft status confirmation
+        - network: stack-and-flow
+          candidate_id: stack-and-flow-brief-002-demo
+          intended_status: draft
+          save_after: human approval plus draft status confirmation
+  writeback_proposal:
+    classification: confirmation-required
+    approval_state: approval-requested
+    approval_phrase: approve write
+    target_namespaces:
+      - discord-project-manager/project/egdev/strategy
+      - discord-project-manager/project/egdev/network/youtube
+      - discord-project-manager/project/egdev/network/stack-and-flow
+      - discord-project-manager/project/egdev/content-ledger
+    runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    topic_keys:
+      - discord/writeback/network-update
+      - discord/writeback/content-ledger-entry
+    write_executed: false
+  operator_responses:
+    revise_response:
+      operator_reply: "revise: keep only the YouTube brief and remove the short-form output"
+      persistence: runtime-local/audit-only
+    reject_response:
+      operator_reply: reject
+      persistence: runtime-local/audit-only
+non_goals:
+  - live source fetching
+  - live Discord execution
+  - live OpenClaw execution
+  - runtime prompt execution
+  - live Engram writes
+  - live analytics
+  - durable memory writes
+  - publishing
+  - scheduling
+  - queue execution
+  - Buffer activity
+  - runtime provisioning
+  - GitHub mutations
+  - raw transcript persistence
+  - raw source dump persistence
+  - production credentials
+  - public-channel behavior
