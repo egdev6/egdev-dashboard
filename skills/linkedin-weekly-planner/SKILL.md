@@ -93,6 +93,8 @@ memory_write_targets:
   project_strategy_namespace_key: <strategy namespace>
   network_namespace_key: <linkedin namespace>
   write_mode: <planned-only-until-approved>
+out_of_scope:
+  - <explicit non-goal>
 ```
 
 ## Memory behavior
@@ -188,6 +190,10 @@ memory_write_targets:
   project_strategy_namespace_key: discord-project-manager/project/egdev/strategy
   network_namespace_key: discord-project-manager/project/egdev/network/linkedin
   write_mode: planned-only-until-approved
+out_of_scope:
+  - final copy generation
+  - live LinkedIn publishing
+  - scheduling or Buffer activity
 ```
 
 This example is fake/demo data only and must not be treated as a live editorial plan.

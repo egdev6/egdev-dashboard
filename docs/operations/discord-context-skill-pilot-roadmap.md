@@ -17,7 +17,7 @@ This roadmap preserves the open Discord workflow issues while moving planning fr
 | #61 | `OpenClaw Global` context refresh pilot | Identity, writing style, boundaries, inheritance, and global context refresh without duplicating the `brand-context` contract. | #70, #71, #72 | `docs/operations/openclaw-global-brand-context-refresh.md` |
 | #62 | Ledger utility pilot | Category/channel ledger updates with `discord-approval-gate`; keep runtime notes separate from durable ledger entries. | #57, #70, #71, #72, #73, #74, #75 | `docs/operations/content-ledger-utility-flow.md` |
 | #63 | Category strategy pilot | Strategy planning using approved global/category context, not an isolated fixed-channel flow. | #57, #61, #62, #70, #71, #72, #73, #74, #75 | `docs/operations/category-strategy-planning-flow.md` |
-| #64 | `egdev-linkedin` operational pilot | LinkedIn-local planning using inherited globals plus resolved Context Pack + Skill Pack. | #70, #71, #72, #73 | `skills/linkedin-weekly-planner/SKILL.md` |
+| #64 | `egdev-linkedin` operational pilot | LinkedIn-local planning using inherited globals plus resolved Context Pack + Skill Pack. | #57, #61, #62, #63, #70, #71, #72, #73, #74, #75 | `docs/operations/linkedin-weekly-planning-flow.md` |
 | #65 | Multi-network brief pilot | On-demand brief work driven by pack resolution, intent, and approval policy instead of fixed channel-to-skill binding. | #70, #71, #72, #73, #74 | `skills/on-demand-brief-planner/SKILL.md` |
 
 ## Pilot order and success criteria
