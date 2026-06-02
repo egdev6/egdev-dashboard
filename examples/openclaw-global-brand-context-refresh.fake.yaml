@@ -1,0 +1,142 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: openclaw-global-brand-context-refresh
+live_discord_connection: false
+live_engram_calls: false
+durable_memory_writes_allowed: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+credential_material_included: false
+raw_transcripts_included: false
+production_credentials: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - "#57"
+  - "#70"
+  - "#71"
+  - "#72"
+  - "#75"
+  - skills/brand-context/SKILL.md
+  - skills/discord-approval-gate/SKILL.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/security/data-handling.md
+control_areas:
+  - identity
+  - writing-style
+  - operating-principles
+  - boundaries
+  - inheritance
+scenarios:
+  - name: openclaw-global-egdev-linkedin-refresh
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    control_origin:
+      reserved_category: OpenClaw Global
+      control_channel: inheritance
+      transport_anchor: "#57 transport/routing only"
+    summarization_contract: skills/brand-context/SKILL.md
+    allowed_inputs:
+      - "voice_notes: direct, technical, calm"
+      - "audience_notes: engineering leads and product-minded developers"
+      - "positioning_notes: practical AI-assisted development without hype"
+      - "approved_constraints: english artifacts only"
+      - "boundaries: no raw private transcripts or production credentials"
+    private_inputs_forbidden:
+      - real Discord guild IDs
+      - raw Discord transcripts
+      - production credentials
+      - private customer names
+    draft_summary:
+      project_slug: egdev
+      network_slug: none
+      brand_context:
+        voice:
+          - direct
+          - technical
+          - calm
+        audience:
+          - engineering leads
+          - product-minded developers
+        positioning:
+          - practical AI-assisted development without hype
+        do_guidance:
+          - explain trade-offs before implementation
+          - keep examples reviewable
+        avoid_guidance:
+          - fake certainty
+          - growth-hack language
+        approved_constraints:
+          - english artifacts only
+          - fake/demo examples only
+      open_questions:
+        - should global identity inherit into every category by default or stay explicit per category?
+    inheritance_proposal:
+      mode: explicit-opt-in
+      automatic_inheritance: false
+      target_category: egdev-linkedin
+      inherited_control_areas:
+        - identity
+        - writing-style
+        - operating-principles
+      not_inherited_control_areas:
+        - boundaries
+      rationale: LinkedIn planning inherits reusable voice and principles, but keeps category-local audience context outside the global refresh.
+    derived_pack_proposal:
+      context_pack:
+        runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+        routing_status: matched-route
+        resolved_route:
+          project_slug: egdev
+          network_slug: linkedin
+        entries:
+          - scope: global
+            source_ref: identity
+            inclusion_reason: global-inherited
+          - scope: global
+            source_ref: writing-style
+            inclusion_reason: global-inherited
+          - scope: global
+            source_ref: operating-principles
+            inclusion_reason: global-inherited
+      skill_pack:
+        mandatory_skills:
+          - discord-approval-gate
+        effective_skills:
+          - skill_name: discord-approval-gate
+            source_scope: global
+            inclusion_reason: mandatory-global-skill
+          - skill_name: brand-context
+            source_scope: global
+            inclusion_reason: global-inherited
+        writeback_out_of_scope: true
+    writeback_proposal:
+      classification: confirmation-required
+      target_namespace: discord-project-manager/project/egdev/brand
+      topic_key: discord/writeback/global-governance
+      runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+      approval_state: approval-requested
+      approval_phrase: approve write
+      write_executed: false
+      raw_transcript_persistence: false
+    revised_response:
+      operator_reply: "revise: tighten the voice guidance for technical leads"
+      persistence: runtime-local/audit-only
+    rejected_response:
+      operator_reply: reject
+      persistence: runtime-local/audit-only
+non_goals:
+  - live Discord execution
+  - live Engram writes
+  - durable memory writes
+  - runtime provisioning
+  - GitHub mutations
+  - raw transcript persistence
+  - production credentials
+  - publishing
+  - scheduling
+  - Buffer activity
