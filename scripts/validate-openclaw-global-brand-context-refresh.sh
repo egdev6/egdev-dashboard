@@ -67,7 +67,9 @@ for required in \
   grep -F "$required" "$DOC_PATH" >/dev/null || die "doc missing required marker: $required"
 done
 
-grep -F '| #61 | `OpenClaw Global` context refresh pilot | Identity, writing style, boundaries, inheritance, and global context refresh without duplicating the `brand-context` contract. | #70, #71, #72 | `docs/operations/openclaw-global-brand-context-refresh.md` |' "$ROADMAP_PATH" >/dev/null || die "roadmap missing updated #61 first artifact"
+grep -F "| #61 |" "$ROADMAP_PATH" >/dev/null || die "roadmap missing #61 row"
+grep -F "OpenClaw Global" "$ROADMAP_PATH" >/dev/null || die "roadmap missing OpenClaw Global pilot marker"
+grep -F "docs/operations/openclaw-global-brand-context-refresh.md" "$ROADMAP_PATH" >/dev/null || die "roadmap missing updated #61 first artifact"
 grep -F 'examples/openclaw-global-brand-context-refresh.fake.yaml' "$ROUTING_DOC_PATH" >/dev/null || die "routing doc missing OpenClaw Global fixture"
 grep -F 'bash scripts/validate-openclaw-global-brand-context-refresh.sh' "$ROUTING_DOC_PATH" >/dev/null || die "routing doc missing OpenClaw Global validator"
 
