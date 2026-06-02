@@ -84,16 +84,6 @@ jobs:
       - name: Lint Markdown
         run: npx --yes markdownlint-cli2@0.18.1 "**/*.md"
 
-      - name: Validate Discord contracts
-        shell: bash
-        run: |
-          set -euo pipefail
-          find scripts -type f -name "validate-discord-*.sh" -print0 | sort -z | while IFS= read -r -d '' script; do
-            echo "::group::${script}"
-            "${script}"
-            echo "::endgroup::"
-          done
-
       - name: Lint commit messages
         shell: bash
         env:
@@ -110,8 +100,8 @@ jobs:
             "${commitlint[@]}" --last
           fi
 
-  memory-roundtrips:
-    name: Local Engram memory roundtrips
+  safe-validation-suite:
+    name: Safe validator suite
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -131,12 +121,8 @@ jobs:
       - name: Show Engram version
         run: engram version
 
-      - name: Run disposable local memory validations
+      - name: Run safe validator suite
         shell: bash
-        run: |
-          set -euo pipefail
-          find scripts -type f -name "validate-*-memory.sh" -print0 | sort -z | while IFS= read -r -d '' script; do
-            echo "::group::${script}"
-            "${script}"
-            echo "::endgroup::"
-          done
+        env:
+          SAFE_VALIDATION_SKIP_STAGE0: "1"
+        run: bash scripts/run-safe-validation-suite.sh
