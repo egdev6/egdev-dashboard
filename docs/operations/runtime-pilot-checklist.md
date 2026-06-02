@@ -10,7 +10,9 @@ Do **not** paste secrets, private memory, raw Discord IDs, or sensitive logs int
 2. Start the Docker stack locally.
 3. Validate OpenClaw, Engram, skill sync, logs, and shutdown.
 4. Record only repo-safe findings and update runbooks when behavior differs.
-5. Review the latest sanitized evidence report in `docs/operations/private-docker-runtime-validation.md`.
+5. Review the latest sanitized evidence reports in:
+   - `docs/operations/private-docker-runtime-validation.md`
+   - `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md`
 
 ## First pilot result
 
