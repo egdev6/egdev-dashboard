@@ -10,6 +10,7 @@ Do **not** paste secrets, private memory, raw Discord IDs, or sensitive logs int
 2. Start the Docker stack locally.
 3. Validate OpenClaw, Engram, skill sync, logs, and shutdown.
 4. Record only repo-safe findings and update runbooks when behavior differs.
+5. Review the latest sanitized evidence report in `docs/operations/private-docker-runtime-validation.md`.
 
 ## First pilot result
 
@@ -91,6 +92,8 @@ docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 docker compose ps
 ```
+
+If an existing private stack is already present but one service is stale or stuck restarting, prefer a non-destructive `docker compose down` followed by a fresh `docker compose up -d ...` before considering any volume reset.
 
 Record:
 
