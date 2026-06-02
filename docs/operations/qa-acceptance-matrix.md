@@ -21,7 +21,7 @@ Use this doc to run the QA track after AGENT verification is green. It gives QA 
 | 7 | #108 QA-03 | `QA+agent` | Skills and fake workflow contract walkthrough | `docs/operations/qa-skills-workflow-contract-walkthrough.md` |
 | 8 | #109 QA-04 | `QA+agent` | Memory and approval-gate walkthrough | `docs/operations/qa-memory-approval-gate-walkthrough.md` |
 | 9 | #110 QA-05 | `QA+agent` | Dashboard and analytics read-only walkthrough | `docs/operations/qa-dashboard-analytics-readonly-walkthrough.md` |
-| 10 | #111 QA-06 | `QA+agent` | Private Docker runtime smoke walkthrough | QA evidence pack + #104 |
+| 10 | #111 QA-06 | `QA+agent` | Private Docker runtime smoke walkthrough | `docs/operations/qa-private-docker-runtime-smoke-walkthrough.md` |
 | 11 | #112 QA-07 | `QA+agent` | Private Discord routing dry-run | QA evidence pack + explicit approval |
 | 12 | #113 QA-08 | `QA+agent` | Final regression report and release decision | Final regression report |
 
