@@ -1,0 +1,120 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: content-ledger-utility-flow
+live_discord_connection: false
+live_engram_calls: false
+durable_memory_writes_allowed: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+credential_material_included: false
+raw_transcripts_included: false
+production_credentials: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - "#57"
+  - "#70"
+  - "#71"
+  - "#72"
+  - "#73"
+  - "#74"
+  - "#75"
+  - skills/content-ledger/SKILL.md
+  - skills/discord-approval-gate/SKILL.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/operations/discord-approval-responses.md
+  - docs/security/data-handling.md
+valid_ledger_states:
+  - draft
+  - queued
+  - published
+  - archived
+approval_gate_responses:
+  - approve write
+  - "revise: <instruction>"
+  - reject
+scenario:
+  name: egdev-linkedin-ledger-candidate
+  route_context:
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: linkedin
+    transport_anchor: "#57 transport/routing only"
+    read_candidates:
+      - discord-project-manager/project/egdev/content-ledger
+      - discord-project-manager/project/egdev/network/linkedin
+  pack_refs:
+    context_pack_contract: docs/architecture/discord-context-skill-packs.md
+    effective_skills:
+      - discord-approval-gate
+      - content-ledger
+  ledger_candidate:
+    project: egdev
+    network: linkedin
+    content_entry:
+      id: linkedin-post-001-demo
+      status: draft
+      published_at: unknown
+      assets:
+        - asset://demo/linkedin-carousel-001
+        - asset://demo/linkedin-caption-outline-001
+      source_link: none
+    follow_up:
+      action: confirm the duplicate resolution and draft status before any durable write
+      notes:
+        - fake/demo candidate for category-local ledger utility review
+    proposal_summary: save a fake LinkedIn draft candidate only after duplicate review and exact approval
+    target_namespaces:
+      durable: discord-project-manager/project/egdev/content-ledger
+      approved_overlay: discord-project-manager/project/egdev/network/linkedin
+      runtime_audit: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    no_op_boundaries:
+      - no scheduling implementation
+      - no publishing action
+      - no Buffer activity
+      - no durable write before exact approval
+  ledger_state_notes:
+    queued_boundary: queued requires separate approval before any scheduling system is involved
+    gate_state_boundary: approval-requested approved-for-write and rejected are gate responses not durable ledger states
+  duplicate_conflict_review:
+    review_key:
+      content_entry_id: linkedin-post-001-demo
+      route_network: linkedin
+    existing_candidates_considered:
+      - linkedin-post-000-demo
+    result: operator-escalation-required
+    reason: candidate identifier overlaps a prior demo naming pattern and needs human confirmation
+    operator_question: keep the candidate id or revise it before any durable write?
+  writeback_proposal:
+    classification: confirmation-required
+    target_namespace: discord-project-manager/project/egdev/content-ledger
+    runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    topic_key: discord/writeback/content-ledger-entry
+    approval_state: approval-requested
+    approval_phrase: approve write
+    write_executed: false
+    durable_write_target_planned_only: true
+  operator_responses:
+    revise_response:
+      operator_reply: "revise: replace the candidate id with linkedin-post-001b-demo"
+      persistence: runtime-local/audit-only
+    reject_response:
+      operator_reply: reject
+      persistence: runtime-local/audit-only
+non_goals:
+  - live Discord execution
+  - live Engram writes
+  - durable memory writes
+  - scheduling
+  - publishing
+  - Buffer activity
+  - runtime provisioning
+  - raw transcript persistence
+  - production credentials
