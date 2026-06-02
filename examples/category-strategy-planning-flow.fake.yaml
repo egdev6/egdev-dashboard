@@ -1,0 +1,149 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: category-strategy-planning-flow
+live_discord_connection: false
+live_engram_calls: false
+live_analytics: false
+durable_memory_writes_allowed: false
+runtime_enforcement_proven: false
+runtime_prompt_execution_enabled: false
+uses_real_discord_ids: false
+credential_material_included: false
+raw_transcripts_included: false
+production_credentials: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+runtime_namespace_contract: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+contract_dependencies:
+  - "#57"
+  - "#61"
+  - "#62"
+  - "#70"
+  - "#71"
+  - "#72"
+  - "#73"
+  - "#74"
+  - "#75"
+  - skills/strategy-planner/SKILL.md
+  - skills/discord-approval-gate/SKILL.md
+  - docs/architecture/discord-memory-gateway.md
+  - docs/architecture/discord-context-skill-packs.md
+  - docs/architecture/dashboard-read-model-contracts.md
+  - docs/operations/openclaw-global-brand-context-refresh.md
+  - docs/operations/content-ledger-utility-flow.md
+  - docs/operations/discord-approval-responses.md
+  - docs/security/data-handling.md
+scenario:
+  name: egdev-linkedin-category-strategy
+  route_context:
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    routing_status: matched-route
+    resolved_route:
+      project_slug: egdev
+      network_slug: linkedin
+    transport_anchor: "#57 transport/routing only"
+  pack_refs:
+    context_pack_contract: docs/architecture/discord-context-skill-packs.md
+    scope_summary:
+      - global
+      - category
+      - channel
+      - thread-session
+      - scoped-skill-context
+    effective_skills:
+      - discord-approval-gate
+      - strategy-planner
+  input_context_summary:
+    approved_global_context:
+      source: docs/operations/openclaw-global-brand-context-refresh.md
+      inherited_control_areas:
+        - identity
+        - writing-style
+        - operating-principles
+      confirmed_facts:
+        - approved voice favors direct technical framing
+    content_ledger_context:
+      source: docs/operations/content-ledger-utility-flow.md
+      safe_summary:
+        published_count: 1
+        draft_count: 2
+        latest_status_mix: draft-heavy
+    category_network_overlay:
+      namespace: discord-project-manager/project/egdev/network/linkedin
+      confirmed_facts:
+        - linkedin planning remains review-only in this pilot
+    optional_read_model_summary:
+      source: docs/architecture/dashboard-read-model-contracts.md
+      strategy_summary:
+        approval_status: not-yet-approved
+        covered_networks:
+          - linkedin
+        goals_count: 0
+        assumptions_count: 0
+      analytics_snapshot_summary:
+        source_status: fake-demo-only
+        record_count: 0
+        coverage_status: unavailable
+    assumptions:
+      - no approved campaign brief exists for this timeframe
+      - analytics are unavailable, so recommendations rely on approved brand and ledger patterns
+    missing_context:
+      - no approved asset shortlist for the requested week
+      - no approved dashboard coverage beyond fake-demo availability markers
+  strategy_proposal:
+    project: egdev
+    network: linkedin
+    timeframe: 2026-W24
+    strategy_slice:
+      goals:
+        - test one technical trade-off series for engineering leads
+        - reuse one proven draft topic from approved ledger context without publishing it
+      assumptions:
+        - audience still prefers practical implementation lessons over motivational framing
+        - the latest draft-heavy ledger mix suggests planning should stay lightweight and review-first
+      planned_items:
+        - title: linkedin-tradeoff-series-demo-01
+          purpose: test a reusable category-level technical angle
+          required_assets:
+            - asset://demo/linkedin-outline-01
+        - title: linkedin-reviewable-lessons-demo-02
+          purpose: turn one approved implementation lesson into a follow-up planning candidate
+          required_assets:
+            - asset://demo/linkedin-outline-02
+      review_checkpoints:
+        - confirm every item still matches approved global voice and operating principles
+        - confirm no item implies publishing, scheduling, or Buffer activity
+      out_of_scope:
+        - live analytics optimization
+        - direct publishing
+        - automated scheduling
+  writeback_proposal:
+    classification: confirmation-required
+    approval_state: approval-requested
+    approval_phrase: approve write
+    target_namespace: discord-project-manager/project/egdev/network/linkedin
+    runtime_audit_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    topic_key: discord/writeback/network-update
+    write_executed: false
+  operator_responses:
+    revise_response:
+      operator_reply: "revise: narrow the planning slice to one post and one fallback"
+      persistence: runtime-local/audit-only
+    reject_response:
+      operator_reply: reject
+      persistence: runtime-local/audit-only
+non_goals:
+  - live Discord execution
+  - live Engram writes
+  - live analytics
+  - durable memory writes
+  - runtime prompt execution
+  - scheduling
+  - publishing
+  - Buffer activity
+  - runtime provisioning
+  - raw transcript persistence
+  - production credentials
