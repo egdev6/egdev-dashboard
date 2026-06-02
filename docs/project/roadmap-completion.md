@@ -10,6 +10,7 @@ This document marks the repository baseline after the first contract-first imple
 2. Run the safe local verification suite first: `bash scripts/run-safe-validation-suite.sh` (see `docs/operations/safe-validation-suite.md`).
 3. Use this document to understand what is implemented versus still pending operational validation.
 4. Start the next phase with runtime validation or a new approved roadmap slice.
+5. Use `docs/operations/qa-acceptance-matrix.md` to plan QA evidence after AGENT verification is complete.
 
 ## Milestone outcomes
 
