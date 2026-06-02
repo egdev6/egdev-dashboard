@@ -19,7 +19,7 @@ Use this doc to run the QA track after AGENT verification is green. It gives QA 
 | 5 | #106 QA-01 | `QA+agent` | Accept the matrix and evidence pack format | This document |
 | 6 | #107 QA-02 | `QA+agent` | Onboarding/docs walkthrough | `docs/operations/qa-onboarding-docs-walkthrough.md` |
 | 7 | #108 QA-03 | `QA+agent` | Skills and fake workflow contract walkthrough | `docs/operations/qa-skills-workflow-contract-walkthrough.md` |
-| 8 | #109 QA-04 | `QA+agent` | Memory and approval-gate walkthrough | QA evidence pack + runtime-safe docs |
+| 8 | #109 QA-04 | `QA+agent` | Memory and approval-gate walkthrough | `docs/operations/qa-memory-approval-gate-walkthrough.md` |
 | 9 | #110 QA-05 | `QA` | Dashboard and analytics read-only walkthrough | QA evidence pack |
 | 10 | #111 QA-06 | `QA+agent` | Private Docker runtime smoke walkthrough | QA evidence pack + #104 |
 | 11 | #112 QA-07 | `QA+agent` | Private Discord routing dry-run | QA evidence pack + explicit approval |
