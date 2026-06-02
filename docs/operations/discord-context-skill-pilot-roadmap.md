@@ -18,7 +18,7 @@ This roadmap preserves the open Discord workflow issues while moving planning fr
 | #62 | Ledger utility pilot | Category/channel ledger updates with `discord-approval-gate`; keep runtime notes separate from durable ledger entries. | #57, #70, #71, #72, #73, #74, #75 | `docs/operations/content-ledger-utility-flow.md` |
 | #63 | Category strategy pilot | Strategy planning using approved global/category context, not an isolated fixed-channel flow. | #57, #61, #62, #70, #71, #72, #73, #74, #75 | `docs/operations/category-strategy-planning-flow.md` |
 | #64 | `egdev-linkedin` operational pilot | LinkedIn-local planning using inherited globals plus resolved Context Pack + Skill Pack. | #57, #61, #62, #63, #70, #71, #72, #73, #74, #75 | `docs/operations/linkedin-weekly-planning-flow.md` |
-| #65 | Multi-network brief pilot | On-demand brief work driven by pack resolution, intent, and approval policy instead of fixed channel-to-skill binding. | #70, #71, #72, #73, #74 | `skills/on-demand-brief-planner/SKILL.md` |
+| #65 | Multi-network brief pilot | On-demand brief work driven by pack resolution, intent, and approval policy instead of fixed channel-to-skill binding. | #57, #61, #62, #63, #64, #70, #71, #72, #73, #74, #75 | `docs/operations/on-demand-brief-flow.md` |
 
 ## Pilot order and success criteria
 
@@ -29,7 +29,7 @@ This roadmap preserves the open Discord workflow issues while moving planning fr
 | 3 | #62 | Ledger proposals stay approval-gated and durable ledger entries are not polluted with runtime-only notes. |
 | 4 | #63 | Strategy planning consumes approved context and produces reviewable proposals without assuming a fixed Discord channel owns the strategy flow. |
 | 5 | #64 | `egdev-linkedin` is documented as a category-local pilot using inherited globals plus LinkedIn-specific context and skills. |
-| 6 | #65 | On-demand briefs are routed by resolved Context Pack + Skill Pack + intent, with Gentle SDD remaining optional backend-only where `sdd_dev_work` applies. |
+| 6 | #65 | On-demand briefs are routed by resolved Context Pack + Skill Pack + intent, with Gentle SDD remaining optional backend-only where `sdd_dev_work` applies and all saves staying approval-gated. |
 
 ## Legacy baseline
 

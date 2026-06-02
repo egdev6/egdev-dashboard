@@ -36,7 +36,7 @@ Optional inputs:
 
 1. Start from approved brand context, strategy context, and recent ledger context when they are available.
 2. Support one or more requested networks from `youtube`, `twitch`, and `stack-and-flow` in the same brief request.
-3. Separate confirmed facts, assumptions, format rules, and proposed angles before writing network briefs.
+3. Separate confirmed facts, assumptions, missing context, format rules, and proposed angles before writing network briefs.
 4. Keep each brief small enough for human review before drafting, publishing, scheduling, or memory updates.
 5. Treat durable memory and ledger writes as planned targets until a human approves the brief set.
 6. Use only fake/demo values in repository-facing examples.
@@ -80,6 +80,8 @@ planning_basis:
     - <approved fact from source context>
   assumptions:
     - <planning assumption to review>
+  missing_context:
+    - <missing approved input to call out explicitly>
   format_rules:
     - <network-specific brief rule>
   proposed_angles:
@@ -208,6 +210,8 @@ planning_basis:
     - approved brand context prefers practical technical framing
   assumptions:
     - the same theme can be adapted across long-form, live, and compact formats without repeating the same hook
+  missing_context:
+    - no approved source transcript exists for this request
   format_rules:
     - youtube brief should support a longer explanatory outline
     - twitch brief should leave room for live interaction and Q&A
