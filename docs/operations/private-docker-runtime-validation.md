@@ -66,6 +66,12 @@ docker compose down
 | Log safety review | Passed. Sampled logs showed no obvious secret/token/password values. |
 | Shutdown | Passed with `docker compose down`. Containers and network were removed; named volumes remained. |
 
+## Historical skill count note
+
+Keep the six-skill result above as the factual outcome for issue #104.
+
+For current runtime-adjacent expectation, use `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md`: that later validation tracks seven synced `SKILL.md` files and includes `skills/discord-approval-gate/SKILL.md`.
+
 ## Sanitized evidence
 
 ### Final `docker compose ps`
