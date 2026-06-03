@@ -13,6 +13,7 @@ Do **not** paste secrets, private memory, raw Discord IDs, or sensitive logs int
 5. Review the latest sanitized evidence reports in:
    - `docs/operations/private-docker-runtime-validation.md`
    - `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md`
+6. Before any private Discord rehearsal, review `docs/operations/private-discord-manual-verification-guide.md` and keep QA-07 execution gated until a no-op observation path is approved.
 
 ## First pilot result
 
@@ -245,3 +246,5 @@ After this pilot, choose one next step:
 2. real Engram persistence validation;
 3. dashboard/API stack decision;
 4. operational hardening follow-up for any pilot blocker.
+
+If the next step is Discord-adjacent manual verification, use `docs/operations/private-discord-manual-verification-guide.md` together with the QA-07 gated plan.

@@ -184,4 +184,4 @@ If a baseline tag is created, its release note should say the equivalent of:
 
 ## Next step
 
-Merge this report, then use it as the final QA source of truth for the current repository baseline. If the team wants Discord-live-adjacent validation later, reopen or recreate a scoped QA-07 execution issue only after the private environment and no-op observation path are explicitly approved.
+Merge this report, then use it as the final QA source of truth for the current repository baseline. Before any operator-facing private Discord rehearsal, use `docs/operations/private-discord-manual-verification-guide.md` to organize topology, manual tests, and sanitized evidence. If the team wants Discord-live-adjacent validation later, reopen or recreate a scoped QA-07 execution issue only after the private environment and no-op observation path are explicitly approved.

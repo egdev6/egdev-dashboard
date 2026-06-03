@@ -8,17 +8,18 @@ For pilot sequencing after #70-#74, use `docs/operations/discord-context-skill-p
 
 ## Quick path
 
-1. Install the external OpenClaw Discord plugin before live validation.
-2. Name channels with `<network-slug>-<project-slug>`.
-3. Keep real guild and channel IDs outside the repo.
-4. Route channel-local memory by raw Discord IDs.
-5. Route durable project reads by approved project/network slugs.
-6. Ask for human approval before durable project writes.
-7. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
-8. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
-9. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
-10. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
-11. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
+1. Use `docs/operations/private-discord-manual-verification-guide.md` to prepare the private topology, channel roles, and sanitized evidence plan.
+2. Install the external OpenClaw Discord plugin before live validation.
+3. Name routed channels with `<network-slug>-<project-slug>`.
+4. Keep real guild and channel IDs outside the repo.
+5. Route channel-local memory by raw Discord IDs.
+6. Route durable project reads by approved project/network slugs.
+7. Ask for human approval before durable project writes.
+8. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
+9. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
+10. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+11. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
+12. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
 
 ## Naming examples
 
