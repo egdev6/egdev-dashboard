@@ -69,6 +69,12 @@ docker compose ps
 | Namespace separation review | Passed. Runtime audit namespace stayed contractual only; validator writes used disposable local durable namespaces only. |
 | Shutdown | Passed with `docker compose down`. Containers and network were removed; named volumes remained. |
 
+## Skill count comparison note
+
+Use this report for the current expected synced skill set.
+
+It validates seven tracked `SKILL.md` files, including `skills/discord-approval-gate/SKILL.md`. The earlier #104 runtime report remains historically accurate for its six-skill observation and should not be rewritten as if it had captured the later seven-skill set.
+
 ## Sanitized evidence
 
 ### Final healthy `docker compose ps`

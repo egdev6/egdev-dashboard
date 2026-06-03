@@ -45,7 +45,7 @@ This report does **not**:
 | Production release recommendation | **Not ready** |
 | Public Discord or live social runtime recommendation | **Not ready** |
 | QA-07 status | **Blocked / gated** for execution even though the plan-only PR merged |
-| Follow-up posture | #119 and #121 remain non-blocking; QA-07 execution needs explicit human re-approval and a private environment |
+| Follow-up posture | #121 remains non-blocking; QA-07 execution needs explicit human re-approval and a private environment |
 
 ## Why this decision is justified
 
@@ -80,10 +80,10 @@ The merged evidence set proves all of the following within repo-safe or private/
 |---|---:|---|---|---|
 | #102 AGENT-01 safe validation suite | #114 | `docs/operations/safe-validation-suite.md` | `pass` | Safe local Stage 0-1 baseline established; no live/runtime claims |
 | #103 AGENT-02 CI coverage | #115 | `docs/operations/ci.md` | `pass` | CI covers repository contracts, safe validator suite, Docker build/compose validation, and Gitleaks |
-| #104 AGENT-03 private Docker runtime validation | #116 | `docs/operations/private-docker-runtime-validation.md` | `pass` | Private/local compose path, loopback health, skill presence, and safe shutdown validated |
-| #105 AGENT-04 skill sync and Engram roundtrips | #117 | `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md` | `pass` | Seven tracked skills synced; local disposable Engram roundtrips validated |
+| #104 AGENT-03 private Docker runtime validation | #116 | `docs/operations/private-docker-runtime-validation.md` | `pass` | Private/local compose path, loopback health, and safe shutdown validated; that run observed six tracked synced skills at the time |
+| #105 AGENT-04 skill sync and Engram roundtrips | #117 | `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md` | `pass` | Current runtime-adjacent expectation is seven tracked synced skills, including `discord-approval-gate`; local disposable Engram roundtrips also validated |
 | #106 QA-01 acceptance matrix | #118 | `docs/operations/qa-acceptance-matrix.md` | `pass` | QA source-of-truth matrix and evidence-pack format accepted |
-| #107 QA-02 onboarding/docs walkthrough | #120 | `docs/operations/qa-onboarding-docs-walkthrough.md` | `pass-with-follow-up` | Walkthrough passed; follow-up #119 tracks historical six-vs-seven skill-count wording |
+| #107 QA-02 onboarding/docs walkthrough | #120 | `docs/operations/qa-onboarding-docs-walkthrough.md` | `pass` | Walkthrough passed; runtime docs now distinguish the historical six-skill report from the current seven-skill expectation |
 | #108 QA-03 skills/workflow contracts | #122 | `docs/operations/qa-skills-workflow-contract-walkthrough.md` | `pass-with-follow-up` | Workflow set is coherent; follow-up #121 tracks LinkedIn `missing_context` modeling |
 | #109 QA-04 memory and approval gate | #123 | `docs/operations/qa-memory-approval-gate-walkthrough.md` | `pass` | Approval states, revise/reject behavior, and runtime-vs-durable namespace separation are clear |
 | #110 QA-05 dashboard and analytics read-only walkthrough | #124 | `docs/operations/qa-dashboard-analytics-readonly-walkthrough.md` | `pass` | Analytics and dashboard surfaces remain fake/read-only and non-production |
@@ -162,7 +162,6 @@ These limits are consistent with `docs/project/roadmap-completion.md`, the AGENT
 
 | Follow-up | Status | Why it matters |
 |---|---|---|
-| #119 — reconcile six-vs-seven skill sync count evidence | Non-blocking | Keeps runtime documentation historically consistent after #105 proved seven tracked skills |
 | #121 — reconcile LinkedIn `missing_context` modeling | Non-blocking | Aligns skill output shape with workflow doc, fixture, and validator expectations |
 | QA-07 execution prerequisites | Deferred by documented rationale | Execution was intentionally not part of this baseline; a future private Discord run needs re-approval and a private environment |
 
@@ -182,7 +181,7 @@ If a baseline tag is created, its release note should say the equivalent of:
 ## Pass / fail decision
 
 - Status: `pass-with-follow-ups`
-- Why: every required AGENT and QA evidence pack through QA-06 passed, QA-07 is honestly recorded as gated/blocked rather than silently treated as passed, and the remaining open items (#119 and #121) do not block the internal fake-first/local baseline recommendation.
+- Why: every required AGENT and QA evidence pack through QA-06 passed, QA-07 is honestly recorded as gated/blocked rather than silently treated as passed, and the remaining open items do not block the internal fake-first/local baseline recommendation.
 
 ## Next step
 

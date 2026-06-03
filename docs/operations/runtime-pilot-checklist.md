@@ -30,6 +30,17 @@ The first private local pilot on 2026-05-31 completed successfully with sanitize
 | Bindings | OpenClaw and Engram were bound to `127.0.0.1`. |
 | Shutdown | `docker compose down` removed containers/network and preserved `openclaw-home` plus `engram-postgres` volumes. |
 
+## Skill sync count note
+
+Use the six-skill result above as historical evidence for the 2026-05-31 pilot only.
+
+Current expectation is documented in `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md`: runtime-adjacent validation now tracks seven project `SKILL.md` files, including `skills/discord-approval-gate/SKILL.md`.
+
+Rule of thumb:
+
+- use this checklist and the #104 report to understand what the first pilot observed;
+- use the #105 report when you need the current tracked skill set and checksum-confirmed sync evidence.
+
 Non-blocking observed warnings:
 
 - Postgres reported `no usable system locales were found` during init.
@@ -143,6 +154,16 @@ Follow-up needed:
 
 Validate that tracked project skills are present in the OpenClaw workspace after startup.
 
+Current expected tracked `SKILL.md` set for comparison:
+
+- `skills/brand-context/SKILL.md`
+- `skills/content-ledger/SKILL.md`
+- `skills/discord-approval-gate/SKILL.md`
+- `skills/linkedin-weekly-planner/SKILL.md`
+- `skills/on-demand-brief-planner/SKILL.md`
+- `skills/strategy-planner/SKILL.md`
+- `skills/x-queue-planner/SKILL.md`
+
 Suggested check:
 
 ```bash
@@ -153,7 +174,9 @@ Record:
 
 - [ ] `skills/brand-context/SKILL.md` appears or equivalent path is documented.
 - [ ] `skills/content-ledger/SKILL.md` appears or equivalent path is documented.
+- [ ] `skills/discord-approval-gate/SKILL.md` appears or equivalent path is documented.
 - [ ] `skills/strategy-planner/SKILL.md` appears or equivalent path is documented.
+- [ ] Current expected count is seven tracked `SKILL.md` files unless a scoped follow-up explicitly changes the synced set.
 - [ ] Missing skills are handled by rebuild/restart guidance, not only setup reruns.
 
 Repo-safe finding:
