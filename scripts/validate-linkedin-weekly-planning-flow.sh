@@ -91,6 +91,7 @@ for required in \
   "confirmed facts" \
   "assumptions" \
   "missing context" \
+  "missing_context" \
   "proposed angles" \
   "weekly posts" \
   "approval checkpoints" \
@@ -111,7 +112,7 @@ awk -v runtime="$RUNTIME_NAMESPACE_CONTRACT" -v target="$TARGET_NAMESPACE" '
     if (scenario == "") {
       return
     }
-    if (has_runtime != 1 || has_matched_route != 1 || has_project != 1 || has_network != 1 || has_scope_summary != 1 || has_skill_gate != 1 || has_skill_linkedin != 1 || has_global_context != 1 || has_linkedin_context != 1 || has_ledger_summary != 1 || has_strategy_summary != 1 || has_approved_strategy != 1 || has_read_model_summary != 1 || has_confirmed_facts != 1 || has_assumptions != 1 || has_missing_context != 1 || has_source_context != 1 || has_planning_inputs != 1 || has_planning_basis != 1 || has_weekly_plan != 1 || has_posts != 1 || has_rationale != 1 || has_approval != 1 || has_memory_targets != 1 || has_out_of_scope != 1 || has_confirm != 1 || has_approval_requested != 1 || has_approval_phrase != 1 || has_write_executed_false != 1 || has_target_namespace != 1 || has_runtime_audit != 1 || has_revise_runtime_local != 1 || has_reject_runtime_local != 1) {
+    if (has_runtime != 1 || has_matched_route != 1 || has_project != 1 || has_network != 1 || has_scope_summary != 1 || has_skill_gate != 1 || has_skill_linkedin != 1 || has_global_context != 1 || has_linkedin_context != 1 || has_ledger_summary != 1 || has_strategy_summary != 1 || has_approved_strategy != 1 || has_read_model_summary != 1 || has_confirmed_facts != 1 || has_assumptions != 1 || has_missing_context != 1 || has_source_context != 1 || has_planning_inputs != 1 || has_planning_basis != 1 || has_candidate_missing_context != 1 || has_weekly_plan != 1 || has_posts != 1 || has_rationale != 1 || has_approval != 1 || has_memory_targets != 1 || has_out_of_scope != 1 || has_confirm != 1 || has_approval_requested != 1 || has_approval_phrase != 1 || has_write_executed_false != 1 || has_target_namespace != 1 || has_runtime_audit != 1 || has_revise_runtime_local != 1 || has_reject_runtime_local != 1) {
       printf("scenario %s is missing required LinkedIn weekly planning markers\n", scenario) > "/dev/stderr"
       exit 1
     }
@@ -154,6 +155,7 @@ awk -v runtime="$RUNTIME_NAMESPACE_CONTRACT" -v target="$TARGET_NAMESPACE" '
   section == "candidate" && /^    source_context:/ { has_source_context = 1; next }
   section == "candidate" && /^    planning_inputs:/ { has_planning_inputs = 1; next }
   section == "candidate" && /^    planning_basis:/ { has_planning_basis = 1; next }
+  section == "candidate" && /^      missing_context:/ { has_candidate_missing_context = 1; next }
   section == "candidate" && /^    weekly_plan:/ { has_weekly_plan = 1; next }
   section == "candidate" && /^      posts:/ { has_posts = 1; next }
   section == "candidate" && /^          rationale:/ { has_rationale = 1; next }

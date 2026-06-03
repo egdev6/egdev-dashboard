@@ -35,7 +35,7 @@ Optional inputs:
 
 1. Start from approved brand context and recent ledger context when they are available.
 2. Keep weekly planning separate from cross-network strategy rules.
-3. Separate confirmed facts, assumptions, and proposed post angles.
+3. Separate confirmed facts, assumptions, explicit `missing_context`, and proposed post angles.
 4. Keep each weekly post idea small enough for human review.
 5. Treat memory writes as planned targets until a human approves them.
 6. Use only fake/demo values in repository-facing examples.
@@ -70,6 +70,8 @@ planning_basis:
     - <approved fact from source context>
   assumptions:
     - <planning assumption to review>
+  missing_context:
+    - <important missing input or evidence to resolve later>
   proposed_angles:
     - <post angle under consideration>
 weekly_plan:
@@ -167,6 +169,8 @@ planning_basis:
     - approved brand context prefers implementation trade-off breakdowns
   assumptions:
     - engineering leads will respond to compact operational lessons
+  missing_context:
+    - no approved weekly performance analytics are available for this planning slice
   proposed_angles:
     - single reviewable trade-off memo
 weekly_plan:

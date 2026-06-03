@@ -6,7 +6,7 @@ This runbook defines the fake-first `egdev-linkedin` category-local operational 
 
 1. Start from a matched route and approved inherited context.
 2. Prepare one bounded Context Pack and one Skill Pack before any weekly plan candidate.
-3. Separate confirmed facts, assumptions, and missing context.
+3. Separate confirmed facts, assumptions, and explicit `missing_context`.
 4. Return one reviewable weekly plan candidate before any write.
 5. Keep `approve write`, `revise: <instruction>`, and `reject` behind the approval gate.
 
@@ -44,7 +44,7 @@ Before recommendations, the candidate must show:
 
 - confirmed facts;
 - assumptions;
-- missing context;
+- missing context (`missing_context`);
 - proposed angles;
 - weekly posts;
 - approval checkpoints.
@@ -57,7 +57,7 @@ The weekly plan candidate should reuse the existing `skills/linkedin-weekly-plan
 
 - `source_context`
 - `planning_inputs`
-- `planning_basis`
+- `planning_basis`, including `confirmed_facts`, `assumptions`, explicit `missing_context`, and `proposed_angles`
 - `weekly_plan`
 - `approval`
 - `memory_write_targets`
