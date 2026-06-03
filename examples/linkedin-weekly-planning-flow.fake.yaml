@@ -129,6 +129,9 @@ scenario:
         - approved LinkedIn category context stays review-only in this pilot
       assumptions:
         - engineering leads still prefer practical implementation lessons over motivational framing
+      missing_context:
+        - no approved performance analytics are available for this week
+        - no approved campaign brief exists for a secondary LinkedIn angle
       proposed_angles:
         - single writer thread reviewability lesson
         - technical trade-off recap from approved strategy context

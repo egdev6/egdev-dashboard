@@ -45,7 +45,7 @@ This report does **not**:
 | Production release recommendation | **Not ready** |
 | Public Discord or live social runtime recommendation | **Not ready** |
 | QA-07 status | **Blocked / gated** for execution even though the plan-only PR merged |
-| Follow-up posture | #121 remains non-blocking; QA-07 execution needs explicit human re-approval and a private environment |
+| Follow-up posture | QA-07 execution needs explicit human re-approval and a private environment |
 
 ## Why this decision is justified
 
@@ -84,7 +84,7 @@ The merged evidence set proves all of the following within repo-safe or private/
 | #105 AGENT-04 skill sync and Engram roundtrips | #117 | `docs/operations/openclaw-skill-sync-engram-roundtrip-validation.md` | `pass` | Current runtime-adjacent expectation is seven tracked synced skills, including `discord-approval-gate`; local disposable Engram roundtrips also validated |
 | #106 QA-01 acceptance matrix | #118 | `docs/operations/qa-acceptance-matrix.md` | `pass` | QA source-of-truth matrix and evidence-pack format accepted |
 | #107 QA-02 onboarding/docs walkthrough | #120 | `docs/operations/qa-onboarding-docs-walkthrough.md` | `pass` | Walkthrough passed; runtime docs now distinguish the historical six-skill report from the current seven-skill expectation |
-| #108 QA-03 skills/workflow contracts | #122 | `docs/operations/qa-skills-workflow-contract-walkthrough.md` | `pass-with-follow-up` | Workflow set is coherent; follow-up #121 tracks LinkedIn `missing_context` modeling |
+| #108 QA-03 skills/workflow contracts | #122 | `docs/operations/qa-skills-workflow-contract-walkthrough.md` | `pass` | Workflow set is coherent; LinkedIn `missing_context` is now aligned across skill, doc, fixture, and validator |
 | #109 QA-04 memory and approval gate | #123 | `docs/operations/qa-memory-approval-gate-walkthrough.md` | `pass` | Approval states, revise/reject behavior, and runtime-vs-durable namespace separation are clear |
 | #110 QA-05 dashboard and analytics read-only walkthrough | #124 | `docs/operations/qa-dashboard-analytics-readonly-walkthrough.md` | `pass` | Analytics and dashboard surfaces remain fake/read-only and non-production |
 | #111 QA-06 private Docker runtime smoke | #125 | `docs/operations/qa-private-docker-runtime-smoke-walkthrough.md` | `pass` | Operator-facing startup, health, logs, shutdown, and non-destructive triage are documented |
@@ -118,7 +118,7 @@ A future QA-07 execution needs all of the following before it can be re-opened a
 |---|---|---|---|
 | M1 Foundation | `pass` | #102, #103, #106, #107 | Repo shape, docs, issue-first workflow, and validation entry points are reviewable |
 | M2 Memory MVP | `pass` | #105, #109 | Local/disposable memory roundtrips and durable-vs-runtime boundaries are clear |
-| M3 Content skills | `pass-with-follow-up` | #108 | Skills/contracts are coherent; #121 remains open for LinkedIn modeling |
+| M3 Content skills | `pass` | #108 | Skills/contracts are coherent across the reviewed fake workflow set |
 | M4 Discord operations | `pass-with-limit` | #109, #112 | Routing and approval contracts are reviewable, but live-adjacent execution remains gated |
 | M5 Buffer analytics | `pass` | #110 | Fake LinkedIn/X analytics snapshots remain read-only and non-live |
 | M6 Dashboard | `pass` | #110 | Static dashboard/read-model contract remains read-only and repo-safe |
@@ -132,7 +132,7 @@ A future QA-07 execution needs all of the following before it can be re-opened a
 | #61 OpenClaw Global context refresh | `pass` | #108, #109 | Global context inheritance and approval-gated writeback remain explicit |
 | #62 content-ledger utility | `pass` | #108, #109 | Ledger proposals stay approval-gated and runtime notes stay out of durable ledger state |
 | #63 category strategy planning | `pass` | #108, #109 | Strategy output stays proposal-first and context-driven |
-| #64 LinkedIn weekly planning | `pass-with-follow-up` | #108 | Workflow is reviewable; #121 remains open for `missing_context` modeling |
+| #64 LinkedIn weekly planning | `pass` | #108 | Workflow is reviewable and now models `missing_context` consistently |
 | #65 on-demand brief flow | `pass` | #108 | Route -> pack -> intent -> brief-candidate path remains reviewable and approval-gated |
 
 ## Known limits
@@ -162,7 +162,6 @@ These limits are consistent with `docs/project/roadmap-completion.md`, the AGENT
 
 | Follow-up | Status | Why it matters |
 |---|---|---|
-| #121 — reconcile LinkedIn `missing_context` modeling | Non-blocking | Aligns skill output shape with workflow doc, fixture, and validator expectations |
 | QA-07 execution prerequisites | Deferred by documented rationale | Execution was intentionally not part of this baseline; a future private Discord run needs re-approval and a private environment |
 
 ## Release recommendation
@@ -181,7 +180,7 @@ If a baseline tag is created, its release note should say the equivalent of:
 ## Pass / fail decision
 
 - Status: `pass-with-follow-ups`
-- Why: every required AGENT and QA evidence pack through QA-06 passed, QA-07 is honestly recorded as gated/blocked rather than silently treated as passed, and the remaining open items do not block the internal fake-first/local baseline recommendation.
+- Why: every required AGENT and QA evidence pack through QA-06 passed, QA-07 is honestly recorded as gated/blocked rather than silently treated as passed, and the remaining limits do not block the internal fake-first/local baseline recommendation.
 
 ## Next step
 
