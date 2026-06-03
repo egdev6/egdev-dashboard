@@ -23,7 +23,7 @@ Use this doc to run the QA track after AGENT verification is green. It gives QA 
 | 9 | #110 QA-05 | `QA+agent` | Dashboard and analytics read-only walkthrough | `docs/operations/qa-dashboard-analytics-readonly-walkthrough.md` |
 | 10 | #111 QA-06 | `QA+agent` | Private Docker runtime smoke walkthrough | `docs/operations/qa-private-docker-runtime-smoke-walkthrough.md` |
 | 11 | #112 QA-07 | `QA+agent` | Private Discord routing dry-run (execution gated) | `docs/operations/qa-private-discord-routing-dry-run-plan.md` |
-| 12 | #113 QA-08 | `QA+agent` | Final regression report and release decision | Final regression report |
+| 12 | #113 QA-08 | `QA+agent` | Final regression report and release decision | `docs/operations/qa-final-regression-report.md` |
 
 ## Agent evidence to reuse first
 
