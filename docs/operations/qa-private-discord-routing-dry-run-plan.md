@@ -5,8 +5,9 @@ This evidence pack records the approved plan-only slice for QA-07 in issue #112.
 ## Quick path
 
 1. Reuse AGENT runtime evidence and the completed QA packs before attempting any Discord-live-adjacent step.
-2. Prepare only a private non-production Discord environment with reversible setup and sanitized evidence rules.
-3. Stop before execution unless a human explicitly authorizes the dry-run and provides the required private inputs.
+2. Review `docs/operations/private-discord-manual-verification-guide.md` to organize topology, channel roles, and sanitized manual evidence.
+3. Prepare only a private non-production Discord environment with reversible setup and sanitized evidence rules.
+4. Stop before execution unless a human explicitly authorizes the dry-run and provides the required private inputs.
 
 ## Evidence pack header
 
@@ -206,4 +207,4 @@ Execution remains blocked until a human provides the private Discord environment
 
 ## Next step
 
-Keep #112 in a gated state. Execute the private Discord routing dry-run only after a human provides the required private environment, non-production credentials, and explicit execution approval.
+Keep #112 in a gated state. Use `docs/operations/private-discord-manual-verification-guide.md` for operator-facing preparation, and execute the private Discord routing dry-run only after a human provides the required private environment, non-production credentials, and explicit execution approval.
