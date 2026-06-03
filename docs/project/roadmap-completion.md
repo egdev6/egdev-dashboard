@@ -11,6 +11,7 @@ This document marks the repository baseline after the first contract-first imple
 3. Use this document to understand what is implemented versus still pending operational validation.
 4. Start the next phase with runtime validation or a new approved roadmap slice.
 5. Use `docs/operations/qa-acceptance-matrix.md` to plan QA evidence after AGENT verification is complete.
+6. Before any baseline tag or release note, execute or explicitly defer #132 using `docs/operations/private-discord-manual-verification-guide.md`.
 
 ## Milestone outcomes
 
@@ -47,15 +48,34 @@ The baseline intentionally does **not** include:
 - a live dashboard API/server or JavaScript app framework;
 - automated backup/restore tooling.
 
+## Pre-release manual Discord verification gate
+
+Track the operator-facing Discord rehearsal in #132 before creating any baseline tag or release note.
+
+Use `docs/operations/private-discord-manual-verification-guide.md` as the execution guide and keep evidence sanitized. The checklist in #132 covers:
+
+- local/private runtime startup and non-destructive shutdown;
+- private non-production guild, channels, credentials, and explicit execution approval;
+- no-op resolver diagnostic, plugin/runtime dry-run mode, or re-tested enforcement path before any private Discord message;
+- `OpenClaw Global` governance/control category and channels;
+- routed project/network channels such as `linkedin-egdev` and `x-egdev`;
+- workflow/control review channels for strategy, ledger, approvals, context packs, briefs, and memory/context;
+- intentional unmapped fallback channel;
+- global context, category context, skills/packs, memory/context separation, matched route, unmapped fallback, and approval-preview tests;
+- sanitized pass/fail/blocked evidence with no real IDs, credentials, raw logs, transcripts, private payloads, or sensitive screenshots.
+
+Until #132 is executed and reviewed, treat Discord-live-adjacent readiness as **gated**. The repository may still be described as an internal fake-first/local baseline, but not as a validated private Discord runtime.
+
 ## Recommended next phase
 
 Choose one focused next phase before adding more feature work:
 
-1. **Runtime validation**: run the Docker stack privately, validate OpenClaw startup, Engram health, workspace skill sync, and safe shutdown.
-2. **Live Discord pilot**: after runtime validation, configure a private Discord test guild/channel with no durable writes until routing is confirmed.
-3. **Dashboard/API stack decision**: decide whether the static dashboard remains enough or whether to introduce a real app/API surface.
-4. **Analytics source decision**: identify an approved analytics source before attempting live LinkedIn/X metrics.
+1. **Manual Discord verification gate**: execute or explicitly defer #132 using the private Discord manual verification guide.
+2. **Runtime validation**: run the Docker stack privately, validate OpenClaw startup, Engram health, workspace skill sync, and safe shutdown.
+3. **Private Discord pilot**: after runtime validation and #132 approval prerequisites, configure a private Discord test guild/channel with no durable writes until routing and approval behavior are confirmed through a no-op observation path.
+4. **Dashboard/API stack decision**: decide whether the static dashboard remains enough or whether to introduce a real app/API surface.
+5. **Analytics source decision**: identify an approved analytics source before attempting live LinkedIn/X metrics.
 
 ## Release note
 
-A `v0.1.0` tag is appropriate after this completion note is merged. The tag should mean: "roadmap baseline complete; operational validation still pending."
+A `v0.1.0` tag is appropriate only after the release owner either executes #132 or explicitly defers it in the release notes. The tag should mean: "internal fake-first/local baseline complete; private Discord manual verification is tracked separately unless #132 is completed."
