@@ -1,0 +1,282 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-managed-channel-routing
+issue_ref: 137
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+routing_policy:
+  lookup_source: persisted-semantic-metadata
+  name_inference_allowed: false
+  unmanaged_channel_hydration_allowed: false
+  approval_gate_required_for_write_like: true
+  approval_gate_skill: discord-approval-gate
+  registry_sources:
+    - docs/architecture/discord-project-manager-global-init.md
+    - docs/architecture/discord-project-manager-project-create.md
+  guide_catalog_ref: examples/discord-semantic-channel-guides.fake.yaml
+  scoped_skills_contract: docs/architecture/discord-scoped-skills-registry.md
+  memory_gateway_contract: docs/architecture/discord-memory-gateway.md
+managed_channel_registry:
+  guild_ref: guild-demo-project-manager
+  global_category_ref: category-demo-project-manager-global
+  project_categories:
+    - project_ref: project-demo-web-app
+      project_slug: web-app
+      category_ref: category-demo-project-web-app
+  channels:
+    - channel_ref: channel-demo-global-context
+      category_ref: category-demo-project-manager-global
+      scope: global
+      project_ref: none
+      field_key: context
+      guide_ref: global.context
+      channel_name_for_review: global-context
+      allowed_prompt_operations:
+        - ask
+        - summarize
+        - propose_update
+      state_target: workspace-global-context
+    - channel_ref: channel-demo-global-skills
+      category_ref: category-demo-project-manager-global
+      scope: global
+      project_ref: none
+      field_key: skills
+      guide_ref: global.skills
+      channel_name_for_review: global-skills
+      allowed_prompt_operations:
+        - ask
+        - summarize
+        - propose_update
+        - review
+      state_target: workspace-global-skills
+      scoped_skills_ref: registry.global
+    - channel_ref: channel-demo-web-app-context
+      category_ref: category-demo-project-web-app
+      scope: project
+      project_ref: project-demo-web-app
+      project_slug: web-app
+      field_key: context
+      guide_ref: project.context
+      channel_name_for_review: context
+      allowed_prompt_operations:
+        - ask
+        - summarize
+        - propose_update
+      state_target: project:web-app:context
+    - channel_ref: channel-demo-web-app-skills
+      category_ref: category-demo-project-web-app
+      scope: project
+      project_ref: project-demo-web-app
+      project_slug: web-app
+      field_key: skills
+      guide_ref: project.skills
+      channel_name_for_review: skills
+      allowed_prompt_operations:
+        - ask
+        - summarize
+        - propose_update
+        - review
+      state_target: project:web-app:skills
+      scoped_skills_ref: registry.project.web-app
+    - channel_ref: channel-demo-web-app-strategy
+      category_ref: category-demo-project-web-app
+      scope: project
+      project_ref: project-demo-web-app
+      project_slug: web-app
+      field_key: strategy
+      guide_ref: project.strategy
+      channel_name_for_review: strategy
+      allowed_prompt_operations:
+        - ask
+        - summarize
+        - generate
+        - review
+      state_target: project:web-app:strategy
+routing_scenarios:
+  - scenario_ref: route-global-context-summary
+    event_ref: event-demo-global-context-summary
+    channel_ref: channel-demo-global-context
+    requested_operation: summarize
+    message_intent: read-only
+    route_status: managed-channel
+    route_result: global-context-route
+    resolved_scope: global
+    resolved_field_key: context
+    resolved_project_ref: none
+    state_targets_read:
+      - workspace-global-context
+    state_targets_write: []
+    durable_write_allowed_before_approval: false
+    response_mode: summary-only
+    audit_ref: audit-demo-global-context-summary
+  - scenario_ref: route-global-skills-update
+    event_ref: event-demo-global-skills-update
+    channel_ref: channel-demo-global-skills
+    requested_operation: propose_update
+    message_intent: write-like
+    route_status: managed-channel
+    route_result: global-skills-route
+    resolved_scope: global
+    resolved_field_key: skills
+    resolved_project_ref: none
+    state_targets_read:
+      - workspace-global-skills
+      - scoped-skills-registry-global
+    proposed_write_target: docs/architecture/discord-scoped-skills-registry.md
+    durable_write_allowed_before_approval: false
+    approval:
+      state: approval-requested
+      mandatory_skill: discord-approval-gate
+      approval_phrase: approve write
+      write_executed: false
+    effective_skills:
+      - discord-approval-gate
+      - brand-context
+      - strategy-planner
+    response_mode: approval-preview
+    audit_ref: audit-demo-global-skills-update
+  - scenario_ref: route-project-context-summary
+    event_ref: event-demo-project-context-summary
+    channel_ref: channel-demo-web-app-context
+    requested_operation: summarize
+    message_intent: read-only
+    route_status: managed-channel
+    route_result: project-context-route
+    resolved_scope: project
+    resolved_field_key: context
+    resolved_project_ref: project-demo-web-app
+    resolved_project_slug: web-app
+    state_targets_read:
+      - project:web-app:context
+    state_targets_write: []
+    durable_write_allowed_before_approval: false
+    response_mode: summary-only
+    audit_ref: audit-demo-project-context-summary
+  - scenario_ref: route-project-skills-review
+    event_ref: event-demo-project-skills-review
+    channel_ref: channel-demo-web-app-skills
+    requested_operation: review
+    message_intent: read-only
+    route_status: managed-channel
+    route_result: project-skills-route
+    resolved_scope: project
+    resolved_field_key: skills
+    resolved_project_ref: project-demo-web-app
+    resolved_project_slug: web-app
+    state_targets_read:
+      - project:web-app:skills
+      - scoped-skills-registry-project:web-app
+    durable_write_allowed_before_approval: false
+    effective_skills:
+      - discord-approval-gate
+      - strategy-planner
+    response_mode: summary-only
+    audit_ref: audit-demo-project-skills-review
+  - scenario_ref: route-project-strategy-generate
+    event_ref: event-demo-project-strategy-generate
+    channel_ref: channel-demo-web-app-strategy
+    requested_operation: generate
+    message_intent: read-only
+    route_status: managed-channel
+    route_result: project-strategy-route
+    resolved_scope: project
+    resolved_field_key: strategy
+    resolved_project_ref: project-demo-web-app
+    resolved_project_slug: web-app
+    state_targets_read:
+      - project:web-app:strategy
+    durable_write_allowed_before_approval: false
+    effective_skills:
+      - discord-approval-gate
+      - strategy-planner
+    response_mode: proposal-only
+    audit_ref: audit-demo-project-strategy-generate
+  - scenario_ref: reject-unsupported-operation
+    event_ref: event-demo-project-context-publish
+    channel_ref: channel-demo-web-app-context
+    requested_operation: publish
+    message_intent: write-like
+    route_status: managed-channel
+    route_result: unsupported-operation
+    resolved_scope: project
+    resolved_field_key: context
+    allowed_prompt_operations:
+      - ask
+      - summarize
+      - propose_update
+    durable_write_allowed_before_approval: false
+    write_executed: false
+    safe_response: "I can route this managed channel, but publish is not allowed here. Scope: project. Field: context. Allowed operations: ask, summarize, propose_update. No state was changed."
+    audit_ref: audit-demo-unsupported-operation
+  - scenario_ref: reject-unmanaged-channel
+    event_ref: event-demo-unmanaged-general
+    channel_ref: channel-demo-unmanaged-general
+    requested_operation: summarize
+    message_intent: read-only
+    route_status: unmanaged-channel
+    route_result: unmanaged-channel
+    resolved_scope: none
+    resolved_field_key: none
+    resolved_project_ref: none
+    state_targets_read: []
+    state_targets_write: []
+    durable_write_allowed_before_approval: false
+    write_executed: false
+    safe_response: This channel is not managed by Project Manager yet. Choose or create an approved route before durable context is read or written.
+    audit_ref: audit-demo-unmanaged-channel
+audit_outputs:
+  - audit_ref: audit-demo-global-context-summary
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-global-skills-update
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-project-context-summary
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-project-skills-review
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-project-strategy-generate
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-unsupported-operation
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-unmanaged-channel
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+non_goals:
+  - live Discord routing
+  - prompt execution
+  - durable writes before approval
+  - real Discord IDs
+  - raw Discord transcripts
+  - production credentials
+  - publishing
+  - scheduling
+metadata:
+  note: This file contains fake managed-channel routing data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_project_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_real_message_ids: true
+  no_credentials: true
+  no_private_exports: true

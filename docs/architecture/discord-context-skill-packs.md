@@ -6,11 +6,12 @@ This is a contract only. It does not prove live pack generation, live Engram cal
 
 ## Quick path
 
-1. Start from the runtime namespace, route resolution, and Memory Gateway hydration rules.
-2. Resolve one semantic channel guide ref from `docs/architecture/discord-semantic-channel-guides.md` for the current `scope` + `field_key`.
-3. Build one bounded Context Pack and one bounded Skill Pack for the current turn.
-4. Record why each context item or skill was included, excluded, or truncated.
-5. Keep writeback proposals outside the packs and return them through Memory Gateway policy plus `discord-approval-gate`.
+1. Start from the runtime namespace, route resolution, managed channel metadata, and Memory Gateway hydration rules.
+2. Resolve managed Project Manager channels through `docs/architecture/discord-managed-channel-routing.md` when persisted semantic metadata exists.
+3. Resolve one semantic channel guide ref from `docs/architecture/discord-semantic-channel-guides.md` for the current `scope` + `field_key`.
+4. Build one bounded Context Pack and one bounded Skill Pack for the current turn.
+5. Record why each context item or skill was included, excluded, or truncated.
+6. Keep writeback proposals outside the packs and return them through Memory Gateway policy plus `discord-approval-gate`.
 
 ## Pack inputs
 
@@ -18,6 +19,7 @@ This is a contract only. It does not prove live pack generation, live Engram cal
 | --- | --- |
 | `runtime_namespace` | `discord-project-manager/runtime/discord/<guild-id>/<channel-id>` from `docs/architecture/channel-context-namespace-mapping.md` |
 | `routing_status` and `resolved_route` | Route outcome from `docs/architecture/channel-context-namespace-mapping.md` |
+| `managed_channel_route_ref` | Persisted semantic metadata routing from `docs/architecture/discord-managed-channel-routing.md`, `examples/discord-managed-channel-routing.fake.yaml`, and `scripts/validate-discord-managed-channel-routing.sh` when the channel is bot-managed |
 | `channel_guide_ref` | Canonical semantic channel guide lookup from `docs/architecture/discord-semantic-channel-guides.md` |
 | `hydrated_context` | Bounded context prepared under `docs/architecture/discord-memory-gateway.md` |
 | `effective_skills` | Scoped skills resolved under `docs/architecture/discord-scoped-skills-registry.md` |
@@ -102,6 +104,7 @@ Use reviewable defaults in fake fixtures. Do not claim measured runtime limits i
 Writeback is outside the packs.
 
 - Packs may prepare context and selected skills for a future runner.
+- Packs may carry a managed channel route ref so context and skills stay bounded to persisted semantic metadata instead of channel-name inference.
 - Packs may carry a channel guide ref so runtime scaffolding and helpers can resolve canonical topics and starter/pinned copy.
 - Packs must not contain durable writeback execution.
 - Any write-like runner output returns through `docs/architecture/discord-memory-gateway.md`.
