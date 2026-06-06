@@ -106,3 +106,13 @@ This contract does not:
 - [ ] Global and project scopes stay clearly separated.
 - [ ] Runtime scaffolding consumption points to this catalog instead of duplicating copy in handlers.
 - [ ] No live/prod/write-ready claims or real Discord IDs are introduced.
+
+## Related artifacts
+
+| Artifact | Role |
+| --- | --- |
+| `examples/discord-semantic-channel-guides.fake.yaml` | Fake guide catalog consumed by scaffolding contracts. |
+| `docs/architecture/discord-project-manager-global-init.md` | Fake `/project-manager init` contract that consumes the global guide entries. |
+| `examples/discord-project-manager-global-init.fake.yaml` | Fake init plan/result fixture for the global Project Manager category. |
+| `scripts/validate-discord-semantic-channel-guides.sh` | Static validator for this guide catalog. |
+| `scripts/validate-discord-project-manager-global-init.sh` | Static validator for the global init contract and fixture. |

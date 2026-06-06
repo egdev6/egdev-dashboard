@@ -1,0 +1,189 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-project-manager-global-init
+issue_ref: 134
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+command_contract:
+  interaction_name: /project-manager init
+  interaction_kind: slash-command-or-equivalent
+  category_name: Project Manager
+  category_semantic_role: project-manager-global
+  idempotency_key_template: project-manager-global:<guild-id>
+  guide_catalog_ref: examples/discord-semantic-channel-guides.fake.yaml
+  guide_scope: global
+  live_write_claim: false
+permission_preflight:
+  required_before_writes: true
+  required_capabilities:
+    - manage_channels
+    - send_messages
+    - manage_messages_for_pin
+    - view_channel
+  failure_status: blocked-permissions
+  partial_create_allowed_on_missing_permissions: false
+init_request:
+  guild_ref: guild-demo-project-manager
+  requested_by_ref: user-demo-operator
+  command: /project-manager init
+  dry_run: false
+  approved_for_fake_contract: true
+existing_registry_before_first_run:
+  present: false
+planned_topology:
+  category_ref: category-demo-project-manager-global
+  category_name: Project Manager
+  scope: global
+  semantic_role: project-manager-global
+  channels:
+    - field_key: context
+      scope: global
+      channel_ref: channel-demo-global-context
+      channel_name: global-context
+      guide_ref: global.context
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#global.context.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#global.context.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: global
+        field_key: context
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - propose_update
+    - field_key: skills
+      scope: global
+      channel_ref: channel-demo-global-skills
+      channel_name: global-skills
+      guide_ref: global.skills
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#global.skills.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#global.skills.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: global
+        field_key: skills
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - propose_update
+          - review
+    - field_key: strategy
+      scope: global
+      channel_ref: channel-demo-global-strategy
+      channel_name: global-strategy
+      guide_ref: global.strategy
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#global.strategy.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#global.strategy.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: global
+        field_key: strategy
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - generate
+          - review
+    - field_key: decisions
+      scope: global
+      channel_ref: channel-demo-global-decisions
+      channel_name: global-decisions
+      guide_ref: global.decisions
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#global.decisions.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#global.decisions.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: global
+        field_key: decisions
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - propose_update
+    - field_key: config
+      scope: global
+      channel_ref: channel-demo-global-config
+      channel_name: global-config
+      guide_ref: global.config
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#global.config.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#global.config.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: global
+        field_key: config
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - review
+first_run_result:
+  status: created
+  writes_attempted_after_permission_preflight: true
+  created_category_ref: category-demo-project-manager-global
+  created_channel_refs:
+    - channel-demo-global-context
+    - channel-demo-global-skills
+    - channel-demo-global-strategy
+    - channel-demo-global-decisions
+    - channel-demo-global-config
+  topic_applied_from_catalog: true
+  starter_messages_posted: true
+  starter_messages_pin_ready: true
+  persisted_registry_after_run:
+    guild_ref: guild-demo-project-manager
+    category_ref: category-demo-project-manager-global
+    category_semantic_role: project-manager-global
+    scope: global
+    idempotency_key_ref: project-manager-global:<guild-id>
+    channels:
+      context: channel-demo-global-context
+      skills: channel-demo-global-skills
+      strategy: channel-demo-global-strategy
+      decisions: channel-demo-global-decisions
+      config: channel-demo-global-config
+    persistence_private_runtime_ids: true
+    persistence_repo_safe_refs_only: true
+second_run_result:
+  status: no-op
+  used_persisted_registry: true
+  duplicate_category_created: false
+  duplicate_channels_created: false
+  reused_category_ref: category-demo-project-manager-global
+  reused_channel_refs:
+    - channel-demo-global-context
+    - channel-demo-global-skills
+    - channel-demo-global-strategy
+    - channel-demo-global-decisions
+    - channel-demo-global-config
+permission_failure_results:
+  - status: blocked-permissions
+    missing_capability: manage_channels
+    writes_attempted_after_permission_preflight: false
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    operator_message: Missing channel-management permission; Project Manager init did not create or persist Discord topology.
+  - status: blocked-permissions
+    missing_capability: manage_messages_for_pin
+    writes_attempted_after_permission_preflight: false
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    operator_message: Missing pin-message permission; Project Manager init did not create or persist Discord topology.
+drift_boundary_result:
+  status: needs-repair
+  reason: persisted registry exists but one required channel no longer resolves
+  repair_issue_ref: 138
+  duplicate_recreate_allowed_in_issue_134: false
+metadata:
+  note: This file contains fake Project Manager init data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_real_message_ids: true
+  no_credentials: true
+  no_private_exports: true
