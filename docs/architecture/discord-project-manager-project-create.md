@@ -25,7 +25,7 @@ This is a contract only. It does not prove live Discord category/channel creatio
 | Project category creation contract | Global Project Manager init (#134) |
 | Minimal and complete templates | Custom button/select channel picking |
 | Duplicate slug handling | Runtime prompt routing (#137) |
-| Partial failure audit boundary | Full drift repair/status flows (#138) |
+| Partial failure audit boundary | Shared status/repair preview flows (#138) |
 | Fake fixture and validator | Live Discord validation or production rollout |
 
 ## Interaction contract
@@ -123,7 +123,7 @@ The public fake fixture represents the same shape with `guild-demo-*`, `project-
 | Project slug already maps to the same persisted project | Return `duplicate-same-project` and ask whether to open/status the existing project; do not duplicate. |
 | Project slug conflicts with a different project | Return `duplicate-name-review` and ask for a different name or maintainer decision. |
 | Required permissions are missing | Stop with `blocked-permissions`; do not attempt writes. |
-| Category is created but a channel create fails | Emit safe partial audit with created refs and missing fields; full repair belongs to #138. |
+| Category is created but a channel create fails | Emit safe partial audit with created refs and missing fields; use `docs/architecture/discord-channel-scaffolding-status-repair.md` for shared repair preview behavior. |
 | Unsupported template is selected | Stop with `unsupported-template`; do not attempt writes. |
 
 ## Safety rules
@@ -146,3 +146,4 @@ The public fake fixture represents the same shape with `guild-demo-*`, `project-
 | `examples/discord-project-manager-project-create.fake.yaml` | Fake project creation fixture. |
 | `scripts/validate-discord-project-manager-project-create.sh` | Static validator for this contract and fixture. |
 | `docs/architecture/discord-topology-reconciliation.md` | Existing safe topology discovery/reconciliation baseline. |
+| `docs/architecture/discord-channel-scaffolding-status-repair.md` | Shared status and repair preview contract for partial failures, missing channels, and safe retry. |

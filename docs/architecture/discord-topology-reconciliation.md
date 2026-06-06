@@ -133,3 +133,4 @@ latest Discord topology
 | `examples/discord-topology-reconciliation.fake.yaml` | Fake fixture for this contract. |
 | `scripts/validate-discord-topology-reconciliation.sh` | Static validator for the fake fixture. |
 | `docs/architecture/discord-context-namespace-provisioning.md` | Follow-up contract for approved draft provisioning. |
+| `docs/architecture/discord-channel-scaffolding-status-repair.md` | Shared status and repair preview contract that reuses these reconciliation states for managed Project Manager scaffolding. |
