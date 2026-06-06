@@ -459,7 +459,7 @@ for required in \
   "manage_messages_for_pin" \
   "projectSlug" \
   "Duplicate and failure handling" \
-  "full repair belongs to #138" \
+  "docs/architecture/discord-channel-scaffolding-status-repair.md" \
   "does not prove live Discord"; do
   grep -F "$required" "$DOC_PATH" >/dev/null || fail "doc missing required marker: $required"
 done

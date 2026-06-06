@@ -28,6 +28,9 @@ Current routing references:
 - `docs/architecture/discord-project-manager-project-create.md` defines the fake `/project create` contract for creating one category per project.
 - `examples/discord-project-manager-project-create.fake.yaml` provides fake project creation topology, templates, duplicate handling, permission, persistence, and partial-failure data.
 - `scripts/validate-discord-project-manager-project-create.sh` validates the project creation contract and fixture.
+- `docs/architecture/discord-channel-scaffolding-status-repair.md` defines the fake shared status and repair preview contract for managed scaffolding drift.
+- `examples/discord-channel-scaffolding-status-repair.fake.yaml` provides fake no-op, missing, renamed, unsafe-missing-id, partial-retry, permission-blocked, and unmanaged-extra scenarios.
+- `scripts/validate-discord-channel-scaffolding-status-repair.sh` validates the shared status/repair contract and fixture.
 - `docs/architecture/discord-managed-channel-routing.md` defines fake persisted-semantic-metadata routing for managed global/project channels.
 - `examples/discord-managed-channel-routing.fake.yaml` provides fake managed channel routing registry and scenarios.
 - `scripts/validate-discord-managed-channel-routing.sh` validates managed channel routing boundaries.

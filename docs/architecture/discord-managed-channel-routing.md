@@ -22,7 +22,7 @@ This is a contract only. It does not prove live Discord event handling, live bot
 | --- | --- |
 | Semantic registry lookup contract | Live Discord event listener implementation |
 | Global vs project routing boundaries | Channel/category creation (#134/#135) |
-| Allowed operation checks | Full drift repair/status flows (#138) |
+| Allowed operation checks | Shared status/repair preview flows (#138) |
 | Scoped skills lookup for skills channels | Durable write execution |
 | Safe unsupported-message responses | Prompt execution or runner output |
 | Fake fixture and validator | Production/live Discord validation |
@@ -45,7 +45,7 @@ Required channel registry fields:
 | `allowed_prompt_operations` | Bounded operation list such as `ask`, `summarize`, `propose_update`, `review`, or `generate`. |
 | `state_target` | Logical state boundary such as `workspace-global-context` or `project:<projectSlug>:strategy`. |
 
-The routing layer must not rely on display names once `channel_ref`/private `channelId` metadata exists.
+The routing layer must not rely on display names once `channel_ref`/private `channelId` metadata exists. When `docs/architecture/discord-channel-scaffolding-status-repair.md` recreates a managed channel, runtime implementations must refresh the persisted private channel ID before routing resumes.
 
 ## Routing outcomes
 
@@ -102,5 +102,6 @@ Unmanaged channels use the broader routing fallback from `docs/operations/discor
 | `docs/architecture/discord-semantic-channel-guides.md` | Source of `guide_ref` semantics. |
 | `docs/architecture/discord-scoped-skills-registry.md` | Source of scoped skill resolution rules. |
 | `docs/architecture/discord-memory-gateway.md` | Writeback and hydration boundary. |
+| `docs/architecture/discord-channel-scaffolding-status-repair.md` | Shared repair preview contract that refreshes managed channel metadata after recreation. |
 | `examples/discord-managed-channel-routing.fake.yaml` | Fake routing registry and message scenarios. |
 | `scripts/validate-discord-managed-channel-routing.sh` | Static validator for this contract and fixture. |

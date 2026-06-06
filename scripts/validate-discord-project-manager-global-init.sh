@@ -301,7 +301,7 @@ for required in \
   "send_messages" \
   "manage_messages_for_pin" \
   "Persisted category/channels still resolve" \
-  "full repair belongs to #138" \
+  "docs/architecture/discord-channel-scaffolding-status-repair.md" \
   "does not prove live Discord"; do
   grep -F "$required" "$DOC_PATH" >/dev/null || fail "doc missing required marker: $required"
 done

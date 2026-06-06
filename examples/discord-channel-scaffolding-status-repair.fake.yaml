@@ -1,0 +1,331 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-channel-scaffolding-status-repair
+issue_ref: 138
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+repair_policy:
+  topology_lookup_source: persisted-semantic-metadata
+  name_relink_allowed_without_review: false
+  approval_gate_required_for_apply: true
+  approval_gate_skill: discord-approval-gate
+  repair_requires_preview_first: true
+  topology_reconciliation_contract: docs/architecture/discord-topology-reconciliation.md
+  managed_registry_sources:
+    - docs/architecture/discord-project-manager-global-init.md
+    - docs/architecture/discord-project-manager-project-create.md
+  managed_routing_contract: docs/architecture/discord-managed-channel-routing.md
+  guide_catalog_ref: examples/discord-semantic-channel-guides.fake.yaml
+status_command_contract:
+  supported_commands:
+    - /project-manager status
+    - /project-manager repair
+    - /project status
+  reports_existing_channels: true
+  reports_missing_channels: true
+  reports_unmanaged_channels: true
+  reports_unsafe_missing_ids: true
+  durable_write_allowed: false
+repair_command_contract:
+  preview_required_before_apply: true
+  apply_requires_exact_approval_phrase: approve write
+  permission_preflight_required: true
+  partial_apply_allowed_on_missing_permissions: false
+  metadata_refresh_required_on_recreate: true
+status_and_repair_scenarios:
+  - scenario_ref: status-global-intact-rerun
+    managed_surface: global
+    command_ref: /project-manager status
+    expected_category_ref: category-demo-project-manager-global
+    project_ref: none
+    project_slug: none
+    idempotency_source_ref: examples/discord-project-manager-global-init.fake.yaml#second_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - decisions
+      - config
+    missing_fields: []
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: no-op
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    write_attempted: false
+    repair_preview:
+      status: no-op
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      write_executed: false
+      proposed_actions: []
+    audit_ref: audit-demo-status-global-intact-rerun
+  - scenario_ref: repair-global-missing-config
+    managed_surface: global
+    command_ref: /project-manager repair
+    expected_category_ref: category-demo-project-manager-global
+    project_ref: none
+    project_slug: none
+    idempotency_source_ref: examples/discord-project-manager-global-init.fake.yaml#drift_boundary_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - decisions
+    missing_fields:
+      - config
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: needs-repair
+    write_attempted: false
+    repair_preview:
+      status: approval-requested
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: approval-requested
+      approval_phrase: approve write
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions:
+        - action: recreate-channel
+          field_key: config
+          previous_channel_ref: channel-demo-global-config
+          proposed_channel_ref: channel-demo-global-config-recreated
+          topic_source: examples/discord-semantic-channel-guides.fake.yaml#global.config.topic
+          starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#global.config.starter_message
+          metadata_refresh_required: true
+          refreshed_registry_field: channels.config
+          refreshed_state_target: workspace-global-config
+    audit_ref: audit-demo-repair-global-missing-config
+  - scenario_ref: status-project-renamed-linked
+    managed_surface: project
+    command_ref: /project status
+    expected_category_ref: category-demo-project-web-app
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-managed-channel-routing.fake.yaml#managed_channel_registry
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+      - decisions
+      - qa
+    missing_fields: []
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: renamed-linked
+    write_attempted: false
+    renamed_binding:
+      field_key: strategy
+      channel_ref: channel-demo-web-app-strategy
+      current_channel_name: planning
+      linked_by_id: true
+      relink_by_name_attempted: false
+    repair_preview:
+      status: no-relink-required
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      write_executed: false
+      proposed_actions:
+        - action: update-guide-copy
+          field_key: strategy
+          previous_channel_ref: channel-demo-web-app-strategy
+          proposed_channel_ref: channel-demo-web-app-strategy
+          metadata_refresh_required: false
+          refreshed_registry_field: none
+          refreshed_state_target: project:web-app:strategy
+    audit_ref: audit-demo-status-project-renamed-linked
+  - scenario_ref: status-project-unsafe-missing-id
+    managed_surface: project
+    command_ref: /project status
+    expected_category_ref: category-demo-project-web-app
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - decisions
+      - qa
+    missing_fields:
+      - tasks
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields:
+      - tasks
+    status_result: unsafe-missing-id
+    write_attempted: false
+    possible_name_match_ref: channel-demo-web-app-tasks-unlinked
+    auto_linked_by_name: false
+    operator_message: Persisted ID for the tasks field is missing; a same-named channel was observed, but no relink was applied without review.
+    repair_preview:
+      status: needs-review
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      write_executed: false
+      proposed_actions: []
+    audit_ref: audit-demo-status-project-unsafe-missing-id
+  - scenario_ref: repair-project-partial-failure-retry
+    managed_surface: project
+    command_ref: /project-manager repair
+    expected_category_ref: category-demo-project-web-app
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#partial_failure_audit
+    existing_fields:
+      - context
+      - strategy
+    missing_fields:
+      - tasks
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: needs-repair
+    write_attempted: false
+    repair_preview:
+      status: approval-requested
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: approval-requested
+      approval_phrase: approve write
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      retry_source: partial-failure-audit
+      safe_retry_token_ref: retry-demo-web-app-create
+      proposed_actions:
+        - action: recreate-channel
+          field_key: tasks
+          previous_channel_ref: channel-demo-web-app-tasks
+          proposed_channel_ref: channel-demo-web-app-tasks-recreated
+          topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.tasks.topic
+          starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.tasks.starter_message
+          metadata_refresh_required: true
+          refreshed_registry_field: channels.tasks
+          refreshed_state_target: project:web-app:tasks
+    audit_ref: audit-demo-repair-project-partial-failure-retry
+  - scenario_ref: repair-project-permission-blocked
+    managed_surface: project
+    command_ref: /project-manager repair
+    expected_category_ref: category-demo-project-web-app
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#partial_failure_audit
+    existing_fields:
+      - context
+      - strategy
+    missing_fields:
+      - tasks
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: needs-repair
+    write_attempted: false
+    operator_message: Repair is blocked because the bot cannot repin starter guidance safely; no partial repair was attempted.
+    repair_preview:
+      status: blocked-permissions
+      permission_preflight_status: blocked-permissions
+      permission_missing_capabilities:
+        - manage_messages_for_pin
+      approval_state: not-requested
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions:
+        - action: recreate-channel
+          field_key: tasks
+          previous_channel_ref: channel-demo-web-app-tasks
+          proposed_channel_ref: channel-demo-web-app-tasks-recreated
+          topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.tasks.topic
+          starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.tasks.starter_message
+          metadata_refresh_required: true
+          refreshed_registry_field: channels.tasks
+          refreshed_state_target: project:web-app:tasks
+    audit_ref: audit-demo-repair-project-permission-blocked
+  - scenario_ref: status-project-unmanaged-extra
+    managed_surface: project
+    command_ref: /project status
+    expected_category_ref: category-demo-project-web-app
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+      - decisions
+      - qa
+    missing_fields: []
+    unmanaged_channel_refs:
+      - channel-demo-web-app-random-notes
+    unsafe_missing_id_fields: []
+    status_result: unmanaged-present
+    write_attempted: false
+    operator_message: An unmanaged extra channel is visible inside a managed category; no destructive action was proposed by default.
+    repair_preview:
+      status: no-destructive-action
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      write_executed: false
+      proposed_actions: []
+    audit_ref: audit-demo-status-project-unmanaged-extra
+audit_outputs:
+  - audit_ref: audit-demo-status-global-intact-rerun
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-repair-global-missing-config
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-status-project-renamed-linked
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-status-project-unsafe-missing-id
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-repair-project-partial-failure-retry
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-repair-project-permission-blocked
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-status-project-unmanaged-extra
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+non_goals:
+  - live Discord repair commands
+  - durable writes before approval
+  - automatic relink by name
+  - destructive cleanup of unmanaged extra channels
+  - prompt execution
+  - real Discord IDs
+  - raw Discord transcripts
+  - production credentials
+  - publishing
+  - scheduling
+metadata:
+  note: This file contains fake Discord scaffolding status and repair data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_project_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_real_message_ids: true
+  no_credentials: true
+  no_private_exports: true

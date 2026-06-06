@@ -21,7 +21,7 @@ This is a contract only. It does not prove live Discord category/channel creatio
 | --- | --- |
 | Global Project Manager category init contract | Per-project category creation (#135) |
 | Required global channel list | Runtime prompt routing (#137) |
-| Permission preflight requirements | Full drift repair/status flows (#138) |
+| Permission preflight requirements | Shared status/repair preview flows (#138) |
 | Idempotent create-or-reuse behavior | Live Discord validation or production rollout |
 | Fake fixture and validator | Durable memory writes or skill activation |
 
@@ -95,11 +95,11 @@ The public fake fixture represents the same shape with `guild-demo-*`, `category
 | --- | --- |
 | No persisted registry exists | Create the category and required channels, then persist semantic metadata. |
 | Persisted category/channels still resolve | Reuse them and report `no-op`; do not duplicate. |
-| Category exists but one required channel is missing | Stop with `needs-repair`; full repair belongs to #138. |
+| Category exists but one required channel is missing | Stop with `needs-repair`; use `docs/architecture/discord-channel-scaffolding-status-repair.md` for shared repair preview behavior. |
 | Required permissions are missing | Stop with `blocked-permissions`; do not attempt writes. |
-| A channel was renamed but ID still resolves | Preserve the ID and semantic field; full rename repair belongs to #138. |
+| A channel was renamed but ID still resolves | Preserve the ID and semantic field; use `docs/architecture/discord-channel-scaffolding-status-repair.md` for rename status/repair follow-up. |
 
-Issue #134 proves duplicate-safe init behavior for the happy path and simple re-run. Broader drift repair remains scoped to #138.
+Issue #134 proves duplicate-safe init behavior for the happy path and simple re-run. Shared drift status and repair preview now live in `docs/architecture/discord-channel-scaffolding-status-repair.md`.
 
 ## Safety rules
 
@@ -121,3 +121,4 @@ Issue #134 proves duplicate-safe init behavior for the happy path and simple re-
 | `docs/architecture/discord-project-manager-project-create.md` | Follow-up fake project category creation contract. |
 | `docs/architecture/discord-managed-channel-routing.md` | Follow-up fake routing contract that consumes persisted global channel metadata. |
 | `docs/architecture/discord-topology-reconciliation.md` | Existing safe topology discovery/reconciliation baseline. |
+| `docs/architecture/discord-channel-scaffolding-status-repair.md` | Shared status and repair preview contract for missing or renamed managed scaffolding. |

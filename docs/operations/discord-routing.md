@@ -12,18 +12,19 @@ For pilot sequencing after #70-#74, use `docs/operations/discord-context-skill-p
 2. Use `docs/architecture/discord-semantic-channel-guides.md` and `examples/discord-semantic-channel-guides.fake.yaml` as the canonical source for managed channel topics and starter/pinned prompts.
 3. Use `docs/architecture/discord-project-manager-global-init.md` and `examples/discord-project-manager-global-init.fake.yaml` when reviewing the fake `/project-manager init` global category setup contract.
 4. Use `docs/architecture/discord-project-manager-project-create.md` and `examples/discord-project-manager-project-create.fake.yaml` when reviewing the fake `/project create` per-project category setup contract.
-5. Use `docs/architecture/discord-managed-channel-routing.md` and `examples/discord-managed-channel-routing.fake.yaml` when reviewing persisted semantic metadata routing for managed Project Manager channels.
-6. Install the external OpenClaw Discord plugin before live validation.
-7. Name routed channels with `<network-slug>-<project-slug>`.
-8. Keep real guild and channel IDs outside the repo.
-9. Route channel-local memory by raw Discord IDs.
-10. Route durable project reads by approved project/network slugs.
-11. Ask for human approval before durable project writes.
-12. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
-13. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
-14. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
-15. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
-16. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
+5. Use `docs/architecture/discord-channel-scaffolding-status-repair.md` and `examples/discord-channel-scaffolding-status-repair.fake.yaml` when reviewing fake status and repair previews for missing, renamed, or unmanaged managed scaffolding.
+6. Use `docs/architecture/discord-managed-channel-routing.md` and `examples/discord-managed-channel-routing.fake.yaml` when reviewing persisted semantic metadata routing for managed Project Manager channels.
+7. Install the external OpenClaw Discord plugin before live validation.
+8. Name routed channels with `<network-slug>-<project-slug>`.
+9. Keep real guild and channel IDs outside the repo.
+10. Route channel-local memory by raw Discord IDs.
+11. Route durable project reads by approved project/network slugs.
+12. Ask for human approval before durable project writes.
+13. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
+14. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
+15. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+16. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
+17. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
 
 ## Naming examples
 
@@ -43,7 +44,7 @@ discord-project-manager/project/egdev/strategy
 discord-project-manager/project/egdev/content-ledger
 ```
 
-The canonical resolver contract lives in `docs/architecture/channel-context-namespace-mapping.md`, and `examples/discord-channel-context.fake.yaml` provides fake matched/unmapped fixtures. For managed global/project scaffolding copy, use `docs/architecture/discord-semantic-channel-guides.md` and `examples/discord-semantic-channel-guides.fake.yaml` instead of duplicating topics or starter prompts in handlers. For global Project Manager initialization, use `docs/architecture/discord-project-manager-global-init.md` and `examples/discord-project-manager-global-init.fake.yaml` as the fake-first command/topology contract. For per-project category creation, use `docs/architecture/discord-project-manager-project-create.md` and `examples/discord-project-manager-project-create.fake.yaml` as the fake-first project creation contract. For managed channel prompt routing, use `docs/architecture/discord-managed-channel-routing.md` and `examples/discord-managed-channel-routing.fake.yaml` so scope/field decisions come from persisted semantic metadata, not channel names.
+The canonical resolver contract lives in `docs/architecture/channel-context-namespace-mapping.md`, and `examples/discord-channel-context.fake.yaml` provides fake matched/unmapped fixtures. For managed global/project scaffolding copy, use `docs/architecture/discord-semantic-channel-guides.md` and `examples/discord-semantic-channel-guides.fake.yaml` instead of duplicating topics or starter prompts in handlers. For global Project Manager initialization, use `docs/architecture/discord-project-manager-global-init.md` and `examples/discord-project-manager-global-init.fake.yaml` as the fake-first command/topology contract. For per-project category creation, use `docs/architecture/discord-project-manager-project-create.md` and `examples/discord-project-manager-project-create.fake.yaml` as the fake-first project creation contract. For status and repair previews over managed scaffolding drift, use `docs/architecture/discord-channel-scaffolding-status-repair.md` and `examples/discord-channel-scaffolding-status-repair.fake.yaml` before proposing any recreate or metadata refresh. For managed channel prompt routing, use `docs/architecture/discord-managed-channel-routing.md` and `examples/discord-managed-channel-routing.fake.yaml` so scope/field decisions come from persisted semantic metadata, not channel names.
 
 ## Runtime prerequisite
 
@@ -106,7 +107,8 @@ For this documentation-only routing slice, validate with:
 
 ```bash
 git diff --check
-npx --yes yaml-lint examples/discord-managed-channel-routing.fake.yaml examples/discord-project-manager-project-create.fake.yaml examples/discord-project-manager-global-init.fake.yaml examples/discord-semantic-channel-guides.fake.yaml examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml examples/discord-context-provisioning.fake.yaml examples/discord-approval-gate.fake.yaml examples/discord-runtime-orchestrator.fake.yaml examples/discord-gentle-sdd-handoff.fake.yaml examples/openclaw-global-brand-context-refresh.fake.yaml examples/content-ledger-utility-flow.fake.yaml examples/category-strategy-planning-flow.fake.yaml examples/linkedin-weekly-planning-flow.fake.yaml examples/on-demand-brief-flow.fake.yaml
+npx --yes yaml-lint examples/discord-channel-scaffolding-status-repair.fake.yaml examples/discord-managed-channel-routing.fake.yaml examples/discord-project-manager-project-create.fake.yaml examples/discord-project-manager-global-init.fake.yaml examples/discord-semantic-channel-guides.fake.yaml examples/discord-channel-context.fake.yaml examples/discord-topology-reconciliation.fake.yaml examples/discord-context-provisioning.fake.yaml examples/discord-approval-gate.fake.yaml examples/discord-runtime-orchestrator.fake.yaml examples/discord-gentle-sdd-handoff.fake.yaml examples/openclaw-global-brand-context-refresh.fake.yaml examples/content-ledger-utility-flow.fake.yaml examples/category-strategy-planning-flow.fake.yaml examples/linkedin-weekly-planning-flow.fake.yaml examples/on-demand-brief-flow.fake.yaml
+bash scripts/validate-discord-channel-scaffolding-status-repair.sh
 bash scripts/validate-discord-managed-channel-routing.sh
 bash scripts/validate-discord-project-manager-project-create.sh
 bash scripts/validate-discord-project-manager-global-init.sh
