@@ -118,4 +118,5 @@ Issue #134 proves duplicate-safe init behavior for the happy path and simple re-
 | `examples/discord-semantic-channel-guides.fake.yaml` | Fake guide catalog consumed by this init contract. |
 | `examples/discord-project-manager-global-init.fake.yaml` | Fake init plan/result fixture. |
 | `scripts/validate-discord-project-manager-global-init.sh` | Static validator for this contract and fixture. |
+| `docs/architecture/discord-project-manager-project-create.md` | Follow-up fake project category creation contract. |
 | `docs/architecture/discord-topology-reconciliation.md` | Existing safe topology discovery/reconciliation baseline. |

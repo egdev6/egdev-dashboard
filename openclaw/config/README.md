@@ -25,6 +25,9 @@ Current routing references:
 - `docs/architecture/discord-project-manager-global-init.md` defines the fake `/project-manager init` contract for creating the global Project Manager category and channels.
 - `examples/discord-project-manager-global-init.fake.yaml` provides fake global init topology, permission, persistence, and idempotency data.
 - `scripts/validate-discord-project-manager-global-init.sh` validates the global init contract and fixture.
+- `docs/architecture/discord-project-manager-project-create.md` defines the fake `/project create` contract for creating one category per project.
+- `examples/discord-project-manager-project-create.fake.yaml` provides fake project creation topology, templates, duplicate handling, permission, persistence, and partial-failure data.
+- `scripts/validate-discord-project-manager-project-create.sh` validates the project creation contract and fixture.
 - `docs/architecture/discord-context-skill-packs.md` defines the fake Context Pack and Skill Pack schemas for Discord prompt preparation.
 - `docs/architecture/discord-runtime-orchestrator.md` defines the fake Runtime Orchestrator contract for Discord event envelopes, intent routing, and runner selection.
 - `docs/architecture/discord-gentle-sdd-handoff.md` defines the fake handoff contract between OpenClaw Runtime Orchestrator and Gentle SDD.
