@@ -7,16 +7,18 @@ This is a contract only. It does not prove live Discord/OpenClaw runtime behavio
 ## Quick path
 
 1. Start from a fake Discord event envelope and resolved origin metadata.
-2. Resolve a channel guide ref from `docs/architecture/discord-semantic-channel-guides.md` for the current semantic channel scope.
-3. Reference a Context Pack and Skill Pack for the current turn.
-4. Classify intent and choose an explainable runner/backend.
-5. Route any write-like result back through Memory Gateway policy and `discord-approval-gate`.
+2. Resolve managed Project Manager channels through `docs/architecture/discord-managed-channel-routing.md` when persisted semantic metadata exists.
+3. Resolve a channel guide ref from `docs/architecture/discord-semantic-channel-guides.md` for the current semantic channel scope.
+4. Reference a Context Pack and Skill Pack for the current turn.
+5. Classify intent and choose an explainable runner/backend.
+6. Route any write-like result back through Memory Gateway policy and `discord-approval-gate`.
 
 ## Orchestrator pipeline
 
 ```text
 Discord event envelope
 -> origin resolution
+-> managed channel route
 -> channel guide ref
 -> context pack ref
 -> skill pack ref
@@ -32,6 +34,7 @@ Discord event envelope
 The orchestrator depends on:
 
 - `docs/architecture/channel-context-namespace-mapping.md` for origin resolution, `runtime_namespace`, `routing_status`, and `resolved_route`;
+- `docs/architecture/discord-managed-channel-routing.md`, `examples/discord-managed-channel-routing.fake.yaml`, and `scripts/validate-discord-managed-channel-routing.sh` for persisted semantic metadata routing of managed Project Manager channels;
 - `docs/architecture/discord-semantic-channel-guides.md` for canonical channel topics and starter/pinned guidance copy;
 - `docs/architecture/discord-memory-gateway.md` for hydration and writeback policy;
 - `docs/architecture/discord-context-skill-packs.md` for prompt-pack references;
@@ -91,6 +94,7 @@ Write-like outcomes must return through `docs/architecture/discord-memory-gatewa
 Each orchestrated turn should leave reviewable metadata for the contract:
 
 - origin envelope summary;
+- selected managed channel route reference when persisted semantic metadata is available;
 - selected channel guide reference;
 - selected context pack reference;
 - selected skill pack reference;

@@ -141,6 +141,7 @@ The public fake fixture represents the same shape with `guild-demo-*`, `project-
 | --- | --- |
 | `docs/architecture/discord-project-manager-global-init.md` | Conceptual prerequisite for the global workspace surface. |
 | `docs/architecture/discord-semantic-channel-guides.md` | Source of canonical project topics and starter/pinned messages. |
+| `docs/architecture/discord-managed-channel-routing.md` | Follow-up fake routing contract that consumes persisted project channel metadata. |
 | `examples/discord-semantic-channel-guides.fake.yaml` | Fake guide catalog consumed by this project creation contract. |
 | `examples/discord-project-manager-project-create.fake.yaml` | Fake project creation fixture. |
 | `scripts/validate-discord-project-manager-project-create.sh` | Static validator for this contract and fixture. |
