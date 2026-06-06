@@ -21,6 +21,7 @@ Current routing references:
 - `examples/discord-context-provisioning.fake.yaml` provides fake provisioning plans for validator-driven review.
 - `docs/architecture/discord-scoped-skills-registry.md` defines the fake scoped skills registry and control-channel contract.
 - `docs/architecture/discord-memory-gateway.md` defines the fake Memory Gateway / Context Broker contract for Discord flows.
+- `docs/architecture/discord-semantic-channel-guides.md` defines the canonical fake guide catalog for managed channel topics and starter/pinned prompts.
 - `docs/architecture/discord-context-skill-packs.md` defines the fake Context Pack and Skill Pack schemas for Discord prompt preparation.
 - `docs/architecture/discord-runtime-orchestrator.md` defines the fake Runtime Orchestrator contract for Discord event envelopes, intent routing, and runner selection.
 - `docs/architecture/discord-gentle-sdd-handoff.md` defines the fake handoff contract between OpenClaw Runtime Orchestrator and Gentle SDD.
