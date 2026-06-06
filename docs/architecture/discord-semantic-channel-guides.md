@@ -113,6 +113,8 @@ This contract does not:
 | --- | --- |
 | `examples/discord-semantic-channel-guides.fake.yaml` | Fake guide catalog consumed by scaffolding contracts. |
 | `docs/architecture/discord-project-manager-global-init.md` | Fake `/project-manager init` contract that consumes the global guide entries. |
+| `docs/architecture/discord-project-manager-project-create.md` | Fake `/project create` contract that consumes the project guide entries. |
 | `examples/discord-project-manager-global-init.fake.yaml` | Fake init plan/result fixture for the global Project Manager category. |
+| `examples/discord-project-manager-project-create.fake.yaml` | Fake project creation fixture for per-project categories. |
 | `scripts/validate-discord-semantic-channel-guides.sh` | Static validator for this guide catalog. |
 | `scripts/validate-discord-project-manager-global-init.sh` | Static validator for the global init contract and fixture. |

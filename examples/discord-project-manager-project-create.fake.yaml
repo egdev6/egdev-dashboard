@@ -1,0 +1,277 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-project-manager-project-create
+issue_ref: 135
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+command_contract:
+  interaction_name: /project create
+  interaction_kind: slash-command-or-equivalent
+  required_inputs:
+    - project_name
+    - selected_template
+  optional_inputs:
+    - project_description
+  supported_templates:
+    - minimal
+    - complete
+  category_name_template: Project - <project-name>
+  category_semantic_role: project-manager-project
+  idempotency_key_template: project:<guild-id>:<project-slug>
+  guide_catalog_ref: examples/discord-semantic-channel-guides.fake.yaml
+  guide_scope: project
+  live_write_claim: false
+permission_preflight:
+  required_before_writes: true
+  required_capabilities:
+    - manage_channels
+    - send_messages
+    - manage_messages_for_pin
+    - view_channel
+  failure_status: blocked-permissions
+  partial_create_allowed_on_missing_permissions: false
+template_definitions:
+  minimal:
+    channel_fields:
+      - context
+      - strategy
+      - tasks
+  complete:
+    channel_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+      - decisions
+      - qa
+project_create_request:
+  guild_ref: guild-demo-project-manager
+  requested_by_ref: user-demo-operator
+  command: /project create
+  project_name: Web App
+  project_description: Fake demo project for contract validation.
+  project_slug: web-app
+  selected_template: complete
+  dry_run: false
+  approved_for_fake_contract: true
+existing_project_registry_before_first_run:
+  present: false
+  matching_project_slug: none
+planned_topology:
+  category_ref: category-demo-project-web-app
+  category_name: Project - Web App
+  scope: project
+  project_ref: project-demo-web-app
+  project_slug: web-app
+  semantic_role: project-manager-project
+  nested_under_global_category: false
+  channels:
+    - field_key: context
+      scope: project
+      channel_ref: channel-demo-web-app-context
+      channel_name: context
+      guide_ref: project.context
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.context.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.context.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: project
+        project_ref: project-demo-web-app
+        project_slug: web-app
+        field_key: context
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - propose_update
+    - field_key: skills
+      scope: project
+      channel_ref: channel-demo-web-app-skills
+      channel_name: skills
+      guide_ref: project.skills
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.skills.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.skills.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: project
+        project_ref: project-demo-web-app
+        project_slug: web-app
+        field_key: skills
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - propose_update
+          - review
+    - field_key: strategy
+      scope: project
+      channel_ref: channel-demo-web-app-strategy
+      channel_name: strategy
+      guide_ref: project.strategy
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.strategy.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.strategy.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: project
+        project_ref: project-demo-web-app
+        project_slug: web-app
+        field_key: strategy
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - generate
+          - review
+    - field_key: tasks
+      scope: project
+      channel_ref: channel-demo-web-app-tasks
+      channel_name: tasks
+      guide_ref: project.tasks
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.tasks.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.tasks.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: project
+        project_ref: project-demo-web-app
+        project_slug: web-app
+        field_key: tasks
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - generate
+    - field_key: decisions
+      scope: project
+      channel_ref: channel-demo-web-app-decisions
+      channel_name: decisions
+      guide_ref: project.decisions
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.decisions.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.decisions.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: project
+        project_ref: project-demo-web-app
+        project_slug: web-app
+        field_key: decisions
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - propose_update
+    - field_key: qa
+      scope: project
+      channel_ref: channel-demo-web-app-qa
+      channel_name: qa
+      guide_ref: project.qa
+      topic_source: examples/discord-semantic-channel-guides.fake.yaml#project.qa.topic
+      starter_message_source: examples/discord-semantic-channel-guides.fake.yaml#project.qa.starter_message
+      pin_starter_message: true
+      semantic_metadata:
+        scope: project
+        project_ref: project-demo-web-app
+        project_slug: web-app
+        field_key: qa
+        allowed_prompt_operations:
+          - ask
+          - summarize
+          - review
+first_run_result:
+  status: created
+  writes_attempted_after_permission_preflight: true
+  created_category_ref: category-demo-project-web-app
+  nested_category_created: false
+  created_channel_refs:
+    - channel-demo-web-app-context
+    - channel-demo-web-app-skills
+    - channel-demo-web-app-strategy
+    - channel-demo-web-app-tasks
+    - channel-demo-web-app-decisions
+    - channel-demo-web-app-qa
+  topic_applied_from_catalog: true
+  starter_messages_posted: true
+  starter_messages_pin_ready: true
+  persisted_registry_after_run:
+    guild_ref: guild-demo-project-manager
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    category_ref: category-demo-project-web-app
+    category_semantic_role: project-manager-project
+    selected_template: complete
+    scope: project
+    idempotency_key_ref: project:<guild-id>:web-app
+    channels:
+      context: channel-demo-web-app-context
+      skills: channel-demo-web-app-skills
+      strategy: channel-demo-web-app-strategy
+      tasks: channel-demo-web-app-tasks
+      decisions: channel-demo-web-app-decisions
+      qa: channel-demo-web-app-qa
+    persistence_private_runtime_ids: true
+    persistence_repo_safe_refs_only: true
+minimal_template_result:
+  status: planned
+  selected_template: minimal
+  project_slug: docs-site
+  category_ref: category-demo-project-docs-site
+  channel_fields:
+    - context
+    - strategy
+    - tasks
+  omitted_fields:
+    - skills
+    - decisions
+    - qa
+duplicate_name_results:
+  - status: duplicate-same-project
+    project_slug: web-app
+    persisted_project_ref: project-demo-web-app
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    operator_message: Project slug already exists; open or inspect the existing project instead of creating a duplicate.
+  - status: duplicate-name-review
+    project_slug: web-app
+    conflicting_project_ref: project-demo-other-web-app
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    operator_message: Project slug conflicts with another project; choose a different name or request maintainer review.
+permission_failure_results:
+  - status: blocked-permissions
+    missing_capability: manage_channels
+    writes_attempted_after_permission_preflight: false
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    operator_message: Missing channel-management permission; project create did not create or persist Discord topology.
+  - status: blocked-permissions
+    missing_capability: manage_messages_for_pin
+    writes_attempted_after_permission_preflight: false
+    duplicate_category_created: false
+    duplicate_channels_created: false
+    operator_message: Missing pin-message permission; project create did not create or persist Discord topology.
+partial_failure_audit:
+  status: partial-failure-needs-repair
+  created_category_ref: category-demo-project-web-app
+  created_channel_refs:
+    - channel-demo-web-app-context
+    - channel-demo-web-app-strategy
+  missing_channel_fields:
+    - tasks
+  safe_retry_token_ref: retry-demo-web-app-create
+  repair_issue_ref: 138
+  duplicate_recreate_allowed_in_issue_135: false
+unsupported_template_result:
+  status: unsupported-template
+  selected_template: custom
+  writes_attempted_after_permission_preflight: false
+metadata:
+  note: This file contains fake Project Manager project creation data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_project_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_real_message_ids: true
+  no_credentials: true
+  no_private_exports: true
