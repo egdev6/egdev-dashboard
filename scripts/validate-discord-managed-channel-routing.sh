@@ -304,8 +304,6 @@ awk '
     }
   }
 ' "$FIXTURE_PATH" || fail "routing scenarios are inconsistent with managed channel routing contract"
-
-
 awk '
   /^routing_scenarios:$/ { section = "scenarios"; next }
   /^audit_outputs:$/ { section = "audit"; next }
@@ -339,8 +337,6 @@ awk '
     }
   }
 ' "$FIXTURE_PATH" || fail "audit outputs are inconsistent with managed routing safety contract"
-
-
 for required in \
   "# Discord managed channel routing" \
   "persisted semantic metadata" \
