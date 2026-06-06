@@ -1,0 +1,267 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-semantic-channel-guides
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+canonical_catalog: true
+duplicate_handler_copy_allowed: false
+starter_messages_are_pin_ready: true
+scaffolding_consumption:
+  source_contracts:
+    - docs/architecture/discord-context-skill-packs.md
+    - docs/architecture/discord-runtime-orchestrator.md
+    - docs/architecture/discord-dynamic-context-namespaces.md
+    - docs/architecture/discord-topology-reconciliation.md
+  guide_lookup_key: scope-plus-field-key
+  channel_topic_source: topic
+  pinned_message_source: starter_message
+  handler_copy_duplication_allowed: false
+topology_compatibility:
+  does_not_replace_openclaw_global_reserved_channels: true
+  openclaw_global_reserved_channels:
+    - identity
+    - writing-style
+    - operating-principles
+    - boundaries
+    - inheritance
+    - skills
+  planned_project_manager_workspace_channels:
+    - global-context
+    - global-skills
+    - global-strategy
+    - global-decisions
+    - global-config
+global_guides:
+  - field_key: context
+    scope: global
+    topology_status: planned-project-manager-workspace-guide
+    channel_name: global-context
+    topic: Shared workspace context, conventions, and constraints.
+    starter_message: |
+      Use this channel for context that applies across the whole workspace.
+      Keep reusable rules, constraints, conventions, and quality bars here.
+      Do not post project-only tasks or decisions in this channel.
+    example_prompts:
+      - Summarize the current global context and highlight missing constraints.
+      - Add a workspace-wide rule for issue-first planning before implementation.
+    managed_information:
+      - shared context
+      - global constraints
+      - quality rules
+      - reusable conventions
+    non_goals:
+      - project-specific tasks
+      - one-project decisions
+  - field_key: skills
+    scope: global
+    topology_status: planned-project-manager-workspace-guide
+    channel_name: global-skills
+    topic: Global reusable skills, defaults, and inheritance rules.
+    starter_message: |
+      Use this channel to discuss global skills that multiple projects may reuse.
+      Record defaults, inheritance choices, and disabled skills explicitly.
+      Do not assume changes become durable without the approval gate.
+    example_prompts:
+      - Which global skills are currently inherited by every approved project?
+      - Propose a default skill set for new project categories.
+    managed_information:
+      - reusable skills
+      - inheritance rules
+      - default skill choices
+      - disabled global skills
+    non_goals:
+      - channel-local overrides only
+      - bypassing approval for durable skill changes
+  - field_key: strategy
+    scope: global
+    topology_status: planned-project-manager-workspace-guide
+    channel_name: global-strategy
+    topic: Cross-project priorities, milestones, and roadmap direction.
+    starter_message: |
+      Use this channel for strategy that spans more than one project.
+      Keep milestones, priorities, and tradeoffs visible at workspace scope.
+      Do not turn this channel into a task dump for a single project.
+    example_prompts:
+      - What should be the next cross-project milestone after the current validation slice?
+      - Compare the risks of implementing two roadmap slices this week.
+    managed_information:
+      - workspace priorities
+      - roadmap direction
+      - milestone choices
+      - cross-project tradeoffs
+    non_goals:
+      - single-project backlog grooming
+      - live scheduling or publishing
+  - field_key: decisions
+    scope: global
+    topology_status: planned-project-manager-workspace-guide
+    channel_name: global-decisions
+    topic: Shared decisions, rationale, and accepted tradeoffs.
+    starter_message: |
+      Use this channel to record decisions that affect the whole workspace.
+      Capture the decision, why it was made, and what alternatives were rejected.
+      Do not mix in project-only decisions unless they change global policy.
+    example_prompts:
+      - Summarize the last approved global decisions and their rationale.
+      - Propose a decision note for category-per-project Discord structure.
+    managed_information:
+      - shared decisions
+      - rationale
+      - rejected alternatives
+      - policy tradeoffs
+    non_goals:
+      - transient brainstorming without a decision
+      - project-local implementation notes
+  - field_key: config
+    scope: global
+    topology_status: planned-project-manager-workspace-guide
+    channel_name: global-config
+    topic: Workspace and bot configuration notes visible to operators.
+    starter_message: |
+      Use this channel for review-safe configuration notes and operator guidance.
+      Keep visible settings, expected structures, and safe troubleshooting prompts here.
+      Do not post secrets, tokens, or real Discord identifiers.
+    example_prompts:
+      - What configuration assumptions does the Project Manager workspace rely on?
+      - List the safe troubleshooting checks for missing channel permissions.
+    managed_information:
+      - visible configuration notes
+      - operator guidance
+      - safe troubleshooting checks
+      - expected workspace structure
+    non_goals:
+      - secrets or tokens
+      - real guild or channel IDs
+project_guides:
+  - field_key: context
+    scope: project
+    channel_name: context
+    topic: Project-specific context, assumptions, and boundaries.
+    starter_message: |
+      Use this channel for context that belongs to one project only.
+      Keep goals, assumptions, boundaries, and known gaps specific to this category.
+      Do not treat project context as automatic global policy.
+    example_prompts:
+      - Summarize this project's context and list unresolved assumptions.
+      - Add a project-only boundary about what this slice must not change.
+    managed_information:
+      - project goals
+      - project assumptions
+      - project boundaries
+      - missing context
+    non_goals:
+      - workspace-wide governance
+      - unrelated project notes
+  - field_key: skills
+    scope: project
+    channel_name: skills
+    topic: Project-local skills, overrides, and allowed preferences.
+    starter_message: |
+      Use this channel to discuss skills that are specific to this project category.
+      Record overrides and disabled skills explicitly so they remain reviewable.
+      Do not assume project skill changes apply to the whole workspace.
+    example_prompts:
+      - Which skills should this project enable by default beyond the global baseline?
+      - Propose a project-only skill override for strategy planning.
+    managed_information:
+      - project skill choices
+      - approved overrides
+      - disabled skills
+      - runner preferences
+    non_goals:
+      - global inheritance policy
+      - silent durable skill activation
+  - field_key: strategy
+    scope: project
+    channel_name: strategy
+    topic: Project roadmap, slices, risks, and implementation tradeoffs.
+    starter_message: |
+      Use this channel for strategy that belongs to this project category.
+      Keep slice planning, risks, milestones, and tradeoffs specific to the project.
+      Do not use it as a replacement for the global roadmap.
+    example_prompts:
+      - Define the smallest next slice for this project and its risks.
+      - Compare two implementation strategies for the next milestone.
+    managed_information:
+      - project roadmap
+      - slice planning
+      - risks
+      - implementation tradeoffs
+    non_goals:
+      - workspace portfolio prioritization
+      - execution logs
+  - field_key: tasks
+    scope: project
+    channel_name: tasks
+    topic: Actionable project work, sequencing, and review-safe task status.
+    starter_message: |
+      Use this channel for concrete work items and review-safe execution planning.
+      Keep tasks, sequencing, blockers, and ownership visible for this project.
+      Do not claim work is done without the supporting review or validation evidence.
+    example_prompts:
+      - Break the next milestone into reviewable tasks.
+      - List current blockers and the safest next action for each.
+    managed_information:
+      - actionable tasks
+      - sequencing
+      - blockers
+      - review status
+    non_goals:
+      - global governance decisions
+      - hidden progress updates
+  - field_key: decisions
+    scope: project
+    channel_name: decisions
+    topic: Project-local decisions, rationale, and deferred alternatives.
+    starter_message: |
+      Use this channel to capture decisions that are local to this project.
+      Record rationale, rejected alternatives, and follow-up consequences clearly.
+      Do not duplicate global decisions unless the project needs a local exception.
+    example_prompts:
+      - Summarize the last three project decisions and what they changed.
+      - Draft a decision note for the chosen validation approach.
+    managed_information:
+      - project decisions
+      - rationale
+      - deferred alternatives
+      - local exceptions
+    non_goals:
+      - global policy updates
+      - raw meeting transcripts
+  - field_key: qa
+    scope: project
+    channel_name: qa
+    topic: Validation plans, manual checks, and release gate evidence.
+    starter_message: |
+      Use this channel for project validation planning and safe test evidence.
+      Keep manual checks, acceptance criteria, and release gates reviewable.
+      Do not claim live Discord readiness unless a separate manual verification issue proves it.
+    example_prompts:
+      - Build a manual verification checklist for this project's next slice.
+      - What evidence is still missing before the release gate can pass?
+    managed_information:
+      - validation plans
+      - acceptance criteria
+      - manual checks
+      - release gates
+    non_goals:
+      - unverified live-readiness claims
+      - unsanitized private evidence
+non_goals:
+  - live Discord scaffolding
+  - live bot routing
+  - runtime command handler implementation
+  - production credentials
+  - raw Discord IDs
+  - durable writes without approval
+  - publishing
+  - scheduling

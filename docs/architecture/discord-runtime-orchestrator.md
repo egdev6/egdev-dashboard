@@ -7,15 +7,17 @@ This is a contract only. It does not prove live Discord/OpenClaw runtime behavio
 ## Quick path
 
 1. Start from a fake Discord event envelope and resolved origin metadata.
-2. Reference a Context Pack and Skill Pack for the current turn.
-3. Classify intent and choose an explainable runner/backend.
-4. Route any write-like result back through Memory Gateway policy and `discord-approval-gate`.
+2. Resolve a channel guide ref from `docs/architecture/discord-semantic-channel-guides.md` for the current semantic channel scope.
+3. Reference a Context Pack and Skill Pack for the current turn.
+4. Classify intent and choose an explainable runner/backend.
+5. Route any write-like result back through Memory Gateway policy and `discord-approval-gate`.
 
 ## Orchestrator pipeline
 
 ```text
 Discord event envelope
 -> origin resolution
+-> channel guide ref
 -> context pack ref
 -> skill pack ref
 -> intent classification
@@ -30,6 +32,7 @@ Discord event envelope
 The orchestrator depends on:
 
 - `docs/architecture/channel-context-namespace-mapping.md` for origin resolution, `runtime_namespace`, `routing_status`, and `resolved_route`;
+- `docs/architecture/discord-semantic-channel-guides.md` for canonical channel topics and starter/pinned guidance copy;
 - `docs/architecture/discord-memory-gateway.md` for hydration and writeback policy;
 - `docs/architecture/discord-context-skill-packs.md` for prompt-pack references;
 - `docs/architecture/discord-scoped-skills-registry.md` for `effective_skills`;
@@ -88,6 +91,7 @@ Write-like outcomes must return through `docs/architecture/discord-memory-gatewa
 Each orchestrated turn should leave reviewable metadata for the contract:
 
 - origin envelope summary;
+- selected channel guide reference;
 - selected context pack reference;
 - selected skill pack reference;
 - intent family and confidence;
