@@ -160,7 +160,7 @@ Keep this limited to a **private non-production guild** and follow the gated Dis
 
 ## Discord control configuration
 
-After the bot is connected and model auth is working, create the reserved governance surface **before** testing richer routed behavior.
+After the bot is connected and model auth is working, create the reserved governance surface **before** testing richer managed Project Manager behavior.
 
 Start with the global control category:
 
@@ -190,15 +190,14 @@ Why this step matters:
 
 - `OpenClaw Global` is the reserved governance/control surface.
 - It is **not** the same as the separate Project Manager global surface (`global-context`, `global-skills`, `global-strategy`, `global-decisions`, `global-config`).
-- Creating the control category first gives you a safe place to define identity, style, boundaries, inheritance, and skill policy before testing routed/project behavior.
+- Creating the control category first gives you a safe place to define identity, style, boundaries, inheritance, and skill policy before testing managed Project Manager behavior.
 
 Current topology, at a glance:
 
 - `OpenClaw Global` for reserved governance/control channels
 - `Project Manager` global managed channels: `global-context`, `global-skills`, `global-strategy`, `global-decisions`, `global-config`
 - one managed project category per project with `context`, `skills`, `strategy`, `tasks`, `decisions`, `qa`
-- routed channels that still follow `<network-slug>-<project-slug>` where that validation path is needed
-- one intentional unmapped fallback channel such as `qa-unmapped-demo`
+- managed routing resolved from persisted semantic metadata/IDs, not from display-name inference
 
 After this step succeeds, continue with the manual verification flow in issue `#132` and the private Discord guide.
 
