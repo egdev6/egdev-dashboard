@@ -136,18 +136,39 @@ Shared durable read candidates for a matched route remain:
 - `discord-project-manager/project/egdev/content-ledger`
 - `discord-project-manager/project/egdev/network/<network-slug>`
 
-### C. Workflow/control channels for human organization
+### C. Project Manager managed scaffolding
 
-These channels help operators review workflow intent, but they are **not** canonical route-matched project/network channels unless a narrower contract explicitly says so.
+The current Project Manager topology is no longer based on ad hoc review/control channels. Instead, it uses one managed global category plus one managed category per project.
 
-| Channel | Purpose | Route-matched? |
+#### Project Manager global category
+
+Managed global channels:
+
+| Channel | Purpose | Managed scope |
 |---|---|---|
-| `strategy-review` | category strategy proposal review | no |
-| `content-ledger-review` | ledger candidate review | no |
-| `approval-preview` | approval prompt contract review | no |
-| `context-pack-review` | context pack / skill pack review | no |
-| `brief-review` | multi-network brief review | no |
-| `memory-context-review` | runtime-vs-durable namespace review | no |
+| `global-context` | workspace-wide context, conventions, and constraints | global |
+| `global-skills` | reusable skills, defaults, and inheritance decisions | global |
+| `global-strategy` | cross-project priorities and strategy | global |
+| `global-decisions` | shared decisions and rationale | global |
+| `global-config` | operator-visible workspace/runtime config | global |
+
+#### Project category channels
+
+Per-project managed channels:
+
+| Channel | Purpose | Managed scope |
+|---|---|---|
+| `context` | project-local context, assumptions, and boundaries | project |
+| `skills` | project-local skills and approved overrides | project |
+| `strategy` | project roadmap, slices, and tradeoffs | project |
+| `tasks` | actionable implementation work | project |
+| `decisions` | project-local decisions and rationale | project |
+| `qa` | validation plans, manual checks, and release gates | project |
+
+These managed categories/channels are distinct from both:
+
+- the reserved `OpenClaw Global` governance/control category; and
+- the routed `<network-slug>-<project-slug>` channels used for legacy/manual route validation.
 
 ### D. Intentional fallback channel
 
@@ -179,11 +200,14 @@ Use the Discord UI manually. Keep notes sanitized.
    - one or two additional network examples only if needed
 4. Confirm each channel name is deterministic and reviewable before any runtime test.
 
-### Create workflow/control review channels
+### Create Project Manager managed scaffolding
 
-1. Create a separate private review category such as `Workflow Review`.
-2. Add non-routed control channels like `strategy-review`, `content-ledger-review`, `approval-preview`, `brief-review`, and `memory-context-review`.
-3. Use these for human workflow review, not as substitutes for canonical route-matched channels.
+1. Create or verify the separate `Project Manager` global category.
+2. Create or verify the managed global channels `global-context`, `global-skills`, `global-strategy`, `global-decisions`, and `global-config`.
+3. Create or verify one project-specific category using the current per-project scaffolding contract.
+4. Create or verify the project channels `context`, `skills`, `strategy`, `tasks`, `decisions`, and `qa`.
+5. Use the semantic channel guide catalog for expected topics/descriptions and starter guidance.
+6. Do **not** treat optional human review channels as required topology for the current Project Manager contract.
 
 ### Create the fallback channel
 
@@ -230,13 +254,13 @@ Use this table to explain what each channel type is for and what “working corr
 |---|---|---|---|
 | Global governance | `identity` | control area is reviewable, explicit, and bounded | no automatic inheritance or hidden writes |
 | Skills control | `skills` | effective skills and overrides are discussed explicitly | `discord-approval-gate` stays mandatory for write-like flows |
-| Strategy review | `strategy-review` | proposal shows confirmed facts, assumptions, and missing context | remains proposal-only until approval |
-| Ledger review | `content-ledger-review` | candidate uses allowed states only | no scheduling/publishing implied |
-| Memory/context review | `memory-context-review` | runtime and durable namespaces stay separate | no durable write happens implicitly |
+| Global strategy | `global-strategy` | shared strategy stays explicit and reviewable | remains proposal-first until approval |
+| Global decisions | `global-decisions` | decisions and tradeoffs are recorded clearly | no implicit runtime writeback |
+| Global skills | `global-skills` | effective skills and inheritance remain visible | `discord-approval-gate` stays mandatory for write-like flows |
+| Project QA | `qa` | validation and release-gate work stays scoped to one project | no silent cross-project spillover |
 | Routed LinkedIn planning | `linkedin-egdev` | weekly plan candidate includes `missing_context` | planning only; no publishing or analytics claims |
 | Routed X planning | `x-egdev` | queue/plan remains reviewable and approval-gated | no scheduling or Buffer activity |
-| Brief review | `brief-review` or routed brief context | network-separated brief candidates stay bounded | no live fetching or durable write |
-| Approval preview | `approval-preview` | response state stays `proposal` or `approval-requested` | exact `approve write` phrase required |
+| Approval response | managed channel or routed write-like request | response state stays `proposal` or `approval-requested` | exact `approve write` phrase required |
 | Fallback testing | `qa-unmapped-demo` | unmapped route stays runtime-only | operator is asked to choose an approved route |
 
 ## Routing rules and namespace expectations

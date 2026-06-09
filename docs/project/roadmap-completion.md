@@ -50,7 +50,7 @@ The baseline intentionally does **not** include:
 
 ## Pre-release manual Discord verification gate
 
-Track the operator-facing Discord rehearsal in #132 before creating any baseline tag or release note.
+Track the operator-facing Discord rehearsal in #132 and the documentation/scaffolding clarification in #146 before creating any baseline tag or release note.
 
 Use `docs/operations/private-discord-manual-verification-guide.md` as the execution guide and keep evidence sanitized. The checklist in #132 covers:
 
@@ -59,9 +59,9 @@ Use `docs/operations/private-discord-manual-verification-guide.md` as the execut
 - no-op resolver diagnostic, plugin/runtime dry-run mode, or re-tested enforcement path before any private Discord message;
 - `OpenClaw Global` governance/control category and channels;
 - routed project/network channels such as `linkedin-egdev` and `x-egdev`;
-- workflow/control review channels for strategy, ledger, approvals, context packs, briefs, and memory/context;
+- Project Manager managed global and per-project category/channel scaffolding that stays distinct from the reserved `OpenClaw Global` governance surface;
 - intentional unmapped fallback channel;
-- global context, category context, skills/packs, memory/context separation, matched route, unmapped fallback, and approval-preview tests;
+- global context, category context, skills/packs, memory/context separation, matched route, unmapped fallback, and approval-response tests;
 - sanitized pass/fail/blocked evidence with no real IDs, credentials, raw logs, transcripts, private payloads, or sensitive screenshots.
 
 Until #132 is executed and reviewed, treat Discord-live-adjacent readiness as **gated**. The repository may still be described as an internal fake-first/local baseline, but not as a validated private Discord runtime.
@@ -70,7 +70,7 @@ Until #132 is executed and reviewed, treat Discord-live-adjacent readiness as **
 
 Choose one focused next phase before adding more feature work:
 
-1. **Manual Discord verification gate**: execute or explicitly defer #132 using the private Discord manual verification guide.
+1. **Manual Discord verification gate**: execute or explicitly defer #132 using the private Discord manual verification guide, with #146 documenting the current private control and Project Manager scaffolding expectations.
 2. **Runtime validation**: run the Docker stack privately, validate OpenClaw startup, Engram health, workspace skill sync, and safe shutdown.
 3. **Private Discord pilot**: after runtime validation and #132 approval prerequisites, configure a private Discord test guild/channel with no durable writes until routing and approval behavior are confirmed through a no-op observation path.
 4. **Dashboard/API stack decision**: decide whether the static dashboard remains enough or whether to introduce a real app/API surface.

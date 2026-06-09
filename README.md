@@ -79,6 +79,119 @@ curl -sS http://127.0.0.1:18080/health
 docker compose exec openclaw sh -lc 'find /home/node/.openclaw/workspace/skills -maxdepth 3 -type f | sort'
 ```
 
+If you want the bot to appear online in a private Discord guild, there is one extra setup step: the base OpenClaw image does **not** include the Discord channel plugin by default.
+
+Install the plugin, configure `channels.discord`, and restart OpenClaw:
+
+```bash
+docker compose exec openclaw openclaw plugins install @openclaw/discord
+
+docker compose exec openclaw sh -lc 'cat > /tmp/discord.patch.json5 <<EOF
+{
+  channels: {
+    discord: {
+      enabled: true,
+      token: { source: "env", provider: "default", id: "DISCORD_BOT_TOKEN" },
+      applicationId: "$DISCORD_APPLICATION_ID",
+      groupPolicy: "allowlist",
+      guilds: {
+        "$DISCORD_GUILD_ID": {
+          requireMention: true,
+          users: ["$DISCORD_USER_ID"]
+        }
+      }
+    }
+  }
+}
+EOF
+openclaw config patch --file /tmp/discord.patch.json5'
+
+docker compose restart openclaw
+docker compose exec openclaw openclaw channels status --deep --probe
+```
+
+Expected result:
+
+```text
+Discord default: enabled, configured, running, connected
+```
+
+If the bot shows **typing** in Discord but never posts a visible reply, the usual next problem is **missing model-provider auth**, not Discord transport.
+
+For the default `openai/gpt-5.5` route, verify auth state, repair legacy config if needed, complete OpenAI OAuth, and restart:
+
+```bash
+docker compose exec openclaw openclaw models status
+docker compose exec openclaw openclaw models auth list --provider openai
+
+docker compose exec openclaw openclaw doctor --fix
+docker compose exec openclaw openclaw config validate
+
+docker compose exec openclaw openclaw models auth login --provider openai --device-code
+
+docker compose restart openclaw
+```
+
+After OAuth/device-code login completes, verify again:
+
+```bash
+docker compose exec openclaw openclaw models auth list --provider openai
+docker compose exec openclaw openclaw models status
+docker compose logs --tail=100 openclaw
+```
+
+If you prefer a different provider or API-key route, update the model/provider auth before using Discord for real requests.
+
+Keep this limited to a **private non-production guild** and follow the gated Discord guidance before sending live test messages:
+
+- [`docs/operations/docker-runtime.md`](./docs/operations/docker-runtime.md)
+- [`docs/operations/discord-routing.md`](./docs/operations/discord-routing.md)
+- [`docs/operations/private-discord-manual-verification-guide.md`](./docs/operations/private-discord-manual-verification-guide.md)
+
+## Discord control configuration
+
+After the bot is connected and model auth is working, create the reserved governance surface **before** testing richer routed behavior.
+
+Start with the global control category:
+
+- category: `OpenClaw Global`
+- channels:
+  - `identity`
+  - `writing-style`
+  - `operating-principles`
+  - `boundaries`
+  - `inheritance`
+  - `skills`
+
+Use a **proposal-first** prompt so the bot previews the write before creating anything:
+
+```text
+Propose, but do not execute yet, the creation of the category `OpenClaw Global` in this private guild with the channels `identity`, `writing-style`, `operating-principles`, `boundaries`, `inheritance`, and `skills`. Show me the exact preview and do not touch any other category or channel.
+```
+
+If the preview is correct, approve only that exact change:
+
+```text
+approve write
+Create only the category `OpenClaw Global` and those six channels. Do not modify anything else.
+```
+
+Why this step matters:
+
+- `OpenClaw Global` is the reserved governance/control surface.
+- It is **not** the same as the separate Project Manager global surface (`global-context`, `global-skills`, `global-strategy`, `global-decisions`, `global-config`).
+- Creating the control category first gives you a safe place to define identity, style, boundaries, inheritance, and skill policy before testing routed/project behavior.
+
+Current topology, at a glance:
+
+- `OpenClaw Global` for reserved governance/control channels
+- `Project Manager` global managed channels: `global-context`, `global-skills`, `global-strategy`, `global-decisions`, `global-config`
+- one managed project category per project with `context`, `skills`, `strategy`, `tasks`, `decisions`, `qa`
+- routed channels that still follow `<network-slug>-<project-slug>` where that validation path is needed
+- one intentional unmapped fallback channel such as `qa-unmapped-demo`
+
+After this step succeeds, continue with the manual verification flow in issue `#132` and the private Discord guide.
+
 ## Current status and scope
 
 This repository is currently a **baseline for planning, validation, and runtime shaping**.
