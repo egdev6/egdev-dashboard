@@ -7,7 +7,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this template for planned work only. A maintainer must add `status:approved` before a PR is opened.
+        Use this template for planned feature or repository improvement work.
+        A maintainer must add `status:approved` before implementation starts or a PR is opened.
+        Normal feature PRs should target `develop`; release-promotion PRs target `main`.
   - type: checkboxes
     id: preflight
     attributes:
@@ -16,6 +18,8 @@ body:
         - label: I searched existing issues and this is not a duplicate
           required: true
         - label: I understand this issue must be approved before implementation starts
+          required: true
+        - label: I will not include real Discord IDs, tokens, credentials, screenshots, raw logs, transcripts, or private payloads in public evidence
           required: true
   - type: textarea
     id: problem
@@ -41,6 +45,8 @@ body:
         - Skills
         - Docs
         - Process
+        - CI/Workflows
+        - Security
         - Analytics
         - Dashboard
         - Other
@@ -51,10 +57,25 @@ body:
     attributes:
       label: Acceptance criteria
       description: List the observable conditions that make this done.
+      placeholder: |
+        - [ ] Behavior is documented.
+        - [ ] Safe validation command passes.
+        - [ ] No private runtime data is committed or pasted into GitHub.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: Which commands, smoke tests, manual checks, or fake-first fixtures should prove this work?
+      placeholder: |
+        - `bash scripts/run-safe-validation-suite.sh`
+        - Runtime smoke test, if applicable
+        - Private manual verification with sanitized summary only, if applicable
     validations:
       required: true
   - type: textarea
     id: context
     attributes:
       label: Additional context
-      description: Links, references, risks, or related roadmap milestones.
+      description: Links, references, risks, target milestone, or related roadmap items.

@@ -1,0 +1,64 @@
+name: Documentation task
+description: Improve installation, configuration, usage, release, or concept docs
+labels:
+  - documentation
+  - status:needs-review
+  - type:docs
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for documentation-only or documentation-first work.
+        A maintainer must add `status:approved` before implementation starts or a PR is opened.
+        Documentation PRs normally target `develop` unless they are part of a release promotion to `main`.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I understand this issue must be approved before implementation starts
+          required: true
+        - label: I will use fake or sanitized examples only, with no real Discord IDs, tokens, credentials, screenshots, raw logs, transcripts, or private payloads
+          required: true
+  - type: textarea
+    id: doc_gap
+    attributes:
+      label: Documentation gap
+      description: What is unclear, missing, outdated, or hard to follow?
+    validations:
+      required: true
+  - type: dropdown
+    id: doc_area
+    attributes:
+      label: Documentation area
+      options:
+        - Installation
+        - Configuration
+        - Usage / first run
+        - Mental model / concepts
+        - Operations / runtime
+        - Security / private data
+        - Release workflow
+        - Troubleshooting
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_docs
+    attributes:
+      label: Proposed documentation change
+      description: Which docs should change and what should they teach?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] The target reader can complete the task without external explanation.
+        - [ ] Commands and examples are copyable or clearly marked as examples.
+        - [ ] Private runtime values are sanitized.
+    validations:
+      required: true

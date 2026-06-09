@@ -1,0 +1,68 @@
+name: Manual verification
+description: Track private runtime, Discord, or operator-facing verification
+labels:
+  - enhancement
+  - status:needs-review
+  - type:test
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for private runtime or Discord manual verification.
+        A maintainer must add `status:approved` before implementation starts or a PR is opened.
+        Public GitHub evidence must be summarized and sanitized only.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I understand this verification must be approved before execution if it can mutate private runtime state
+          required: true
+        - label: I will not post real Discord IDs, tokens, credentials, screenshots, raw logs, transcripts, or private payloads
+          required: true
+  - type: textarea
+    id: verification_goal
+    attributes:
+      label: Verification goal
+      description: What behavior, contract, or release gate does this verification prove?
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - Local fake-first
+        - Local Docker runtime
+        - Private Discord rehearsal
+        - VPS rehearsal
+        - Release candidate rehearsal
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Verification checklist
+      description: List the checks to execute. Prefer non-destructive/simulation paths where possible.
+      placeholder: |
+        - [ ] Runtime is healthy.
+        - [ ] Registry backend reports OK.
+        - [ ] Non-destructive simulation passes.
+        - [ ] Evidence summary is sanitized before posting.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and rollback notes
+      description: Describe write gates, destructive-risk controls, rollback/reset steps, and private data boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Result summary
+      description: Fill this after execution with sanitized pass/fail/blocked evidence only.
