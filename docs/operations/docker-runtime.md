@@ -177,14 +177,19 @@ gentle-ai install --agent openclaw --preset full-gentleman --scope=workspace
 The expected runtime artifacts are:
 
 ```text
+/usr/local/bin/gentle-ai
+/usr/local/bin/engram
 /home/node/.openclaw/workspace/AGENTS.md
 /home/node/.openclaw/workspace/SOUL.md
 /home/node/.openclaw/workspace/.openclaw/skills/sdd-init/SKILL.md
 /home/node/.openclaw/workspace/.openclaw/skills/sdd-*/SKILL.md
 /home/node/.openclaw/openclaw.json  # mcp.servers includes engram/context7
+/home/node/.openclaw/engram-data    # OpenClaw-local Engram CLI data
 ```
 
 OpenClaw uses the Gentle-AI SDD flow as a **solo-agent** workflow: the protocol is injected through workspace instructions instead of Pi-style SDD subagents/chains.
+
+The Engram MCP server configured by Gentle-AI is a stdio process (`engram mcp --tools=agent`), so the OpenClaw runtime image must include the `engram` CLI locally. Its data directory is set to `/home/node/.openclaw/engram-data` by default so local MCP memory survives container recreation with the `openclaw-home` volume. This is separate from the optional `engram` cloud service used elsewhere in the compose stack.
 
 Validate the packaging contract without Docker credentials:
 
