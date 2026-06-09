@@ -75,7 +75,7 @@ http://127.0.0.1:18080
 
 ```bash
 docker compose config
-docker compose exec openclaw node -e "fetch('http://127.0.0.1:18789/healthz').then(async r => { console.log(r.status, await r.text()) })"
+docker compose exec openclaw node -e "fetch('http://127.0.0.1:18789/health').then(async r => { console.log(r.status, await r.text()) })"
 docker compose ps
 ```
 
@@ -204,6 +204,109 @@ OPENCLAW_GENTLE_RUNTIME=1 bash scripts/validate-openclaw-gentle-ai-runtime.sh
 ```
 
 If the Discord bot was already in a long-running session before Gentle-AI sync, start a new session or reset the old session before expecting it to answer SDD/Engram questions. Existing sessions may keep their earlier prompt context.
+
+## OpenAI OAuth and Discord session refresh
+
+OpenAI OAuth is **operator/deployment state**. It does not travel in git, and it must not be pasted into docs, issues, PRs, or logs. The repository/image provides Gentle-AI, Engram MCP, and validators; each local or VPS deployment still needs its own OpenAI auth profile.
+
+Run OAuth from a real interactive terminal because OpenClaw requires a TTY:
+
+```bash
+docker compose exec openclaw openclaw models auth login --provider openai
+```
+
+After OAuth succeeds, set OpenAI as the default model and remove temporary fallback models that may have been used during troubleshooting:
+
+```bash
+docker compose exec -T openclaw openclaw models set openai/gpt-5.5
+docker compose exec -T openclaw openclaw models fallbacks clear
+```
+
+Verify model auth without printing secrets:
+
+```bash
+docker compose exec -T openclaw openclaw models status
+```
+
+Expected shape:
+
+```text
+Default       : openai/gpt-5.5
+Fallbacks (0) : -
+Runtime auth
+- openai ... status=usable
+```
+
+Restart OpenClaw after model/auth changes:
+
+```bash
+docker compose restart openclaw
+```
+
+Reset only Discord agent sessions after changing model auth, Gentle-AI prompt state, or MCP tools. This prevents Discord from reusing stale tool/model context while preserving non-Discord sessions. The reset must back up `sessions.json` first:
+
+```bash
+backup_dir="/home/node/.openclaw/session-reset-backups/$(date -u +%Y%m%dT%H%M%SZ)-discord-reset"
+
+docker compose exec -T -e BACKUP_DIR="$backup_dir" openclaw node <<'NODE'
+const fs = require('fs');
+const backupDir = process.env.BACKUP_DIR;
+const p = '/home/node/.openclaw/agents/main/sessions/sessions.json';
+fs.mkdirSync(backupDir, { recursive: true });
+let data = {};
+if (fs.existsSync(p)) {
+  fs.copyFileSync(p, `${backupDir}/sessions.json`);
+  data = JSON.parse(fs.readFileSync(p, 'utf8'));
+}
+const before = Object.keys(data).length;
+let removedCount = 0;
+for (const key of Object.keys(data)) {
+  if (key.startsWith('agent:main:discord:')) {
+    delete data[key];
+    removedCount += 1;
+  }
+}
+fs.writeFileSync(p, JSON.stringify(data, null, 2));
+console.log(JSON.stringify({ before, after: Object.keys(data).length, removedCount, backupDir }));
+NODE
+
+docker compose restart openclaw
+```
+
+Validate the runtime before asking Discord to use memory:
+
+```bash
+curl -fsS http://127.0.0.1:18789/health
+
+docker compose exec -T openclaw openclaw models status
+docker compose exec -T openclaw openclaw mcp doctor
+docker compose exec -T openclaw openclaw mcp probe
+
+docker compose exec -T openclaw openclaw agent \
+  --session-key agent:main:openai-oauth-smoke \
+  --message "Reply exactly: OK OpenAI OAuth ready" \
+  --timeout 120 \
+  --json
+```
+
+Expected validation points:
+
+```text
+Gateway health: {"ok":true,"status":"live"}
+Model: openai/gpt-5.5 with OpenAI auth usable
+MCP doctor: engram: ok
+MCP probe: engram: 15 tools
+Agent smoke: OK OpenAI OAuth ready
+Discord sessions after reset: 0 keys matching agent:main:discord:*
+```
+
+After those checks pass, send a fresh Discord message such as:
+
+```text
+¿Qué herramientas de memoria puedes usar ahora? ¿Puedes guardar una memoria fake y buscarla?
+```
+
+Keep the smoke content fake. Do not save private Discord IDs, tokens, screenshots, raw transcripts, or private payloads as evidence.
 
 ## Security notes
 
