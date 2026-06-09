@@ -66,7 +66,17 @@ cd discord-project-manager
 test -f .env || cp .env.example .env
 # replace every change-me value before storing real memory
 # existing pre-rename .env files should use discord-project-manager for project/image/namespace values
+```
 
+Create the Discord application and invite the bot before filling the Discord values in `.env`:
+
+1. Open the [Discord Developer Portal](https://discord.com/developers/applications) and create a new application.
+2. Add a bot user under **Bot**, then copy the bot token into `DISCORD_BOT_TOKEN`.
+3. Copy the application ID into `DISCORD_APPLICATION_ID`.
+4. In **OAuth2 → URL Generator**, select the `bot` scope, choose the minimum permissions needed for your private test guild, open the generated URL, and add the bot to that guild.
+5. Copy the target guild and operator user IDs into `DISCORD_GUILD_ID` and `DISCORD_USER_ID`. Keep the bot limited to a private non-production guild until the manual verification gate passes.
+
+```bash
 docker compose --profile setup run --rm openclaw-setup
 docker compose up -d postgres engram openclaw
 ```
