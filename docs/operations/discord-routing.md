@@ -2,6 +2,8 @@
 
 Use this runbook when configuring or reviewing Discord channels for the OpenClaw runtime.
 
+> **Legacy/fallback status:** This runbook documents the older channel-first `<network-slug>-<project-slug>` transport baseline. It is not the current #132 manual rehearsal path. For current Project Manager rehearsal, use managed global/project scaffolding and persisted semantic metadata/IDs.
+
 This is an operations contract only. It does not prove live Discord bot routing yet.
 
 For pilot sequencing after #70-#74, use `docs/operations/discord-context-skill-pilot-roadmap.md`. The channel-first routing rules here remain a transport baseline/fallback, not the target workflow model.
@@ -15,16 +17,17 @@ For pilot sequencing after #70-#74, use `docs/operations/discord-context-skill-p
 5. Use `docs/architecture/discord-channel-scaffolding-status-repair.md` and `examples/discord-channel-scaffolding-status-repair.fake.yaml` when reviewing fake status and repair previews for missing, renamed, or unmanaged managed scaffolding.
 6. Use `docs/architecture/discord-managed-channel-routing.md` and `examples/discord-managed-channel-routing.fake.yaml` when reviewing persisted semantic metadata routing for managed Project Manager channels.
 7. Install the external OpenClaw Discord plugin before live validation.
-8. Name routed channels with `<network-slug>-<project-slug>`.
-9. Keep real guild and channel IDs outside the repo.
-10. Route channel-local memory by raw Discord IDs.
-11. Route durable project reads by approved project/network slugs.
-12. Ask for human approval before durable project writes.
-13. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
-14. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
-15. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
-16. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
-17. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
+8. For current Project Manager flows, resolve managed channels from persisted semantic metadata/IDs.
+9. Use `<network-slug>-<project-slug>` only when explicitly validating the legacy fallback route.
+10. Keep real guild and channel IDs outside the repo.
+11. Route channel-local memory by raw Discord IDs.
+12. Route durable project reads by approved project/network slugs.
+13. Ask for human approval before durable project writes.
+14. Load `skills/discord-approval-gate/SKILL.md` for Discord write-like intents before any persistence.
+15. Use `docs/operations/discord-approval-responses.md` for approval prompts and audit trail requirements.
+16. Use `docs/architecture/channel-context-namespace-mapping.md` and `examples/discord-channel-context.fake.yaml` as the resolver reference and fake fixture.
+17. Use `docs/architecture/discord-topology-reconciliation.md` and `examples/discord-topology-reconciliation.fake.yaml` when validating category/channel discovery before provisioning.
+18. Use `docs/architecture/discord-context-namespace-provisioning.md` and `examples/discord-context-provisioning.fake.yaml` when reviewing approved draft context artifacts.
 
 ## Naming examples
 

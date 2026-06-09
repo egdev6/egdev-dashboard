@@ -8,8 +8,8 @@ This is a repo-safe preparation and test-organization guide only. It does **not*
 
 1. Confirm the private/local runtime baseline is already green.
 2. Prepare a private Discord topology with fake/demo names and no public surfaces.
-3. Review global governance, routed channels, and fallback channels separately.
-4. Run only no-op/manual checks until the runtime has a proven no-op observation path.
+3. Review global governance and managed Project Manager scaffolding separately.
+4. Run only no-op/manual checks until managed status/repair and approval boundaries are proven.
 5. Capture sanitized evidence only and stop on any boundary breach.
 
 ## Safety boundary
@@ -31,11 +31,11 @@ Complete these before any private Discord rehearsal:
 | Requirement | Why it matters | Repo-safe rule |
 |---|---|---|
 | Private non-production guild | Prevents public/live spillover | Do not commit the real guild ID |
-| Private non-production channels | Needed for matched and unmapped tests | Do not commit real channel IDs |
+| Private non-production channels | Needed for managed Project Manager topology checks | Do not commit real channel IDs |
 | Non-production credentials | Required for any future live-adjacent runtime hookup | Keep outside git and PR text |
 | Private/local Docker runtime already validated | Discord checks must start from a known local runtime baseline | Reuse `docs/operations/runtime-pilot-checklist.md` and `docs/operations/qa-private-docker-runtime-smoke-walkthrough.md` |
 | Explicit human approval | QA-07 remains gated | Record only the decision, not secrets |
-| Proven no-op observation path | Routing must be verifiable without prompt execution or writes | Accept only resolver-only diagnostic, dry-run mode, or re-tested enforcement |
+| Proven no-op observation path | Managed status/repair and approval behavior must be verifiable without prompt execution or durable writes | Accept only status preview, repair preview, dry-run mode, or re-tested enforcement |
 
 Manual user steps required before future execution: **yes**.
 
@@ -111,32 +111,7 @@ Suggested control channels:
 | `inheritance` | explicit opt-in inheritance review | no |
 | `skills` | scoped skill review and override discussion | no |
 
-### B. Routed project/network channels
-
-These are the channels that should follow the canonical routing contract:
-
-```text
-<network-slug>-<project-slug>
-```
-
-Suggested fake/demo routed channels:
-
-| Channel | Expected durable network namespace |
-|---|---|
-| `linkedin-egdev` | `discord-project-manager/project/egdev/network/linkedin` |
-| `x-egdev` | `discord-project-manager/project/egdev/network/x` |
-| `youtube-egdev` | `discord-project-manager/project/egdev/network/youtube` |
-| `twitch-egdev` | `discord-project-manager/project/egdev/network/twitch` |
-| `stack-and-flow-egdev` | `discord-project-manager/project/egdev/network/stack-and-flow` |
-
-Shared durable read candidates for a matched route remain:
-
-- `discord-project-manager/project/egdev/brand`
-- `discord-project-manager/project/egdev/strategy`
-- `discord-project-manager/project/egdev/content-ledger`
-- `discord-project-manager/project/egdev/network/<network-slug>`
-
-### C. Project Manager managed scaffolding
+### B. Project Manager managed scaffolding
 
 The current Project Manager topology is no longer based on ad hoc review/control channels. Instead, it uses one managed global category plus one managed category per project.
 
@@ -165,19 +140,7 @@ Per-project managed channels:
 | `decisions` | project-local decisions and rationale | project |
 | `qa` | validation plans, manual checks, and release gates | project |
 
-These managed categories/channels are distinct from both:
-
-- the reserved `OpenClaw Global` governance/control category; and
-- the routed `<network-slug>-<project-slug>` channels used for legacy/manual route validation.
-
-### D. Intentional fallback channel
-
-Create one unmapped channel such as:
-
-- `general`
-- `qa-unmapped-demo`
-
-This channel must remain runtime-only and must **not** silently default to a project/network route.
+These managed categories/channels are distinct from the reserved `OpenClaw Global` governance/control category. Managed channel routing should resolve scope, field, and project from persisted semantic metadata/IDs instead of display-name inference.
 
 ## How to create categories and channels
 
@@ -187,18 +150,8 @@ Use the Discord UI manually. Keep notes sanitized.
 
 1. Create a private category named `OpenClaw Global`.
 2. Add only governance/control channels such as `identity`, `writing-style`, `operating-principles`, `boundaries`, `inheritance`, and `skills`.
-3. Do **not** treat these channels as canonical `<network-slug>-<project-slug>` routes.
+3. Do **not** treat these channels as Project Manager project categories.
 4. Record only fake/demo channel names in repo-safe evidence.
-
-### Create routed channels
-
-1. Create a private category for routed work, for example `Egdev Routed`.
-2. Add channels using lowercase kebab-case `<network-slug>-<project-slug>` names.
-3. Keep the set small and intentional for rehearsal:
-   - `linkedin-egdev`
-   - `x-egdev`
-   - one or two additional network examples only if needed
-4. Confirm each channel name is deterministic and reviewable before any runtime test.
 
 ### Create Project Manager managed scaffolding
 
@@ -208,12 +161,6 @@ Use the Discord UI manually. Keep notes sanitized.
 4. Create or verify the project channels `context`, `skills`, `strategy`, `tasks`, `decisions`, and `qa`.
 5. Use the semantic channel guide catalog for expected topics/descriptions and starter guidance.
 6. Do **not** treat optional human review channels as required topology for the current Project Manager contract.
-
-### Create the fallback channel
-
-1. Add one intentionally unmapped channel such as `qa-unmapped-demo`.
-2. Use it to verify runtime-only fallback behavior.
-3. Do not pre-assign a guessed project or network to this channel.
 
 ## Global context management guide
 
@@ -241,7 +188,7 @@ Use `docs/operations/openclaw-global-brand-context-refresh.md` as the source con
 
 1. Review one control area at a time.
 2. Draft a reviewable summary before any persistence.
-3. Propose inheritance to specific categories/networks only.
+3. Propose inheritance to specific managed categories/projects only.
 4. Preview the derived Context Pack / Skill Pack effect.
 5. Require exact `approve write` before any durable write.
 6. If rollback is needed, revert to the prior approved global draft and record a sanitized note only.
@@ -258,16 +205,15 @@ Use this table to explain what each channel type is for and what “working corr
 | Global decisions | `global-decisions` | decisions and tradeoffs are recorded clearly | no implicit runtime writeback |
 | Global skills | `global-skills` | effective skills and inheritance remain visible | `discord-approval-gate` stays mandatory for write-like flows |
 | Project QA | `qa` | validation and release-gate work stays scoped to one project | no silent cross-project spillover |
-| Routed LinkedIn planning | `linkedin-egdev` | weekly plan candidate includes `missing_context` | planning only; no publishing or analytics claims |
-| Routed X planning | `x-egdev` | queue/plan remains reviewable and approval-gated | no scheduling or Buffer activity |
-| Approval response | managed channel or routed write-like request | response state stays `proposal` or `approval-requested` | exact `approve write` phrase required |
-| Fallback testing | `qa-unmapped-demo` | unmapped route stays runtime-only | operator is asked to choose an approved route |
+| Managed project strategy | `strategy` | project strategy stays scoped to one managed project | planning only; no publishing or analytics claims |
+| Managed project tasks | `tasks` | actionable work stays reviewable and bounded | no hidden execution or durable write |
+| Approval response | managed channel write-like request | response state stays `proposal` or `approval-requested` | exact `approve write` phrase required |
 
-## Routing rules and namespace expectations
+## Managed routing and namespace expectations
 
-### Matched route expectation
+### Managed channel expectation
 
-For a routed channel such as `linkedin-egdev`:
+For a Project Manager channel such as `Project - Linkedin` / `strategy`:
 
 - runtime namespace must still be:
 
@@ -275,25 +221,18 @@ For a routed channel such as `linkedin-egdev`:
   discord-project-manager/runtime/discord/<guild-id>/<channel-id>
   ```
 
-- durable read candidates may include:
+- managed scope, field, and project should resolve from persisted semantic metadata/IDs, not from the display name alone;
+- durable read candidates must stay scoped to the managed project and field being reviewed;
+- durable writes remain approval-gated and proposal-first.
 
-  ```text
-  discord-project-manager/project/egdev/brand
-  discord-project-manager/project/egdev/strategy
-  discord-project-manager/project/egdev/content-ledger
-  discord-project-manager/project/egdev/network/linkedin
-  ```
+### Unmanaged channel expectation
 
-- durable writes remain approval-gated.
+For an extra unmanaged channel inside a managed category:
 
-### Unmapped expectation
-
-For `general` or `qa-unmapped-demo`:
-
-- stay in runtime-only fallback mode;
-- do not read durable project namespaces;
-- do not write durable project namespaces or workspace files;
-- ask the operator to choose or create an approved route.
+- report it as unmanaged/fallback-only;
+- do not infer a project or field by name;
+- do not read or write durable project namespaces;
+- use status/repair preview flows before any create, update, or cleanup action.
 
 ### Skill/context layering expectation
 
@@ -315,15 +254,15 @@ Run only the tests that fit the currently approved boundary. If a test would req
 | Test ID | Area | Manual action | Expected result | Evidence |
 |---|---|---|---|---|
 | `DV-01` | Local runtime startup | Start the local/private runtime from the checklist | OpenClaw and Engram are healthy on loopback only | sanitized command output |
-| `DV-02` | Global category setup | Create `OpenClaw Global` and control channels | governance/control surfaces are separate from routed channels | fake/demo topology note |
-| `DV-03` | Routed channel setup | Create `linkedin-egdev` and `x-egdev` | routed channels follow `<network-slug>-<project-slug>` | fake/demo channel list |
-| `DV-04` | Fallback setup | Create `qa-unmapped-demo` | one intentional unmapped channel exists | fake/demo channel list |
+| `DV-02` | Global category setup | Create `OpenClaw Global` and control channels | governance/control surfaces are separate from Project Manager scaffolding | fake/demo topology note |
+| `DV-03` | Project Manager global setup | Create or verify `Project Manager` and global channels | managed global channels exist with semantic guide topics/starter guidance | fake/demo topology note |
+| `DV-04` | Project category setup | Create or verify one managed project category and channels | project channels exist with semantic guide topics/starter guidance | fake/demo topology note |
 | `DV-05` | Global context review | Review one control area plus inheritance rule | inheritance is explicit opt-in only | sanitized checklist note |
-| `DV-06` | Matched-route expectation | Using only a no-op resolver/dry-run path, inspect `linkedin-egdev` | routing status would be `matched-route`; durable reads are brand/strategy/ledger/network | sanitized route outcome |
-| `DV-07` | Unmapped fallback | Using only a no-op resolver/dry-run path, inspect `qa-unmapped-demo` | routing status would be `unmapped-channel`; durable reads/writes remain none | sanitized fallback outcome |
+| `DV-06` | Managed routing expectation | Using only status/dry-run preview, inspect one managed project channel | scope, field, and project resolve from semantic metadata/IDs | sanitized status outcome |
+| `DV-07` | Unmanaged channel expectation | Using only status/dry-run preview, inspect an unmanaged channel inside a managed category if present | reported as unmanaged/fallback-only without durable reads/writes | sanitized status outcome |
 | `DV-08` | Approval preview | Use a synthetic event or proven no-op preview for a write-like request | response state is `proposal` or `approval-requested`, never `approved-for-write` | sanitized approval excerpt |
-| `DV-09` | Category context | Review one category-local context source for a routed network | category context is explicit, bounded to the route, and does not override global context silently | sanitized category-context checklist |
-| `DV-10` | Skills and packs | Review effective skills for one matched route | `discord-approval-gate` is present and skill choices follow global -> category -> channel layering | sanitized skill-pack checklist |
+| `DV-09` | Project/category context | Review one project-local context source | project/category context is explicit, scoped, and does not override global context silently | sanitized project-context checklist |
+| `DV-10` | Skills and packs | Review effective skills for one managed project channel | `discord-approval-gate` is present and skill choices follow global -> project -> channel layering | sanitized skill-pack checklist |
 | `DV-11` | Memory/context separation | Review runtime namespace and durable namespace targets for one planned action | runtime audit namespace stays separate from brand/strategy/ledger/network durable namespaces | sanitized namespace checklist |
 | `DV-12` | Strategy contract | Review strategy output requirements in a strategy-oriented surface | confirmed facts, assumptions, and missing context stay separate | sanitized proposal checklist |
 | `DV-13` | Ledger contract | Review ledger candidate shape and allowed states | only `draft`, `queued`, `published`, `archived` appear | sanitized ledger checklist |
@@ -337,12 +276,12 @@ Run only the tests that fit the currently approved boundary. If a test would req
 | Area | Pass when | Fail when |
 |---|---|---|
 | Environment | local runtime starts, is healthy, and shuts down safely | runtime needs destructive cleanup or public surfaces |
-| Topology | global/control, routed, and fallback channels are clearly separated | routed and control surfaces are blurred or guessed |
+| Topology | global/control and managed Project Manager channels are clearly separated | governance and project-management surfaces are blurred or guessed |
 | Global context | inheritance is explicit and reviewable | inheritance is assumed or automatic |
 | Category context | category-local context is explicit, scoped, and subordinate to approved inheritance | category context silently overrides global rules or leaks across routes |
 | Skills and packs | effective skills are visible and `discord-approval-gate` stays mandatory | write-like flows omit the approval gate or hide skill overrides |
 | Memory/context | runtime audit namespaces and durable target namespaces stay separate | runtime notes become durable memory or workspace files without approval |
-| Routing | matched and unmapped expectations are reviewable through a no-op path | routing proof requires prompt execution or writes |
+| Managed routing | scope, field, and project resolution are reviewable through status/dry-run preview | routing proof requires prompt execution, display-name guessing, or writes |
 | Approval | `approve write` stays explicit and no-op boundaries are visible | approval is bypassed or silent writes appear |
 | Workflow contracts | strategy, ledger, LinkedIn, X, and briefs stay bounded and fake-first | live execution, publishing, or durable writes are implied |
 | Evidence | only sanitized notes are kept | real IDs, secrets, transcripts, or private payloads appear |
@@ -362,7 +301,7 @@ Stop immediately if any of these appear:
 
 - production credentials are required;
 - the environment points at a public guild/channel;
-- a routing check requires prompt execution or workspace writes;
+- a managed status/routing check requires prompt execution or workspace writes;
 - a write-like request causes durable writes before explicit approval;
 - plugin setup is not reversible or is unclear;
 - evidence would require raw transcripts, raw logs, secrets, or private payloads;
@@ -383,21 +322,17 @@ Treat this guide as operator preparation for a **future gated rehearsal**, not a
 
 ## Related references
 
-- `docs/operations/qa-private-discord-routing-dry-run-plan.md`
-- `docs/operations/discord-routing.md`
 - `docs/operations/runtime-pilot-checklist.md`
 - `docs/operations/discord-approval-responses.md`
 - `docs/operations/openclaw-global-brand-context-refresh.md`
-- `docs/operations/category-strategy-planning-flow.md`
-- `docs/operations/content-ledger-utility-flow.md`
-- `docs/operations/linkedin-weekly-planning-flow.md`
-- `docs/operations/on-demand-brief-flow.md`
-- `docs/architecture/discord-channel-routing.md`
-- `docs/architecture/channel-context-namespace-mapping.md`
+- `docs/architecture/discord-semantic-channel-guides.md`
+- `docs/architecture/discord-project-manager-global-init.md`
+- `docs/architecture/discord-project-manager-project-create.md`
+- `docs/architecture/discord-managed-channel-routing.md`
+- `docs/architecture/discord-channel-scaffolding-status-repair.md`
 - `docs/architecture/discord-context-skill-packs.md`
 - `docs/architecture/discord-scoped-skills-registry.md`
-- `examples/discord-runtime-orchestrator.fake.yaml`
 
 ## Next step
 
-If the team wants a private Discord rehearsal later, use this guide **together with** `docs/operations/qa-private-discord-routing-dry-run-plan.md` and keep QA-07 execution blocked until the private environment, explicit approval, and no-op observation path are all available.
+Continue #132 with managed Project Manager global/project scaffolding only. Keep execution blocked until the private environment, explicit approval, status/repair preview path, and approval-gate behavior are all available.

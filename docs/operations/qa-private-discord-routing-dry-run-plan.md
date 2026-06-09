@@ -2,10 +2,12 @@
 
 This evidence pack records the approved plan-only slice for QA-07 in issue #112. Execution was **not** performed in this PR. The outcome here is a gated, reviewer-facing plan for a future private Discord dry-run once a non-production guild/channel, non-production credentials, and explicit execution approval are available.
 
+> **Superseded for #132:** This plan is retained as historical evidence for the older deterministic route dry-run. It is not the current private rehearsal path. Current #132 work focuses on Project Manager managed global/project scaffolding, semantic metadata/IDs, status/repair previews, and approval-gated managed-channel behavior.
+
 ## Quick path
 
 1. Reuse AGENT runtime evidence and the completed QA packs before attempting any Discord-live-adjacent step.
-2. Review `docs/operations/private-discord-manual-verification-guide.md` to organize topology, channel roles, and sanitized manual evidence.
+2. Review `docs/operations/private-discord-manual-verification-guide.md` to organize current managed Project Manager topology, channel roles, and sanitized manual evidence.
 3. Prepare only a private non-production Discord environment with reversible setup and sanitized evidence rules.
 4. Stop before execution unless a human explicitly authorizes the dry-run and provides the required private inputs.
 
