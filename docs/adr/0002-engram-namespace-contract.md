@@ -48,7 +48,7 @@ discord-project-manager/dev/sdd/openclaw-runtime-validation/tasks
 discord-project-manager/dev/sdd/openclaw-runtime-validation/verify
 
 discord-project-manager/runtime/discord/<guild-id>/<channel-id>
-discord-project-manager/runtime/discord/123456789012345678/234567890123456789
+discord-project-manager/runtime/discord/fake-guild-id/fake-channel-id
 
 discord-project-manager/project/egdev/brand
 discord-project-manager/project/egdev/strategy
