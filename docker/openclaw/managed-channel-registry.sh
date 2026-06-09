@@ -34,6 +34,11 @@ json_escape() {
   printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
 }
 
+sanitize_evidence_value() {
+  # Redact Discord snowflake-like values from operator-facing output.
+  printf '%s' "$1" | sed -E 's/[0-9]{17,20}/<private-id>/g'
+}
+
 ensure_backend() {
   mkdir -p "$registry_root"
   touch "$registry_file"
@@ -168,8 +173,9 @@ preview_repair() {
     status="MISSING_METADATA"
     action="create-metadata"
   fi
+  safe_idempotency_key="$(sanitize_evidence_value "$idempotency_key")"
   printf '{"status":"%s","backend":"private-runtime-managed-channel-registry","approval_state":"approval-requested","approval_phrase":"approve write","write_executed":false,"proposed_action":"%s","binding":{"guildId":"private-runtime-id","categoryId":"private-runtime-id","channelId":"private-runtime-id","scope":"%s","field":"%s","projectSlug":"%s","idempotencyKey":"%s","source":"%s"}}\n' \
-    "$status" "$action" "$(json_escape "$scope")" "$(json_escape "$field")" "$(json_escape "$project_slug")" "$(json_escape "$idempotency_key")" "$(json_escape "$source")"
+    "$status" "$action" "$(json_escape "$scope")" "$(json_escape "$field")" "$(json_escape "$project_slug")" "$(json_escape "$safe_idempotency_key")" "$(json_escape "$source")"
 }
 
 list_bindings() {
@@ -178,7 +184,7 @@ list_bindings() {
     printf '{"backend":"private-runtime-managed-channel-registry","bindings":[]}\n'
     return 0
   fi
-  sed 's/"guildId":"[^"]*"/"guildId":"private-runtime-id"/g; s/"categoryId":"[^"]*"/"categoryId":"private-runtime-id"/g; s/"channelId":"[^"]*"/"channelId":"private-runtime-id"/g' "$registry_file"
+  sed -E 's/"guildId":"[^"]*"/"guildId":"private-runtime-id"/g; s/"categoryId":"[^"]*"/"categoryId":"private-runtime-id"/g; s/"channelId":"[^"]*"/"channelId":"private-runtime-id"/g; s/[0-9]{17,20}/<private-id>/g' "$registry_file"
 }
 
 cmd="${1:-}"
