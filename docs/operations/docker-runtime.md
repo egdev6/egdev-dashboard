@@ -152,7 +152,7 @@ docker compose down -v
 
 Never run `down -v` against a runtime that contains real Engram memory unless you have an export/backup.
 
-## Skill mounting
+## Skill and Gentle-AI mounting
 
 The repository's tracked `skills/` directory is copied into the local OpenClaw runtime image and synced into:
 
@@ -161,6 +161,44 @@ The repository's tracked `skills/` directory is copied into the local OpenClaw r
 ```
 
 The M1 smoke test confirmed OpenClaw discovers workspace `SKILL.md` files from this shape. Runtime-generated workspace state remains in the `openclaw-home` volume, not in git.
+
+The local OpenClaw image also installs a pinned `gentle-ai` binary into:
+
+```text
+/usr/local/bin/gentle-ai
+```
+
+On `openclaw-setup` and normal `openclaw` startup, `discord-project-manager-sync-skills` checks whether the OpenClaw workspace already has the Gentle-AI SDD/Engram protocol. If it is missing, the script runs:
+
+```bash
+gentle-ai install --agent openclaw --preset full-gentleman --scope=workspace
+```
+
+The expected runtime artifacts are:
+
+```text
+/home/node/.openclaw/workspace/AGENTS.md
+/home/node/.openclaw/workspace/SOUL.md
+/home/node/.openclaw/workspace/.openclaw/skills/sdd-init/SKILL.md
+/home/node/.openclaw/workspace/.openclaw/skills/sdd-*/SKILL.md
+/home/node/.openclaw/openclaw.json  # mcp.servers includes engram/context7
+```
+
+OpenClaw uses the Gentle-AI SDD flow as a **solo-agent** workflow: the protocol is injected through workspace instructions instead of Pi-style SDD subagents/chains.
+
+Validate the packaging contract without Docker credentials:
+
+```bash
+bash scripts/validate-openclaw-gentle-ai-runtime.sh
+```
+
+Validate a running Docker runtime after services are up:
+
+```bash
+OPENCLAW_GENTLE_RUNTIME=1 bash scripts/validate-openclaw-gentle-ai-runtime.sh
+```
+
+If the Discord bot was already in a long-running session before Gentle-AI sync, start a new session or reset the old session before expecting it to answer SDD/Engram questions. Existing sessions may keep their earlier prompt context.
 
 ## Security notes
 
