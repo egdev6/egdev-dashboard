@@ -89,20 +89,18 @@ The exact GitHub branch-protection configuration is handled separately, but the 
 
 ### PRs targeting `develop`
 
-Required checks should cover:
+Required checks cover:
 
-- repository contracts and shell syntax;
-- safe validation suite;
-- Docker Compose configuration;
-- OpenClaw image build when runtime files change;
-- secret scanning;
-- repo-safe evidence hygiene for docs, examples, fixtures, and scripts.
+- `Repository contracts`: whitespace, shell syntax, GitHub Actions lint, shell lint/formatting, YAML lint, Markdown lint, commit message lint, and repo-safe evidence hygiene via `scripts/validate-repo-safe-evidence.sh`;
+- `Safe validator suite`: fake-first repository validators via `scripts/run-safe-validation-suite.sh`;
+- `Compose config and OpenClaw image build`: Docker Compose configuration, Dockerfile lint, and OpenClaw image build;
+- `Gitleaks secret scan`: secret scanning.
 
 These checks must not require private Discord credentials or private runtime data.
 
 ### PRs targeting `main`
 
-Release-promotion or hotfix PRs to `main` should require everything from `develop`, plus release-specific checks such as:
+Release-promotion or hotfix PRs to `main` require everything from `develop`, plus release-specific review evidence such as:
 
 - changelog or release notes update when user-visible behavior changes;
 - release checklist completion;
@@ -131,6 +129,12 @@ For release PRs to `main`:
 No release workflow step should require committing or posting private runtime evidence.
 
 Do not include real Discord IDs, tokens, credentials, screenshots, raw logs, transcripts, or private payloads in public GitHub issues, PRs, docs, fixtures, or release notes. Use sanitized summaries and fake-first validation wherever possible.
+
+Run the repo-safe evidence guard before opening PRs that touch docs, examples, scripts, or templates:
+
+```bash
+bash scripts/validate-repo-safe-evidence.sh
+```
 
 ## Current first-stable-release order
 
