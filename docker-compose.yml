@@ -6,12 +6,14 @@ services:
       dockerfile: docker/openclaw/Dockerfile
       args:
         OPENCLAW_BASE_IMAGE: ${OPENCLAW_BASE_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+        ENGRAM_IMAGE: ${ENGRAM_IMAGE:-ghcr.io/gentleman-programming/engram:latest}
     profiles: ["setup"]
     env_file:
       - path: .env
         required: false
     environment:
       OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN:-change-me-local-openclaw-token}
+      ENGRAM_DATA_DIR: ${OPENCLAW_ENGRAM_DATA_DIR:-/home/node/.openclaw/engram-data}
     volumes:
       - openclaw-home:/home/node/.openclaw
     command:
@@ -30,6 +32,7 @@ services:
       dockerfile: docker/openclaw/Dockerfile
       args:
         OPENCLAW_BASE_IMAGE: ${OPENCLAW_BASE_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+        ENGRAM_IMAGE: ${ENGRAM_IMAGE:-ghcr.io/gentleman-programming/engram:latest}
     restart: unless-stopped
     env_file:
       - path: .env
@@ -41,6 +44,7 @@ services:
       ENGRAM_CLOUD_URL: ${ENGRAM_CLOUD_URL:-http://engram:18080}
       ENGRAM_CLOUD_TOKEN: ${ENGRAM_CLOUD_TOKEN:-change-me-local-engram-token}
       ENGRAM_NAMESPACE_PREFIX: ${ENGRAM_NAMESPACE_PREFIX:-discord-project-manager}
+      ENGRAM_DATA_DIR: ${OPENCLAW_ENGRAM_DATA_DIR:-/home/node/.openclaw/engram-data}
     volumes:
       - openclaw-home:/home/node/.openclaw
     ports:
