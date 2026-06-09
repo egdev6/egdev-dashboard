@@ -230,6 +230,7 @@ Start with the shortest path that matches your goal:
 - **Runtime model:** [`docs/architecture/portable-openclaw-runtime.md`](./docs/architecture/portable-openclaw-runtime.md)
 - **Operational Docker guidance:** [`docs/operations/docker-runtime.md`](./docs/operations/docker-runtime.md)
 - **Security and data handling:** [`docs/security/data-handling.md`](./docs/security/data-handling.md)
+- **Release workflow:** [`docs/process/release-workflow.md`](./docs/process/release-workflow.md)
 - **Shared artifact rules:** [`docs/process/shared-artifact-serialization.md`](./docs/process/shared-artifact-serialization.md)
 
 ## Working model
