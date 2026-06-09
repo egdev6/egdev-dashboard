@@ -77,6 +77,35 @@ wrong_project_seed="$(sh "$SCRIPT_PATH" put guild-demo category-project channel-
 wrong_project_output="$(sh "$SCRIPT_PATH" verify guild-demo channel-project-context project context other-project)"
 [[ "$wrong_project_output" == *'"status":"WRONG_PROJECT"'* ]] || fail "wrong project was not detected: $wrong_project_output"
 
+deleted_output="$(sh "$SCRIPT_PATH" simulate-edge-case deleted-managed-channel project tasks linkedin)"
+[[ "$deleted_output" == *'"scenario":"deleted-managed-channel"'* ]] || fail "deleted channel simulation missing scenario marker: $deleted_output"
+[[ "$deleted_output" == *'"status":"needs-repair"'* ]] || fail "deleted channel simulation did not report needs-repair: $deleted_output"
+[[ "$deleted_output" == *'"proposed_action":"recreate-channel"'* ]] || fail "deleted channel simulation did not propose recreate-channel: $deleted_output"
+[[ "$deleted_output" == *'"metadata_refresh_required":true'* ]] || fail "deleted channel simulation did not require metadata refresh: $deleted_output"
+[[ "$deleted_output" == *'"approval_phrase":"approve write"'* ]] || fail "deleted channel simulation did not require approval phrase: $deleted_output"
+[[ "$deleted_output" == *'"write_executed":false'* ]] || fail "deleted channel simulation attempted a write: $deleted_output"
+
+missing_id_output="$(sh "$SCRIPT_PATH" simulate-edge-case missing-persisted-id project tasks linkedin)"
+[[ "$missing_id_output" == *'"scenario":"missing-persisted-id"'* ]] || fail "missing ID simulation missing scenario marker: $missing_id_output"
+[[ "$missing_id_output" == *'"status":"unsafe-missing-id"'* ]] || fail "missing ID simulation did not report unsafe-missing-id: $missing_id_output"
+[[ "$missing_id_output" == *'"auto_linked_by_name":false'* ]] || fail "missing ID simulation allowed name auto-link: $missing_id_output"
+[[ "$missing_id_output" == *'"relink_by_name_attempted":false'* ]] || fail "missing ID simulation attempted relink by name: $missing_id_output"
+[[ "$missing_id_output" == *'"write_executed":false'* ]] || fail "missing ID simulation attempted a write: $missing_id_output"
+
+permission_output="$(sh "$SCRIPT_PATH" simulate-edge-case permission-failure project tasks linkedin manage_messages_for_pin)"
+[[ "$permission_output" == *'"scenario":"permission-failure"'* ]] || fail "permission simulation missing scenario marker: $permission_output"
+[[ "$permission_output" == *'"status":"blocked-permissions"'* ]] || fail "permission simulation did not report blocked-permissions: $permission_output"
+[[ "$permission_output" == *'"permission_preflight_status":"blocked-permissions"'* ]] || fail "permission simulation did not block during preflight: $permission_output"
+[[ "$permission_output" == *'"manage_messages_for_pin"'* ]] || fail "permission simulation did not report missing capability: $permission_output"
+[[ "$permission_output" == *'"partial_repair_attempted":false'* ]] || fail "permission simulation attempted partial repair: $permission_output"
+[[ "$permission_output" == *'"write_executed":false'* ]] || fail "permission simulation attempted a write: $permission_output"
+
+for simulated_output in "$deleted_output" "$missing_id_output" "$permission_output"; do
+  if printf '%s' "$simulated_output" | grep -E '[0-9]{17,20}' >/dev/null; then
+    fail "edge-case simulation leaked a snowflake-like value: $simulated_output"
+  fi
+done
+
 list_output="$(sh "$SCRIPT_PATH" list)"
 [[ "$list_output" == *'"guildId":"private-runtime-id"'* ]] || fail "list output did not sanitize guild id"
 [[ "$list_output" == *'project-manager-global:<private-id>'* ]] || fail "list output did not sanitize global idempotency key"

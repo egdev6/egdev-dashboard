@@ -20,6 +20,7 @@ Commands:
   status <guildId> <channelId> <scope> <field> <projectSlug|none>
   verify <guildId> <channelId> <scope> <field> <projectSlug|none>
   preview-repair <guildId> <categoryId> <channelId> <scope> <field> <projectSlug|none> <idempotencyKey> <source>
+  simulate-edge-case <deleted-managed-channel|missing-persisted-id|permission-failure> <scope> <field> <projectSlug|none> [missingCapability]
   list
 
 Safety:
@@ -178,6 +179,36 @@ preview_repair() {
     "$status" "$action" "$(json_escape "$scope")" "$(json_escape "$field")" "$(json_escape "$project_slug")" "$(json_escape "$safe_idempotency_key")" "$(json_escape "$source")"
 }
 
+simulate_edge_case() {
+  [ "$#" -ge 4 ] || { usage >&2; exit 2; }
+  scenario="$1"
+  scope="$2"
+  field="$3"
+  project_slug="$4"
+  missing_capability="${5:-manage_channels}"
+
+  validate_scope_field "$scope" "$field" "$project_slug" >/dev/null
+
+  case "$scenario" in
+    deleted-managed-channel)
+      printf '{"scenario":"deleted-managed-channel","backend":"private-runtime-managed-channel-registry","status":"needs-repair","missing_fields":["%s"],"write_executed":false,"repair_preview":{"status":"approval-requested","approval_state":"approval-requested","approval_phrase":"approve write","proposed_action":"recreate-channel","metadata_refresh_required":true,"refreshed_registry_field":"channels.%s","scope":"%s","field":"%s","projectSlug":"%s","write_executed":false}}\n' \
+        "$(json_escape "$field")" "$(json_escape "$field")" "$(json_escape "$scope")" "$(json_escape "$field")" "$(json_escape "$project_slug")"
+      ;;
+    missing-persisted-id)
+      printf '{"scenario":"missing-persisted-id","backend":"private-runtime-managed-channel-registry","status":"unsafe-missing-id","unsafe_missing_id_fields":["%s"],"possible_name_match_visible":true,"auto_linked_by_name":false,"relink_by_name_attempted":false,"approval_state":"not-requested","write_executed":false,"operator_message":"Persisted channel ID is missing or unusable; no relink was applied without review."}\n' \
+        "$(json_escape "$field")"
+      ;;
+    permission-failure)
+      printf '{"scenario":"permission-failure","backend":"private-runtime-managed-channel-registry","status":"blocked-permissions","permission_preflight_status":"blocked-permissions","permission_missing_capabilities":["%s"],"approval_state":"not-requested","write_executed":false,"partial_repair_attempted":false,"operator_message":"Permission preflight blocked repair before partial writes."}\n' \
+        "$(json_escape "$missing_capability")"
+      ;;
+    *)
+      printf '{"status":"UNKNOWN_SCENARIO","supported":["deleted-managed-channel","missing-persisted-id","permission-failure"],"write_executed":false}\n'
+      return 1
+      ;;
+  esac
+}
+
 list_bindings() {
   ensure_backend
   if [ ! -s "$registry_file" ]; then
@@ -196,6 +227,7 @@ case "$cmd" in
   put) put_binding "$@" ;;
   status|verify) status_binding "$@" ;;
   preview-repair) preview_repair "$@" ;;
+  simulate-edge-case) simulate_edge_case "$@" ;;
   list) list_bindings "$@" ;;
   -h|--help|help) usage ;;
   *) usage >&2; exit 2 ;;

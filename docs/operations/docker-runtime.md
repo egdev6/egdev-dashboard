@@ -121,6 +121,16 @@ docker compose exec openclaw discord-project-manager-managed-registry preview-re
 
 Status verification must resolve from this backend and report `OK`, `MISSING_METADATA`, `NEEDS_REPAIR_PREVIEW`, `WRONG_SCOPE`, `WRONG_FIELD`, or `WRONG_PROJECT`; visible channel-name inference is not accepted as success.
 
+For destructive or permission-sensitive status/repair edge cases, use the non-writing simulation path instead of deleting channels or changing Discord permissions during a private rehearsal:
+
+```bash
+docker compose exec openclaw discord-project-manager-managed-registry simulate-edge-case deleted-managed-channel project tasks linkedin
+docker compose exec openclaw discord-project-manager-managed-registry simulate-edge-case missing-persisted-id project tasks linkedin
+docker compose exec openclaw discord-project-manager-managed-registry simulate-edge-case permission-failure project tasks linkedin manage_messages_for_pin
+```
+
+Each simulation must return sanitized output with `write_executed:false`.
+
 ## Stop
 
 ```bash
