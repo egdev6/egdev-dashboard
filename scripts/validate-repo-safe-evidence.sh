@@ -37,16 +37,16 @@ mapfile -d '' scan_files < <(
   find "${existing_roots[@]}" \
     -type f \
     \( \
-      -name '*.md' -o \
-      -name '*.yml' -o \
-      -name '*.yaml' -o \
-      -name '*.json' -o \
-      -name '*.json5' -o \
-      -name '*.sh' -o \
-      -name '*.js' -o \
-      -name '*.ts' -o \
-      -name '*.html' -o \
-      -name '.env.example' \
+    -name '*.md' -o \
+    -name '*.yml' -o \
+    -name '*.yaml' -o \
+    -name '*.json' -o \
+    -name '*.json5' -o \
+    -name '*.sh' -o \
+    -name '*.js' -o \
+    -name '*.ts' -o \
+    -name '*.html' -o \
+    -name '.env.example' \
     \) \
     -print0 | sort -z
 )
@@ -57,7 +57,7 @@ mapfile -d '' scan_files < <(
 # placeholders such as <guild-id>, <channel-id>, <private-id>, or fake-* values.
 # Existing fake fixtures sometimes use repeated demo IDs like 111111111111111111;
 # those are allowed because they are visibly non-real.
-if ! python3 - "${scan_files[@]}" <<'PY'
+if ! python3 - "${scan_files[@]}" <<'PY'; then
 import re
 import sys
 from pathlib import Path
@@ -81,14 +81,13 @@ if bad:
     print('\n'.join(bad))
     raise SystemExit(1)
 PY
-then
   fail "repo-facing files contain non-trivial snowflake-like 17-20 digit values; replace with placeholders"
 fi
 
 # Common token/secret prefixes or pasted assignment patterns. Keep this as a
 # lightweight guard; Gitleaks remains the deeper secret scanner. Validator regex
 # definitions are allowed; actual pasted values are not.
-if ! python3 - "${scan_files[@]}" <<'PY'
+if ! python3 - "${scan_files[@]}" <<'PY'; then
 import re
 import sys
 from pathlib import Path
@@ -125,7 +124,6 @@ if bad:
     print('\n'.join(bad))
     raise SystemExit(1)
 PY
-then
   fail "repo-facing files contain obvious token/secret-like values or assignments"
 fi
 
