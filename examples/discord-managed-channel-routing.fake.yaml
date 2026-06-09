@@ -13,6 +13,25 @@ workspace_file_writes_allowed: false
 publishing_enabled: false
 scheduling_enabled: false
 buffer_activity_enabled: false
+registry_backend:
+  backend_ref: private-runtime-managed-channel-registry
+  storage_boundary: private-runtime-only
+  repo_representation: fake-demo-refs-only
+  lookup_keys:
+    - guild_ref-plus-channel_ref
+    - guild_ref-plus-category_ref
+  producers:
+    - docs/architecture/discord-project-manager-global-init.md
+    - docs/architecture/discord-project-manager-project-create.md
+    - docs/architecture/discord-channel-scaffolding-status-repair.md
+  consumers:
+    - docs/architecture/discord-managed-channel-routing.md
+    - docs/architecture/discord-channel-scaffolding-status-repair.md
+  backend_not_available_status: BACKEND_NOT_AVAILABLE
+  missing_metadata_status: MISSING_METADATA
+  name_inference_only_status: NAME_INFERENCE_ONLY
+  private_runtime_ids_required: true
+  display_name_inference_success_allowed: false
 routing_policy:
   lookup_source: persisted-semantic-metadata
   name_inference_allowed: false
@@ -45,6 +64,9 @@ managed_channel_registry:
         - summarize
         - propose_update
       state_target: workspace-global-context
+      idempotency_key: project-manager-global:<guild-id>
+      created_by_interaction: /project-manager init
+      updated_by_interaction: /project-manager init
     - channel_ref: channel-demo-global-skills
       category_ref: category-demo-project-manager-global
       scope: global
@@ -58,6 +80,9 @@ managed_channel_registry:
         - propose_update
         - review
       state_target: workspace-global-skills
+      idempotency_key: project-manager-global:<guild-id>
+      created_by_interaction: /project-manager init
+      updated_by_interaction: /project-manager init
       scoped_skills_ref: registry.global
     - channel_ref: channel-demo-web-app-context
       category_ref: category-demo-project-web-app
@@ -72,6 +97,9 @@ managed_channel_registry:
         - summarize
         - propose_update
       state_target: project:web-app:context
+      idempotency_key: project:<guild-id>:web-app
+      created_by_interaction: /project create
+      updated_by_interaction: /project create
     - channel_ref: channel-demo-web-app-skills
       category_ref: category-demo-project-web-app
       scope: project
@@ -86,6 +114,9 @@ managed_channel_registry:
         - propose_update
         - review
       state_target: project:web-app:skills
+      idempotency_key: project:<guild-id>:web-app
+      created_by_interaction: /project create
+      updated_by_interaction: /project create
       scoped_skills_ref: registry.project.web-app
     - channel_ref: channel-demo-web-app-strategy
       category_ref: category-demo-project-web-app
@@ -101,6 +132,9 @@ managed_channel_registry:
         - generate
         - review
       state_target: project:web-app:strategy
+      idempotency_key: project:<guild-id>:web-app
+      created_by_interaction: /project create
+      updated_by_interaction: /project create
 routing_scenarios:
   - scenario_ref: route-global-context-summary
     event_ref: event-demo-global-context-summary

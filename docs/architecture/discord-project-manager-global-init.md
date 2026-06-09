@@ -12,7 +12,7 @@ This is a contract only. It does not prove live Discord category/channel creatio
 4. Create or reuse one `Project Manager` category.
 5. Create or reuse `global-context`, `global-skills`, `global-strategy`, `global-decisions`, and `global-config` under that category.
 6. Apply each guide `topic` to the channel topic field and post the guide `starter_message` as pin-ready guidance.
-7. Persist private Discord IDs outside repo artifacts with semantic metadata: `guildId`, `categoryId`, channel IDs, `scope: global`, and field keys.
+7. Persist private Discord IDs into the managed channel registry backend from `docs/architecture/discord-managed-channel-routing.md` with semantic metadata: `guildId`, `categoryId`, channel IDs, `scope: global`, field keys, and idempotency source.
 8. Re-running init must reconcile by persisted IDs and semantic fields instead of duplicating categories or channels.
 
 ## Scope boundary
@@ -68,7 +68,7 @@ The initialized global Project Manager surface is separate from the existing `Op
 
 ## Persistence contract
 
-Runtime implementations persist real IDs privately. Repo fixtures must use fake refs only.
+Runtime implementations persist real IDs privately in the managed channel registry backend defined by `docs/architecture/discord-managed-channel-routing.md`. Repo fixtures must use fake refs only.
 
 Minimum persisted registry shape:
 
@@ -84,7 +84,9 @@ channels:
   decisions: <private runtime channel id>
   config: <private runtime channel id>
 created_by_interaction: /project-manager init
+updated_by_interaction: /project-manager init
 idempotency_key: project-manager-global:<guildId>
+registry_backend: private-runtime-managed-channel-registry
 ```
 
 The public fake fixture represents the same shape with `guild-demo-*`, `category-demo-*`, and `channel-demo-*` refs.

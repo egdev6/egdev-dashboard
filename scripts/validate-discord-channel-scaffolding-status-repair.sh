@@ -91,6 +91,15 @@ for required in \
   "publishing_enabled: false" \
   "scheduling_enabled: false" \
   "buffer_activity_enabled: false" \
+  "registry_backend:" \
+  "backend_ref: private-runtime-managed-channel-registry" \
+  "storage_boundary: private-runtime-only" \
+  "repo_representation: fake-demo-refs-only" \
+  "backend_not_available_status: BACKEND_NOT_AVAILABLE" \
+  "missing_metadata_status: MISSING_METADATA" \
+  "name_inference_only_status: NAME_INFERENCE_ONLY" \
+  "private_runtime_ids_required: true" \
+  "display_name_inference_success_allowed: false" \
   "topology_lookup_source: persisted-semantic-metadata" \
   "name_relink_allowed_without_review: false" \
   "approval_gate_required_for_apply: true" \
@@ -109,6 +118,11 @@ for required in \
   "permission_preflight_required: true" \
   "partial_apply_allowed_on_missing_permissions: false" \
   "metadata_refresh_required_on_recreate: true" \
+  "post_apply_verification_contract:" \
+  "rerun_status_expected: no-op" \
+  "rerun_routing_status_expected: OK" \
+  "routing_source_after_repair: persisted-semantic-metadata" \
+  "name_inference_after_repair_allowed: false" \
   "status_and_repair_scenarios:" \
   "audit_outputs:"; do
   grep -F "$required" "$FIXTURE_PATH" >/dev/null || fail "fixture missing required marker: $required"

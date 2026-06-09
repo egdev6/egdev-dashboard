@@ -7,14 +7,15 @@ This is a contract only. It does not prove live Discord status commands, live Di
 ## Quick path
 
 1. Receive a status or repair interaction for one guild or one managed project.
-2. Read the persisted semantic registry produced by `docs/architecture/discord-project-manager-global-init.md` and `docs/architecture/discord-project-manager-project-create.md`.
+2. Read the persisted semantic registry from the managed channel registry backend defined by `docs/architecture/discord-managed-channel-routing.md` and produced by `docs/architecture/discord-project-manager-global-init.md` and `docs/architecture/discord-project-manager-project-create.md`.
 3. Discover current Discord categories and channels with the classification vocabulary from `docs/architecture/discord-topology-reconciliation.md`.
 4. Match expected managed channels by persisted ID first; do not relink by name when persisted IDs are missing.
 5. Report existing, missing, renamed, unsafe-missing-id, and unmanaged-extra results without writing state.
 6. Build a repair preview that lists exactly which channels or metadata fields would be recreated or refreshed.
 7. Run permission preflight before any repair apply attempt.
 8. Require `skills/discord-approval-gate/SKILL.md` and exact `approve write` before any durable recreate or metadata refresh.
-9. When repair recreates a channel, refresh the persisted semantic metadata so `docs/architecture/discord-managed-channel-routing.md` follows the new private channel ID.
+9. When repair recreates a channel, refresh the managed channel registry backend so `docs/architecture/discord-managed-channel-routing.md` follows the new private channel ID.
+10. After repair apply, re-run status and managed routing verification; success requires `OK` from metadata/IDs, not display-name inference.
 
 ## Scope boundary
 
@@ -53,6 +54,8 @@ Required status fields:
 | `status_result` | `no-op`, `needs-repair`, `renamed-linked`, `unsafe-missing-id`, or `unmanaged-present`. |
 | `write_attempted` | Always `false` in status output. |
 
+If the backend is unavailable, status must return `BACKEND_NOT_AVAILABLE` and no repair apply may proceed. If bindings are absent, status must report `unsafe-missing-id` or `MISSING_METADATA` rather than relinking by visible channel name.
+
 ## Reconciliation vocabulary
 
 This slice reuses the safe discovery/reconciliation vocabulary from `docs/architecture/discord-topology-reconciliation.md`.
@@ -90,7 +93,7 @@ Allowed repair preview actions in this slice:
 | Action | Meaning |
 | --- | --- |
 | `recreate-channel` | Recreate a missing managed channel after approval. |
-| `refresh-metadata` | Update persisted semantic metadata after recreation so routing points to the new channel ID. |
+| `refresh-metadata` | Update persisted semantic metadata in the managed channel registry backend after recreation so routing points to the new channel ID. |
 | `update-guide-copy` | Optional low-risk topic/starter guidance refresh for a renamed but still linked channel. |
 
 ## Permission preflight
