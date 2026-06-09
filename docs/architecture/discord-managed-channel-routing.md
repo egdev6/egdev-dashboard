@@ -27,6 +27,24 @@ This is a contract only. It does not prove live Discord event handling, live bot
 | Safe unsupported-message responses | Prompt execution or runner output |
 | Fake fixture and validator | Production/live Discord validation |
 
+## Managed channel registry backend
+
+Runtime implementations MUST persist managed channel metadata in a private runtime registry backend, not in repository files, Discord-visible channel names, screenshots, or chat transcripts.
+
+For this slice, the backend contract is an implementation-neutral private registry store with these requirements:
+
+| Requirement | Contract |
+| --- | --- |
+| Lookup key | `guildId + channelId` for message routing; `guildId + categoryId` for managed surface status. |
+| Producers | `/project-manager init`, `/project create`, and approved repair apply flows. |
+| Consumers | managed channel routing, status, repair preview, and post-repair verification. |
+| Storage boundary | Private runtime storage only, e.g. an OpenClaw workspace registry or equivalent deployment-private store. |
+| Repo representation | Fake/demo refs only; never real Discord IDs. |
+| Missing backend behavior | Return `BACKEND_NOT_AVAILABLE`; do not infer success from channel display names. |
+| Missing metadata behavior | Return `MISSING_METADATA` or `NAME_INFERENCE_ONLY`; do not silently pass. |
+
+The registry backend owns semantic bindings. Discord channel topics and starter guidance are operator-facing copy, not the routing source of truth.
+
 ## Managed channel registry shape
 
 Runtime implementations persist real IDs privately. Repo fixtures use fake refs only.
@@ -44,8 +62,26 @@ Required channel registry fields:
 | `guide_ref` | `global.<field>` or `project.<field>` from `docs/architecture/discord-semantic-channel-guides.md`. |
 | `allowed_prompt_operations` | Bounded operation list such as `ask`, `summarize`, `propose_update`, `review`, or `generate`. |
 | `state_target` | Logical state boundary such as `workspace-global-context` or `project:<projectSlug>:strategy`. |
+| `idempotency_key` | Stable producer key such as `project-manager-global:<guildId>` or `project:<guildId>:<projectSlug>`. |
+| `created_by_interaction` | Producer interaction or repair source that created the binding. |
+| `updated_by_interaction` | Last approved interaction or repair source that refreshed the binding. |
 
-The routing layer must not rely on display names once `channel_ref`/private `channelId` metadata exists. When `docs/architecture/discord-channel-scaffolding-status-repair.md` recreates a managed channel, runtime implementations must refresh the persisted private channel ID before routing resumes.
+The routing layer must not rely on display names once `channel_ref`/private `channelId` metadata exists. If no backend or binding exists, the safe outcome is `BACKEND_NOT_AVAILABLE`, `MISSING_METADATA`, or `NAME_INFERENCE_ONLY`, not `OK`. When `docs/architecture/discord-channel-scaffolding-status-repair.md` recreates a managed channel, runtime implementations must refresh the persisted private channel ID before routing resumes.
+
+## Verification status vocabulary
+
+Managed routing verification must be able to report these statuses without writing state:
+
+| Status | Meaning |
+| --- | --- |
+| `OK` | Backend binding exists and resolves the expected scope, field, project, category, and channel by private IDs. |
+| `BACKEND_NOT_AVAILABLE` | Runtime has no configured managed registry backend. |
+| `MISSING_METADATA` | Backend exists, but a required binding or field is absent. |
+| `NAME_INFERENCE_ONLY` | Runtime can only infer from display names; this is not accepted as managed routing success. |
+| `WRONG_SCOPE` | Binding exists but has the wrong `scope`. |
+| `WRONG_FIELD` | Binding exists but has the wrong `field_key`. |
+| `WRONG_PROJECT` | Binding exists but has the wrong project binding. |
+| `NEEDS_REPAIR_PREVIEW` | Drift can be corrected only through the two-phase repair preview/apply flow. |
 
 ## Routing outcomes
 

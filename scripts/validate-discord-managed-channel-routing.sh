@@ -46,6 +46,15 @@ for required in \
   "publishing_enabled: false" \
   "scheduling_enabled: false" \
   "buffer_activity_enabled: false" \
+  "registry_backend:" \
+  "backend_ref: private-runtime-managed-channel-registry" \
+  "storage_boundary: private-runtime-only" \
+  "repo_representation: fake-demo-refs-only" \
+  "backend_not_available_status: BACKEND_NOT_AVAILABLE" \
+  "missing_metadata_status: MISSING_METADATA" \
+  "name_inference_only_status: NAME_INFERENCE_ONLY" \
+  "private_runtime_ids_required: true" \
+  "display_name_inference_success_allowed: false" \
   "lookup_source: persisted-semantic-metadata" \
   "name_inference_allowed: false" \
   "unmanaged_channel_hydration_allowed: false" \
@@ -94,6 +103,12 @@ for required in \
   "state_target: project:web-app:context" \
   "state_target: project:web-app:skills" \
   "state_target: project:web-app:strategy" \
+  "idempotency_key: project-manager-global:<guild-id>" \
+  "idempotency_key: project:<guild-id>:web-app" \
+  "created_by_interaction: /project-manager init" \
+  "created_by_interaction: /project create" \
+  "updated_by_interaction: /project-manager init" \
+  "updated_by_interaction: /project create" \
   "scoped_skills_ref: registry.global" \
   "scoped_skills_ref: registry.project.web-app" \
   "mandatory_skill: discord-approval-gate" \

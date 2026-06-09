@@ -43,6 +43,15 @@ for required in \
   "publishing_enabled: false" \
   "scheduling_enabled: false" \
   "buffer_activity_enabled: false" \
+  "registry_backend:" \
+  "backend_ref: private-runtime-managed-channel-registry" \
+  "storage_boundary: private-runtime-only" \
+  "repo_representation: fake-demo-refs-only" \
+  "consumer_contract: docs/architecture/discord-managed-channel-routing.md" \
+  "status_repair_contract: docs/architecture/discord-channel-scaffolding-status-repair.md" \
+  "backend_not_available_status: BACKEND_NOT_AVAILABLE" \
+  "private_runtime_ids_required: true" \
+  "display_name_inference_success_allowed: false" \
   "interaction_name: /project-manager init" \
   "interaction_kind: slash-command-or-equivalent" \
   "category_name: Project Manager" \
@@ -99,6 +108,9 @@ for required in \
   "    category_semantic_role: project-manager-global" \
   "    scope: global" \
   "    idempotency_key_ref: project-manager-global:<guild-id>" \
+  "    registry_backend_ref: private-runtime-managed-channel-registry" \
+  "    created_by_interaction: /project-manager init" \
+  "    updated_by_interaction: /project-manager init" \
   "    channels:" \
   "    persistence_private_runtime_ids: true" \
   "    persistence_repo_safe_refs_only: true" \
