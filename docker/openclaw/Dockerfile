@@ -12,13 +12,16 @@ RUN set -eu; \
     *) echo "unsupported TARGETARCH for gentle-ai: ${TARGETARCH}" >&2; exit 1 ;; \
   esac; \
   tmpdir="$(mktemp -d)"; \
-  cd "$tmpdir"; \
-  curl -fsSLO "https://github.com/Gentleman-Programming/gentle-ai/releases/download/v${GENTLE_AI_VERSION}/gentle-ai_${GENTLE_AI_VERSION}_linux_${gentle_arch}.tar.gz"; \
-  curl -fsSLO "https://github.com/Gentleman-Programming/gentle-ai/releases/download/v${GENTLE_AI_VERSION}/checksums.txt"; \
-  grep " gentle-ai_${GENTLE_AI_VERSION}_linux_${gentle_arch}.tar.gz$" checksums.txt | sha256sum -c -; \
-  tar -xzf "gentle-ai_${GENTLE_AI_VERSION}_linux_${gentle_arch}.tar.gz"; \
-  install -m 0755 gentle-ai /usr/local/bin/gentle-ai; \
-  cd /; \
+  archive="$tmpdir/gentle-ai_${GENTLE_AI_VERSION}_linux_${gentle_arch}.tar.gz"; \
+  checksums="$tmpdir/checksums.txt"; \
+  selected_checksum="$tmpdir/selected-checksum.txt"; \
+  curl -fsSL "https://github.com/Gentleman-Programming/gentle-ai/releases/download/v${GENTLE_AI_VERSION}/gentle-ai_${GENTLE_AI_VERSION}_linux_${gentle_arch}.tar.gz" -o "$archive"; \
+  curl -fsSL "https://github.com/Gentleman-Programming/gentle-ai/releases/download/v${GENTLE_AI_VERSION}/checksums.txt" -o "$checksums"; \
+  grep " gentle-ai_${GENTLE_AI_VERSION}_linux_${gentle_arch}.tar.gz$" "$checksums" >"$selected_checksum"; \
+  sed -i "s# gentle-ai_# $tmpdir/gentle-ai_#" "$selected_checksum"; \
+  sha256sum -c "$selected_checksum"; \
+  tar -xzf "$archive" -C "$tmpdir"; \
+  install -m 0755 "$tmpdir/gentle-ai" /usr/local/bin/gentle-ai; \
   rm -rf "$tmpdir"; \
   gentle-ai --version; \
   mkdir -p /opt/discord-project-manager/skills /opt/discord-project-manager/openclaw-config /usr/local/bin; \
