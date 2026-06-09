@@ -1,0 +1,68 @@
+name: Release task
+description: Track release-readiness, release-candidate, or stable release work
+labels:
+  - enhancement
+  - status:needs-review
+  - type:infra
+  - area:process
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for release workflow, release-candidate, or stable release readiness work.
+        A maintainer must add `status:approved` before implementation starts or a PR is opened.
+        Release-promotion PRs target `main`; release-preparation work normally targets `develop`.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I understand this issue must be approved before implementation starts
+          required: true
+        - label: I will not include private Discord/runtime evidence in public release notes or GitHub artifacts
+          required: true
+  - type: textarea
+    id: release_goal
+    attributes:
+      label: Release goal
+      description: What release, release candidate, or release-readiness gap does this track?
+    validations:
+      required: true
+  - type: dropdown
+    id: release_area
+    attributes:
+      label: Release area
+      options:
+        - Branch workflow
+        - CI / branch protection
+        - Changelog / release notes
+        - Installation rehearsal
+        - Configuration docs
+        - Smoke testing
+        - Known limitations
+        - Release candidate
+        - Stable release
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Release checklist
+      description: List the observable release-readiness checks.
+      placeholder: |
+        - [ ] Required checks pass.
+        - [ ] Changelog or release notes are updated.
+        - [ ] Install/config docs were rehearsed from a clean environment.
+        - [ ] Known limitations are documented.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation evidence plan
+      description: Which automated checks, smoke tests, or manual rehearsals should prove this release task?
+    validations:
+      required: true
