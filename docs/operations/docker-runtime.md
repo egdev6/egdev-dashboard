@@ -97,6 +97,30 @@ curl -sS http://127.0.0.1:18080/health
 
 The first runtime pilot validated service reachability only. The project still needs to validate client enrollment and sync behavior before storing real context.
 
+## Managed channel registry backend
+
+The local OpenClaw image includes a private runtime CLI for the Project Manager managed channel metadata registry:
+
+```bash
+docker compose exec openclaw discord-project-manager-managed-registry backend-status
+```
+
+The backend stores private bindings under the OpenClaw workspace volume, outside git:
+
+```text
+/home/node/.openclaw/workspace/private-runtime-managed-channel-registry/managed-channel-bindings.jsonl
+```
+
+Use `preview-repair` to show metadata that would be written without applying it, and use `put` only after the exact `approve write` gate has been satisfied:
+
+```bash
+docker compose exec openclaw discord-project-manager-managed-registry preview-repair \
+  '<guild-id>' '<category-id>' '<channel-id>' global context none \
+  'project-manager-global:<guild-id>' '/project-manager init'
+```
+
+Status verification must resolve from this backend and report `OK`, `MISSING_METADATA`, `NEEDS_REPAIR_PREVIEW`, `WRONG_SCOPE`, `WRONG_FIELD`, or `WRONG_PROJECT`; visible channel-name inference is not accepted as success.
+
 ## Stop
 
 ```bash

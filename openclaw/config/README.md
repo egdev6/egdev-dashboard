@@ -34,6 +34,8 @@ Current routing references:
 - `docs/architecture/discord-managed-channel-routing.md` defines fake persisted-semantic-metadata routing for managed global/project channels.
 - `examples/discord-managed-channel-routing.fake.yaml` provides fake managed channel routing registry and scenarios.
 - `scripts/validate-discord-managed-channel-routing.sh` validates managed channel routing boundaries.
+- `docker/openclaw/managed-channel-registry.sh` implements the private runtime `private-runtime-managed-channel-registry` CLI used to store managed Project Manager channel bindings outside git.
+- `scripts/validate-managed-channel-registry-runtime.sh` validates the private registry CLI behavior and sanitized output.
 - `docs/architecture/discord-context-skill-packs.md` defines the fake Context Pack and Skill Pack schemas for Discord prompt preparation.
 - `docs/architecture/discord-runtime-orchestrator.md` defines the fake Runtime Orchestrator contract for Discord event envelopes, intent routing, and runner selection.
 - `docs/architecture/discord-gentle-sdd-handoff.md` defines the fake handoff contract between OpenClaw Runtime Orchestrator and Gentle SDD.
