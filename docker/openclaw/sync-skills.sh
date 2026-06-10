@@ -43,13 +43,13 @@ sync_project_skills() {
     [ -d "$target_skill_dir" ] || continue
     target_skill_name="$(basename "$target_skill_dir")"
     if ! managed_skill_names | grep -Fx "$target_skill_name" >/dev/null 2>&1; then
-      rm -rf "$target_skill_dir"
+      rm -rf "${target_skill_dir:?}"
     fi
   done
 
   managed_skill_names | while IFS= read -r skill_name; do
     [ -n "$skill_name" ] || continue
-    rm -rf "$target_dir/$skill_name"
+    rm -rf "${target_dir:?}/$skill_name"
 
     if [ ! -f "$source_dir/$skill_name/SKILL.md" ]; then
       echo "Configured OpenClaw skill missing from source: $skill_name" >&2
