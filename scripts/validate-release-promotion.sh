@@ -59,7 +59,7 @@ fi
 
 if [[ -n "${GITHUB_BASE_REF:-}" ]]; then
   if [[ -f .git/shallow ]]; then
-    git fetch --no-tags --unshallow origin "${GITHUB_BASE_REF}:refs/remotes/origin/${GITHUB_BASE_REF}" >/dev/null 2>&1 || \
+    git fetch --no-tags --unshallow origin "${GITHUB_BASE_REF}:refs/remotes/origin/${GITHUB_BASE_REF}" >/dev/null 2>&1 ||
       git fetch --no-tags --deepen=200 origin "${GITHUB_BASE_REF}:refs/remotes/origin/${GITHUB_BASE_REF}" >/dev/null 2>&1 || true
   else
     git fetch --no-tags origin "${GITHUB_BASE_REF}:refs/remotes/origin/${GITHUB_BASE_REF}" >/dev/null 2>&1 || true
