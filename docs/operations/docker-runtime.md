@@ -203,6 +203,8 @@ Validate a running Docker runtime after services are up:
 OPENCLAW_GENTLE_RUNTIME=1 bash scripts/validate-openclaw-gentle-ai-runtime.sh
 ```
 
+The local no-op orchestration evidence for Gentle SDD backend selection, OpenClaw skill-surface routing, scoped skill resolution, and write-gate behavior is recorded in `docs/operations/openclaw-gentle-orchestration-validation.md`.
+
 If the Discord bot was already in a long-running session before Gentle-AI sync, start a new session or reset the old session before expecting it to answer SDD/Engram questions. Existing sessions may keep their earlier prompt context.
 
 ## OpenAI OAuth and Discord session refresh
