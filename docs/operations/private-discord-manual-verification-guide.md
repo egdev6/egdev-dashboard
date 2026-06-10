@@ -100,16 +100,20 @@ Use fake/demo names in docs and notes. Keep real guild/channel IDs outside the r
 
 `OpenClaw Global` is a reserved control category for governance, not a standard routed content channel set.
 
+Use `docs/architecture/openclaw-global-channel-guides.md` and `examples/openclaw-global-channel-guides.fake.yaml` as the canonical repo-safe source for each control channel's topic and pin-ready starter guidance. Creating the category/channels is not enough: the private setup also needs the approved descriptive copy, previewed first and written only after `approve write`.
+
 Suggested control channels:
 
-| Channel | Purpose | Route-matched? |
-|---|---|---|
-| `identity` | stable project identity and positioning | no |
-| `writing-style` | voice and reusable style guidance | no |
-| `operating-principles` | review, quality, and collaboration rules | no |
-| `boundaries` | privacy, safety, and no-go constraints | no |
-| `inheritance` | explicit opt-in inheritance review | no |
-| `skills` | scoped skill review and override discussion | no |
+| Channel | Purpose | Route-matched? | Guide copy source |
+|---|---|---|---|
+| `identity` | stable project identity and positioning | no | OpenClaw Global guide catalog |
+| `writing-style` | voice and reusable style guidance | no | OpenClaw Global guide catalog |
+| `operating-principles` | review, quality, and collaboration rules | no | OpenClaw Global guide catalog |
+| `boundaries` | privacy, safety, and no-go constraints | no | OpenClaw Global guide catalog |
+| `inheritance` | explicit opt-in inheritance review | no | OpenClaw Global guide catalog |
+| `skills` | scoped skill review and override discussion | no | OpenClaw Global guide catalog |
+
+These channels remain separate from Project Manager managed global channels such as `global-context` and `global-skills`.
 
 ### B. Project Manager managed scaffolding
 
@@ -148,10 +152,12 @@ Use the Discord UI manually. Keep notes sanitized.
 
 ### Create a global/control category
 
-1. Create a private category named `OpenClaw Global`.
-2. Add only governance/control channels such as `identity`, `writing-style`, `operating-principles`, `boundaries`, `inheritance`, and `skills`.
-3. Do **not** treat these channels as Project Manager project categories.
-4. Record only fake/demo channel names in repo-safe evidence.
+1. Propose a private category named `OpenClaw Global` and preview the six reserved channels.
+2. Add only governance/control channels such as `identity`, `writing-style`, `operating-principles`, `boundaries`, `inheritance`, and `skills` after approval.
+3. Propose the topic and starter guidance from `docs/architecture/openclaw-global-channel-guides.md` before writing Discord-visible copy.
+4. Require `approve write` before creating channels, updating topics, or posting starter guidance.
+5. Do **not** treat these channels as Project Manager project categories or Project Manager `global-*` channels.
+6. Record only fake/demo channel names in repo-safe evidence.
 
 ### Create Project Manager managed scaffolding
 

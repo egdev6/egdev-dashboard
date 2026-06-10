@@ -1,0 +1,165 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: openclaw-global-channel-guides
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+discord_writes_executed: false
+production_credentials: false
+durable_memory_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+canonical_catalog: true
+proposal_first_required: true
+approval_phrase: approve write
+starter_messages_are_pin_ready: true
+reserved_control_category: OpenClaw Global
+control_channels_are_route_matched: false
+project_manager_surface_separate: true
+project_manager_global_channels:
+  - global-context
+  - global-skills
+  - global-strategy
+  - global-decisions
+  - global-config
+control_guides:
+  - control_channel: identity
+    channel_name: identity
+    topic: Stable identity, positioning, and who this workspace is for.
+    starter_message: |
+      Use this channel to keep the approved identity of the workspace explicit.
+      Capture who the operator/workspace is, what it does, and which identity statements may later be inherited only by explicit approval.
+      Draft changes as proposals first. Do not treat notes here as automatic durable updates or cross-category inheritance.
+    example_prompts:
+      - Propose a short identity summary for this workspace before writing anything.
+      - Review whether the current identity guidance is specific enough for future project categories.
+    managed_information:
+      - workspace identity
+      - positioning statements
+      - approved identity constraints
+      - reusable identity notes
+    non_goals:
+      - project-only backlog work
+      - automatic inheritance
+      - unsanctioned durable writes
+    proposal_policy: preview-topic-and-starter-before-write
+    write_policy: approve-write-required-before-discord-copy-update
+  - control_channel: writing-style
+    channel_name: writing-style
+    topic: Voice, tone, and reusable writing guidance.
+    starter_message: |
+      Use this channel for reusable writing style guidance that may inform multiple categories only when explicitly inherited.
+      Keep tone, voice, format preferences, and approved examples reviewable and easy to revise.
+      Draft changes first and do not treat experiments here as automatic workspace-wide policy.
+    example_prompts:
+      - Propose starter guidance for a concise technical writing style without applying it yet.
+      - Review whether the current style notes conflict with the approved boundaries.
+    managed_information:
+      - tone guidance
+      - voice guidance
+      - style constraints
+      - approved examples
+    non_goals:
+      - final publish-ready copy
+      - implicit global policy changes
+      - silent Discord writes
+    proposal_policy: preview-topic-and-starter-before-write
+    write_policy: approve-write-required-before-discord-copy-update
+  - control_channel: operating-principles
+    channel_name: operating-principles
+    topic: Review rules, quality bars, and collaboration expectations.
+    starter_message: |
+      Use this channel to document reusable operating principles for review, quality, and collaboration.
+      Keep the rules explicit so later categories can opt in intentionally instead of inheriting hidden expectations.
+      Proposals stay draft-only until the exact approved copy is confirmed with approve write.
+    example_prompts:
+      - Propose three workspace-wide review principles without applying them yet.
+      - Compare the current operating-principles draft with the strategy workflow expectations.
+    managed_information:
+      - review rules
+      - quality bars
+      - collaboration principles
+      - escalation expectations
+    non_goals:
+      - project-local implementation tasks
+      - hidden policy changes
+      - bypassing approval
+    proposal_policy: preview-topic-and-starter-before-write
+    write_policy: approve-write-required-before-discord-copy-update
+  - control_channel: boundaries
+    channel_name: boundaries
+    topic: Privacy, safety, publishing limits, and no-go constraints.
+    starter_message: |
+      Use this channel to keep privacy, safety, and publication boundaries explicit before richer runtime behavior is tested.
+      Record no-go constraints, evidence limits, and prohibited actions in review-safe language only.
+      Proposed updates must remain draft-only until approve write is given for the exact copy.
+    example_prompts:
+      - Propose a starter message that makes the private-evidence boundary obvious.
+      - Review whether the current boundaries draft is strict enough for Discord-originated requests.
+    managed_information:
+      - privacy constraints
+      - safety rules
+      - publishing limits
+      - prohibited actions
+    non_goals:
+      - secrets or credentials
+      - public-release claims
+      - unapproved write execution
+    proposal_policy: preview-topic-and-starter-before-write
+    write_policy: approve-write-required-before-discord-copy-update
+  - control_channel: inheritance
+    channel_name: inheritance
+    topic: Explicit opt-in rules for what other categories inherit.
+    starter_message: |
+      Use this channel to review which categories inherit which global context or skills from OpenClaw Global.
+      Keep inheritance explicit, scoped, and reversible; automatic inheritance stays disabled by default.
+      Proposed inheritance copy must be previewed first and only written after approve write.
+    example_prompts:
+      - Propose inheritance guidance for a new project category without applying it yet.
+      - Show which global control areas a category should inherit and why.
+    managed_information:
+      - inheritance rules
+      - inheritance rationale
+      - category opt-in decisions
+      - rollback expectations
+    non_goals:
+      - automatic inheritance
+      - channel-name-based routing assumptions
+      - silent durable state changes
+    proposal_policy: preview-topic-and-starter-before-write
+    write_policy: approve-write-required-before-discord-copy-update
+  - control_channel: skills
+    channel_name: skills
+    topic: Global reusable skills, defaults, and override policy.
+    starter_message: |
+      Use this channel for reusable global skills, defaults, and override policy that may inform later managed categories.
+      Keep enabled, preferred, and disabled skill choices explicit so write-like flows still require the approval gate.
+      Do not activate skills or update Discord-visible copy until the proposal is reviewed and approve write is given.
+    example_prompts:
+      - Propose starter guidance for global skill defaults and override review.
+      - Review whether a requested skill change belongs in global policy or a project-local channel.
+    managed_information:
+      - reusable skills
+      - default skill choices
+      - override policy
+      - approval-gate expectations
+    non_goals:
+      - project-local-only overrides
+      - write-gate bypasses
+      - live skill activation claims
+    proposal_policy: preview-topic-and-starter-before-write
+    write_policy: approve-write-required-before-discord-copy-update
+non_goals:
+  - live Discord category creation
+  - live Discord topic updates
+  - live bot routing
+  - runtime command handler implementation
+  - production credentials
+  - raw Discord IDs
+  - durable writes without approval
+  - publishing
+  - scheduling

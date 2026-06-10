@@ -22,6 +22,9 @@ Current routing references:
 - `docs/architecture/discord-scoped-skills-registry.md` defines the fake scoped skills registry and control-channel contract.
 - `docs/architecture/discord-memory-gateway.md` defines the fake Memory Gateway / Context Broker contract for Discord flows.
 - `docs/architecture/discord-semantic-channel-guides.md` defines the canonical fake guide catalog for managed channel topics and starter/pinned prompts.
+- `docs/architecture/openclaw-global-channel-guides.md` defines the canonical fake guide catalog for reserved `OpenClaw Global` control-channel topics and starter guidance.
+- `examples/openclaw-global-channel-guides.fake.yaml` provides fake reserved control-channel guide data.
+- `scripts/validate-openclaw-global-channel-guides.sh` validates the reserved control-channel guide contract and fixture.
 - `docs/architecture/discord-project-manager-global-init.md` defines the fake `/project-manager init` contract for creating the global Project Manager category and channels.
 - `examples/discord-project-manager-global-init.fake.yaml` provides fake global init topology, permission, persistence, and idempotency data.
 - `scripts/validate-discord-project-manager-global-init.sh` validates the global init contract and fixture.
