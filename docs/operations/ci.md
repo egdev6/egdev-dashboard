@@ -10,7 +10,7 @@ This repository uses lightweight GitHub Actions checks to protect public repo co
 | Docker smoke | `.github/workflows/docker.yml` | Lints the OpenClaw Dockerfile, validates Docker Compose rendering, and builds the OpenClaw runtime image. |
 | Security scan | `.github/workflows/security.yml` | Runs Gitleaks to catch accidentally committed secrets. |
 
-All workflows run on pull requests to `main`, pushes to `main`, and manual `workflow_dispatch`.
+All workflows run on pull requests to `main` and `develop`, pushes to `main` and `develop`, and manual `workflow_dispatch`.
 
 ## Local equivalent
 
