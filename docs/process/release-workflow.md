@@ -41,14 +41,21 @@ Use this when `develop` is ready to become a stable release.
 
 1. Confirm the release milestone/project is complete or explicitly scoped.
 2. Confirm all required checks pass on `develop`.
-3. Prepare release notes and update `CHANGELOG.md` when present.
-4. Either:
+3. Generate or refresh the release changeset before requesting merge:
+
+   ```bash
+   git fetch origin main develop --tags
+   bash scripts/generate-release-changeset.sh vX.Y.Z --base origin/main --head origin/develop
+   bash scripts/validate-release-promotion.sh --base origin/main --head HEAD --force
+   ```
+
+4. Update the generated `docs/releases/vX.Y.Z.md` only to improve human wording, not to add private evidence.
+5. Either:
    - open a direct release PR from `develop` to `main`; or
    - create a `release/vX.Y.Z-rc.N` branch for final hardening, then PR that branch to `main`.
-5. Run the release checklist and any first-run smoke validation.
-6. Merge to `main` only when release checks pass.
-7. Tag the release from `main`.
-8. Publish GitHub release notes.
+6. Run the release checklist and any first-run smoke validation.
+7. Merge to `main` only when release checks pass.
+8. Let the `Release tag and notes` workflow create the matching `vX.Y.Z` tag and GitHub Release from `docs/releases/vX.Y.Z.md`. If the tag already exists, the workflow leaves it untouched.
 
 `main` should represent the code users can install from release documentation. Do not use `main` as a general integration branch.
 
@@ -119,10 +126,13 @@ For feature and fix PRs:
 
 For release PRs to `main`:
 
+- include exactly one release note file at `docs/releases/vX.Y.Z.md` for the intended tag;
 - summarize completed issues/PRs;
 - list known limitations;
 - call out installation, configuration, migration, and rollback notes;
 - include any private-runtime safety notes using sanitized language only.
+
+The CI `Repository contracts` job runs `scripts/validate-release-promotion.sh` for PRs targeting `main`. It fails release-promotion PRs that do not include a matching `docs/releases/vX.Y.Z.md` file or that overclaim production/public Discord/live social/live analytics readiness.
 
 ## Private data policy
 

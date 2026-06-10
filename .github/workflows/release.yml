@@ -1,0 +1,95 @@
+name: Release tag and notes
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      release_file:
+        description: "Release notes file, for example docs/releases/v0.1.0.md"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release-from-notes:
+    name: Create tag and GitHub Release from docs/releases
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Select release notes
+        id: release_notes
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          RELEASE_FILE_INPUT: ${{ inputs.release_file }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${RELEASE_FILE_INPUT}" ]]; then
+            files="${RELEASE_FILE_INPUT}"
+          elif [[ -n "${BEFORE_SHA}" && "${BEFORE_SHA}" != "0000000000000000000000000000000000000000" ]]; then
+            files="$(git diff --name-only "${BEFORE_SHA}..HEAD" | grep -E '^docs/releases/v[0-9]+\.[0-9]+\.[0-9]+([-.][A-Za-z0-9._-]+)?\.md$' || true)"
+          else
+            files="$(git diff --name-only 'HEAD^..HEAD' | grep -E '^docs/releases/v[0-9]+\.[0-9]+\.[0-9]+([-.][A-Za-z0-9._-]+)?\.md$' || true)"
+          fi
+
+          if [[ -z "${files}" ]]; then
+            echo "No release notes changed; skipping tag/release creation."
+            echo "release_files=" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          while IFS= read -r file; do
+            [[ -n "${file}" ]] || continue
+            [[ -f "${file}" ]] || {
+              echo "Release notes file not found: ${file}" >&2
+              exit 1
+            }
+            basename "${file}" .md
+          done <<<"${files}" > /tmp/release-tags.txt
+
+          paste -d' ' <(printf '%s\n' "${files}") /tmp/release-tags.txt > /tmp/release-files.txt
+          {
+            echo 'release_files<<EOF'
+            cat /tmp/release-files.txt
+            echo 'EOF'
+          } >>"$GITHUB_OUTPUT"
+
+      - name: Create missing tags and releases
+        if: steps.release_notes.outputs.release_files != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_FILES: ${{ steps.release_notes.outputs.release_files }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          while read -r file tag; do
+            [[ -n "${file}" && -n "${tag}" ]] || continue
+
+            if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
+              echo "Tag ${tag} already exists; will not overwrite it."
+            else
+              git tag -a "${tag}" -m "${tag}" "${GITHUB_SHA}"
+              git push origin "refs/tags/${tag}"
+            fi
+
+            if gh release view "${tag}" >/dev/null 2>&1; then
+              echo "Release ${tag} already exists; skipping release creation."
+            else
+              gh release create "${tag}" \
+                --verify-tag \
+                --title "${tag}" \
+                --notes-file "${file}"
+            fi
+          done <<<"${RELEASE_FILES}"
