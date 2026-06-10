@@ -103,6 +103,9 @@ jobs:
       - name: Check repo-safe evidence hygiene
         run: bash scripts/validate-repo-safe-evidence.sh
 
+      - name: Validate release promotion notes
+        run: bash scripts/validate-release-promotion.sh
+
   safe-validation-suite:
     name: Safe validator suite
     runs-on: ubuntu-latest
