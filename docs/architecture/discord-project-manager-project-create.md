@@ -149,3 +149,4 @@ The public fake fixture represents the same shape with `guild-demo-*`, `project-
 | `scripts/validate-discord-project-manager-project-create.sh` | Static validator for this contract and fixture. |
 | `docs/architecture/discord-topology-reconciliation.md` | Existing safe topology discovery/reconciliation baseline. |
 | `docs/architecture/discord-channel-scaffolding-status-repair.md` | Shared status and repair preview contract for partial failures, missing channels, and safe retry. |
+| `docs/architecture/discord-project-manager-project-delete.md` | Follow-up fake delete contract that safely removes or tombstones managed project scaffolding by persisted metadata. |
