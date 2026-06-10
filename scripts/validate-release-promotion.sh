@@ -57,6 +57,12 @@ if [[ "${GITHUB_EVENT_NAME:-}" != "pull_request" && "$FORCE" != "1" ]]; then
   exit 0
 fi
 
+if ! git rev-parse --verify "$BASE_REF^{commit}" >/dev/null 2>&1; then
+  if [[ -n "${GITHUB_BASE_REF:-}" ]]; then
+    git fetch --no-tags --depth=1 origin "${GITHUB_BASE_REF}:refs/remotes/origin/${GITHUB_BASE_REF}" >/dev/null 2>&1 || true
+  fi
+fi
+
 git rev-parse --verify "$BASE_REF^{commit}" >/dev/null || fail "base ref not found: $BASE_REF"
 git rev-parse --verify "$HEAD_REF^{commit}" >/dev/null || fail "head ref not found: $HEAD_REF"
 
