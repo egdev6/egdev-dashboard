@@ -33,6 +33,9 @@ Discord event envelope
 
 The orchestrator depends on:
 
+- `skills/openclaw-runtime-orchestrator/SKILL.md` as the OpenClaw-facing runtime-core entry skill;
+- `skills/scoped-skill-resolver/SKILL.md` as the deterministic effective-skill resolver before workflow skills are used;
+- `openclaw/config/skill-inventory.yaml` for the curated active skill inventory synced into the OpenClaw workspace;
 - `docs/architecture/channel-context-namespace-mapping.md` for origin resolution, `runtime_namespace`, `routing_status`, and `resolved_route`;
 - `docs/architecture/discord-managed-channel-routing.md`, `examples/discord-managed-channel-routing.fake.yaml`, and `scripts/validate-discord-managed-channel-routing.sh` for persisted semantic metadata routing of managed Project Manager channels;
 - `docs/architecture/discord-semantic-channel-guides.md` for canonical channel topics and starter/pinned guidance copy;
@@ -71,11 +74,21 @@ Runner routing must stay configurable and explainable.
 
 | Runner kind | Backend | Use when |
 | --- | --- | --- |
-| `content-planner` | `openclaw-skill-surface` | Context and skills point to bounded planning/content work. |
+| `content-planner` | `openclaw-skill-surface` | Context and skills point to bounded planning/content work selected by `scoped-skill-resolver`. |
 | `development-orchestrator` | `gentle-sdd` | Intent is `sdd_dev_work` and the runtime only models a delegated backend selection. |
 | `clarification` | `response-only` | Route or intent is ambiguous and no durable read/write should continue. |
 
 Gentle SDD is one runner/backend for `sdd_dev_work`. It is not the primary Discord orchestrator. The next contract for this backend is `docs/architecture/discord-gentle-sdd-handoff.md`.
+
+## Runtime skill surface
+
+The active OpenClaw skill surface is curated, not “everything in `skills/` means globally enabled.”
+
+| Class | Active skills | Runtime rule |
+| --- | --- | --- |
+| Runtime core | `openclaw-runtime-orchestrator`, `scoped-skill-resolver`, `discord-approval-gate` | Available to classify, resolve, and gate every Discord-originated turn. |
+| Scoped workflow | `brand-context`, `content-ledger`, `strategy-planner`, `linkedin-weekly-planner`, `x-queue-planner`, `on-demand-brief-planner` | Invoked only when selected by global/category/channel scoped resolution. |
+| Preserved protocol | Gentle-AI SDD assets under `.openclaw/skills` | Used only through the `gentle-sdd` backend boundary for `sdd_dev_work`. |
 
 ## Permission and confirmation gates
 

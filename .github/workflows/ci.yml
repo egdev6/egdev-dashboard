@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   push:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
 
 permissions:
@@ -99,6 +99,9 @@ jobs:
           else
             "${commitlint[@]}" --last
           fi
+
+      - name: Check repo-safe evidence hygiene
+        run: bash scripts/validate-repo-safe-evidence.sh
 
   safe-validation-suite:
     name: Safe validator suite

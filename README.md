@@ -186,11 +186,30 @@ approve write
 Create only the category `OpenClaw Global` and those six channels. Do not modify anything else.
 ```
 
+After the structure exists, apply the reserved control-channel copy from:
+
+- [`docs/architecture/openclaw-global-channel-guides.md`](./docs/architecture/openclaw-global-channel-guides.md)
+- [`examples/openclaw-global-channel-guides.fake.yaml`](./examples/openclaw-global-channel-guides.fake.yaml)
+
+`OpenClaw Global` needs both the structure and the descriptive copy. Keep the topics and starter guidance proposal-first too:
+
+```text
+Propose, but do not execute yet, the topic and starter guidance for the OpenClaw Global channels `identity`, `writing-style`, `operating-principles`, `boundaries`, `inheritance`, and `skills`. Show the exact topic and first-message preview for each channel. Do not modify Project Manager channels such as `global-context` or `global-skills`.
+```
+
+Approve only the exact copy you want written:
+
+```text
+approve write
+Apply only the approved OpenClaw Global channel topics and starter guidance. Do not create, rename, or modify any Project Manager managed channels.
+```
+
 Why this step matters:
 
 - `OpenClaw Global` is the reserved governance/control surface.
 - It is **not** the same as the separate Project Manager global surface (`global-context`, `global-skills`, `global-strategy`, `global-decisions`, `global-config`).
 - Creating the control category first gives you a safe place to define identity, style, boundaries, inheritance, and skill policy before testing managed Project Manager behavior.
+- The reserved control copy remains approval-gated; topics and starter messages should not be written silently.
 
 Current topology, at a glance:
 

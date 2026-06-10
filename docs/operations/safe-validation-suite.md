@@ -36,6 +36,8 @@ If `SAFE_VALIDATION_SKIP_STAGE0=1` is set, the suite skips the static hygiene/li
 Stage 1 covers the existing fake-first contract surfaces in this repo, including:
 
 - Discord contracts and routing foundations
+- Project Manager create/status/repair/delete lifecycle contracts
+- OpenClaw Global control-channel guide contracts
 - approval-gated workflow pilots for brand context, content ledger, strategy, LinkedIn planning, on-demand briefs, and X queue ingestion
 - local Engram memory roundtrip validators
 - fake analytics snapshots

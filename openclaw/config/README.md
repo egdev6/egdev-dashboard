@@ -10,6 +10,9 @@ Expected future contents:
 
 Current routing references:
 
+- `openclaw/config/skill-inventory.yaml` defines the curated active OpenClaw skill inventory, including runtime-core skills, scoped workflow skills, and preserved Gentle-AI SDD protocol assets.
+- `skills/openclaw-runtime-orchestrator/SKILL.md` defines the OpenClaw-facing runtime entry skill for intent classification, runner selection, and backend boundary reporting.
+- `skills/scoped-skill-resolver/SKILL.md` defines the resolver contract for global/category/channel effective skills.
 - `skills/discord-approval-gate/SKILL.md` defines the runtime approval gate for Discord write-like intents.
 - `docs/architecture/discord-channel-routing.md` defines channel naming and namespace mapping.
 - `docs/architecture/channel-context-namespace-mapping.md` defines resolver inputs, outputs, and fallback status.
@@ -22,12 +25,18 @@ Current routing references:
 - `docs/architecture/discord-scoped-skills-registry.md` defines the fake scoped skills registry and control-channel contract.
 - `docs/architecture/discord-memory-gateway.md` defines the fake Memory Gateway / Context Broker contract for Discord flows.
 - `docs/architecture/discord-semantic-channel-guides.md` defines the canonical fake guide catalog for managed channel topics and starter/pinned prompts.
+- `docs/architecture/openclaw-global-channel-guides.md` defines the canonical fake guide catalog for reserved `OpenClaw Global` control-channel topics and starter guidance.
+- `examples/openclaw-global-channel-guides.fake.yaml` provides fake reserved control-channel guide data.
+- `scripts/validate-openclaw-global-channel-guides.sh` validates the reserved control-channel guide contract and fixture.
 - `docs/architecture/discord-project-manager-global-init.md` defines the fake `/project-manager init` contract for creating the global Project Manager category and channels.
 - `examples/discord-project-manager-global-init.fake.yaml` provides fake global init topology, permission, persistence, and idempotency data.
 - `scripts/validate-discord-project-manager-global-init.sh` validates the global init contract and fixture.
 - `docs/architecture/discord-project-manager-project-create.md` defines the fake `/project create` contract for creating one category per project.
 - `examples/discord-project-manager-project-create.fake.yaml` provides fake project creation topology, templates, duplicate handling, permission, persistence, and partial-failure data.
 - `scripts/validate-discord-project-manager-project-create.sh` validates the project creation contract and fixture.
+- `docs/architecture/discord-project-manager-project-delete.md` defines the fake `/project delete` contract for previewing and tombstoning managed project scaffolding.
+- `examples/discord-project-manager-project-delete.fake.yaml` provides fake project delete preview, blocked, retry, and post-delete verification data.
+- `scripts/validate-discord-project-manager-project-delete.sh` validates the project delete contract and fixture.
 - `docs/architecture/discord-channel-scaffolding-status-repair.md` defines the fake shared status and repair preview contract for managed scaffolding drift.
 - `examples/discord-channel-scaffolding-status-repair.fake.yaml` provides fake no-op, missing, renamed, unsafe-missing-id, partial-retry, permission-blocked, and unmanaged-extra scenarios.
 - `scripts/validate-discord-channel-scaffolding-status-repair.sh` validates the shared status/repair contract and fixture.
