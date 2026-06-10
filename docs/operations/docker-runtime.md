@@ -154,11 +154,13 @@ Never run `down -v` against a runtime that contains real Engram memory unless yo
 
 ## Skill and Gentle-AI mounting
 
-The repository's tracked `skills/` directory is copied into the local OpenClaw runtime image and synced into:
+The repository's tracked `skills/` directory is copied into the local OpenClaw runtime image. Startup sync then copies only the curated active OpenClaw skills from `openclaw/config/skill-inventory.yaml` into:
 
 ```text
 /home/node/.openclaw/workspace/skills
 ```
+
+The active runtime-core skills are `openclaw-runtime-orchestrator`, `scoped-skill-resolver`, and `discord-approval-gate`. The workflow skills `brand-context`, `content-ledger`, `strategy-planner`, `linkedin-weekly-planner`, `x-queue-planner`, and `on-demand-brief-planner` are synced as scoped workflow skills: available to the runtime, but intended to be used only after scoped skill resolution selects them. Gentle-AI SDD assets are separate protocol/backend assets under `.openclaw/skills`, not product workflow skills.
 
 The M1 smoke test confirmed OpenClaw discovers workspace `SKILL.md` files from this shape. Runtime-generated workspace state remains in the `openclaw-home` volume, not in git.
 

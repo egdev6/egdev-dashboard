@@ -10,6 +10,9 @@ Expected future contents:
 
 Current routing references:
 
+- `openclaw/config/skill-inventory.yaml` defines the curated active OpenClaw skill inventory, including runtime-core skills, scoped workflow skills, and preserved Gentle-AI SDD protocol assets.
+- `skills/openclaw-runtime-orchestrator/SKILL.md` defines the OpenClaw-facing runtime entry skill for intent classification, runner selection, and backend boundary reporting.
+- `skills/scoped-skill-resolver/SKILL.md` defines the resolver contract for global/category/channel effective skills.
 - `skills/discord-approval-gate/SKILL.md` defines the runtime approval gate for Discord write-like intents.
 - `docs/architecture/discord-channel-routing.md` defines channel naming and namespace mapping.
 - `docs/architecture/channel-context-namespace-mapping.md` defines resolver inputs, outputs, and fallback status.

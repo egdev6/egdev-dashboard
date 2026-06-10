@@ -67,17 +67,23 @@ Reply with exactly one option:
 
 For this first slice, `discord-approval-gate` is globally enabled and is not disabled by category or channel overrides.
 
-## Existing skill mapping
+## Active skill inventory and classification
 
-| Skill | First-slice scoped expectation |
-| --- | --- |
-| `brand-context` | Global reusable baseline; inheritable by category. |
-| `content-ledger` | Category or channel utility, not globally preferred by default. |
-| `strategy-planner` | Global reusable planner for categories that need strategy guidance. |
-| `linkedin-weekly-planner` | Category-local for `egdev-linkedin`. |
-| `x-queue-planner` | Channel/category-local for X-specific work, not globally inherited by default. |
-| `on-demand-brief-planner` | Category-local for `stack-and-flow` style workflows. |
-| `discord-approval-gate` | Global mandatory gate for write-like intents. |
+The runtime inventory is listed in `openclaw/config/skill-inventory.yaml` and synced by `docker/openclaw/sync-skills.sh`. Syncing a skill into the OpenClaw workspace makes it available to the runtime, but scoped workflow skills are not globally enabled merely because they are present.
+
+| Skill | Classification | Policy | First-slice scoped expectation |
+| --- | --- | --- | --- |
+| `openclaw-runtime-orchestrator` | Runtime core | keep | Entry point for intent classification, runner selection, and backend boundary reporting. |
+| `scoped-skill-resolver` | Runtime core | keep | Resolve global/category/channel skill layers and explain inclusions/exclusions. |
+| `discord-approval-gate` | Runtime core | keep | Global mandatory gate for write-like intents. |
+| `brand-context` | Scoped workflow | migrate-behind-scoped-resolution | Global reusable baseline; inheritable by category. |
+| `content-ledger` | Scoped workflow | migrate-behind-scoped-resolution | Category or channel utility, not globally preferred by default. |
+| `strategy-planner` | Scoped workflow | migrate-behind-scoped-resolution | Global reusable planner for categories that need strategy guidance. |
+| `linkedin-weekly-planner` | Scoped workflow | migrate-behind-scoped-resolution | Category-local for `egdev-linkedin`. |
+| `x-queue-planner` | Scoped workflow | migrate-behind-scoped-resolution | Channel/category-local for X-specific work, not globally inherited by default. |
+| `on-demand-brief-planner` | Scoped workflow | migrate-behind-scoped-resolution | Category-local for `stack-and-flow` style workflows. |
+
+Gentle-AI SDD assets are preserved protocol/backend assets installed under `.openclaw/skills`; they are not legacy product workflow skills and must not be archived by this cleanup.
 
 ## Rollout slices
 

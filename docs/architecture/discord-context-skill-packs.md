@@ -22,7 +22,7 @@ This is a contract only. It does not prove live pack generation, live Engram cal
 | `managed_channel_route_ref` | Persisted semantic metadata routing from `docs/architecture/discord-managed-channel-routing.md`, `examples/discord-managed-channel-routing.fake.yaml`, and `scripts/validate-discord-managed-channel-routing.sh` when the channel is bot-managed |
 | `channel_guide_ref` | Canonical semantic channel guide lookup from `docs/architecture/discord-semantic-channel-guides.md` |
 | `hydrated_context` | Bounded context prepared under `docs/architecture/discord-memory-gateway.md` |
-| `effective_skills` | Scoped skills resolved under `docs/architecture/discord-scoped-skills-registry.md` |
+| `effective_skills` | Scoped skills resolved under `docs/architecture/discord-scoped-skills-registry.md` and constrained by `openclaw/config/skill-inventory.yaml` |
 | `mandatory_skills` | Global required skills such as `discord-approval-gate` |
 | `intent_classification` | Read-only or write-like intent that affects exclusions and downstream runner behavior |
 
@@ -66,7 +66,7 @@ Use the Skill Pack to describe only the skills prepared for the current turn.
 | `size_policy` | Defines item limits and truncation behavior for skill selection. |
 | `writeback_out_of_scope` | Confirms that packs do not persist writes directly. |
 
-For this slice, `discord-approval-gate` is always present in `mandatory_skills` and in `effective_skills` for write-like flows.
+For this slice, `discord-approval-gate` is always present in `mandatory_skills` and in `effective_skills` for write-like flows. Runtime-core skills (`openclaw-runtime-orchestrator`, `scoped-skill-resolver`, `discord-approval-gate`) may be available to prepare the pack, but product workflow skills only appear in `effective_skills` when the scoped resolver selected them for the current route.
 
 ## Provenance and exclusion rules
 

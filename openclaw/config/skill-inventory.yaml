@@ -1,0 +1,59 @@
+# OpenClaw project skill inventory
+#
+# This file is intentionally parseable with POSIX shell tools. Keep each active
+# skill as a plain `  - <skill-name>` item under `active_openclaw_skills`.
+# Gentle-AI SDD assets are not listed here because they are installed into
+# `.openclaw/skills` by `gentle-ai install --agent openclaw` and are preserved
+# as protocol/backend assets, not product workflow skills.
+
+schema_version: 1
+contract: openclaw-skill-inventory
+safe_for_repo: true
+live_discord_connection: false
+production_credentials: false
+
+active_openclaw_skills:
+  - openclaw-runtime-orchestrator
+  - scoped-skill-resolver
+  - discord-approval-gate
+  - brand-context
+  - content-ledger
+  - strategy-planner
+  - linkedin-weekly-planner
+  - x-queue-planner
+  - on-demand-brief-planner
+
+classifications:
+  runtime-core:
+    - openclaw-runtime-orchestrator
+    - scoped-skill-resolver
+    - discord-approval-gate
+  scoped-workflow:
+    - brand-context
+    - content-ledger
+    - strategy-planner
+    - linkedin-weekly-planner
+    - x-queue-planner
+    - on-demand-brief-planner
+  preserved-protocol-assets:
+    - gentle-ai-openclaw-sdd-assets
+  archive-now: []
+
+skill_policy:
+  openclaw-runtime-orchestrator: keep
+  scoped-skill-resolver: keep
+  discord-approval-gate: keep
+  brand-context: migrate-behind-scoped-resolution
+  content-ledger: migrate-behind-scoped-resolution
+  strategy-planner: migrate-behind-scoped-resolution
+  linkedin-weekly-planner: migrate-behind-scoped-resolution
+  x-queue-planner: migrate-behind-scoped-resolution
+  on-demand-brief-planner: migrate-behind-scoped-resolution
+  gentle-ai-openclaw-sdd-assets: preserve
+
+sync_policy:
+  repo_skills_source: /opt/discord-project-manager/skills
+  runtime_skills_target: /home/node/.openclaw/workspace/skills
+  behavior: copy-only-active-openclaw-skills-and-prune-managed-stale-skills
+  approval_gate_required_for_write_like_flows: discord-approval-gate
+  deterministic_resolver_contract: docs/architecture/discord-scoped-skills-registry.md
