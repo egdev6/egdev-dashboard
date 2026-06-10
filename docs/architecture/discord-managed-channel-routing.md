@@ -36,8 +36,8 @@ For this slice, the backend contract is an implementation-neutral private regist
 | Requirement | Contract |
 | --- | --- |
 | Lookup key | `guildId + channelId` for message routing; `guildId + categoryId` for managed surface status. |
-| Producers | `/project-manager init`, `/project create`, and approved repair apply flows. |
-| Consumers | managed channel routing, status, repair preview, and post-repair verification. |
+| Producers | `/project-manager init`, `/project create`, approved repair apply flows, and approved `/project delete` tombstone/remove flows. |
+| Consumers | managed channel routing, status, repair preview, delete preview, and post-repair/post-delete verification. |
 | Storage boundary | Private runtime storage only, e.g. an OpenClaw workspace registry or equivalent deployment-private store. |
 | Repo representation | Fake/demo refs only; never real Discord IDs. |
 | Missing backend behavior | Return `BACKEND_NOT_AVAILABLE`; do not infer success from channel display names. |
@@ -82,6 +82,7 @@ Managed routing verification must be able to report these statuses without writi
 | `WRONG_FIELD` | Binding exists but has the wrong `field_key`. |
 | `WRONG_PROJECT` | Binding exists but has the wrong project binding. |
 | `NEEDS_REPAIR_PREVIEW` | Drift can be corrected only through the two-phase repair preview/apply flow. |
+| `DELETED_PROJECT` | Project binding was tombstoned by `docs/architecture/discord-project-manager-project-delete.md`; routing must not treat the project as live scaffolding. |
 
 ## Routing outcomes
 
@@ -139,5 +140,6 @@ Unmanaged channels use the broader routing fallback from `docs/operations/discor
 | `docs/architecture/discord-scoped-skills-registry.md` | Source of scoped skill resolution rules. |
 | `docs/architecture/discord-memory-gateway.md` | Writeback and hydration boundary. |
 | `docs/architecture/discord-channel-scaffolding-status-repair.md` | Shared repair preview contract that refreshes managed channel metadata after recreation. |
+| `docs/architecture/discord-project-manager-project-delete.md` | Fake delete contract that removes live bindings or tombstones managed project scaffolding. |
 | `examples/discord-managed-channel-routing.fake.yaml` | Fake routing registry and message scenarios. |
 | `scripts/validate-discord-managed-channel-routing.sh` | Static validator for this contract and fixture. |

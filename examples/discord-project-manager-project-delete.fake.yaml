@@ -1,0 +1,485 @@
+schema_version: 1
+fixture_type: fake-demo
+safe_for_repo: true
+privacy_reviewed: true
+contract: discord-project-manager-project-delete
+issue_ref: 145
+live_discord_validation_proven: false
+runtime_enforcement_proven: false
+uses_real_discord_ids: false
+raw_discord_chat_logs_included: false
+durable_memory_writes_allowed: false
+workspace_file_writes_allowed: false
+publishing_enabled: false
+scheduling_enabled: false
+buffer_activity_enabled: false
+registry_backend:
+  backend_ref: private-runtime-managed-channel-registry
+  storage_boundary: private-runtime-only
+  repo_representation: fake-demo-refs-only
+  producer: /project delete
+  consumer_contract: docs/architecture/discord-managed-channel-routing.md
+  status_repair_contract: docs/architecture/discord-channel-scaffolding-status-repair.md
+  backend_not_available_status: BACKEND_NOT_AVAILABLE
+  missing_metadata_status: MISSING_METADATA
+  deleted_project_status: DELETED_PROJECT
+  private_runtime_ids_required: true
+  display_name_inference_success_allowed: false
+command_contract:
+  interaction_name: /project delete
+  interaction_kind: slash-command-or-equivalent
+  required_inputs:
+    - project_slug
+  optional_inputs:
+    - project_ref
+    - delete_reason
+  registry_backend_ref: private-runtime-managed-channel-registry
+  target_lookup_source: persisted-semantic-metadata
+  category_name_inference_allowed: false
+  idempotency_key_template: project-delete:<guild-id>:<project-slug>
+  preview_required_before_apply: true
+  stronger_than_standard_write_confirmation: true
+  standard_write_confirmation_phrase: approve write
+  apply_requires_exact_approval_phrase_template: approve delete project <project-slug>
+  live_write_claim: false
+permission_preflight:
+  required_before_destructive_apply: true
+  required_capabilities:
+    - manage_channels
+    - view_channel
+  failure_status: blocked-permissions
+  partial_delete_allowed_on_missing_permissions: false
+existing_project_registry_before_preview:
+  source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+  project_ref: project-demo-web-app
+  project_slug: web-app
+  category_ref: category-demo-project-web-app
+  category_semantic_role: project-manager-project
+  scope: project
+  selected_template: complete
+  live_channels:
+    context: channel-demo-web-app-context
+    skills: channel-demo-web-app-skills
+    strategy: channel-demo-web-app-strategy
+    tasks: channel-demo-web-app-tasks
+    decisions: channel-demo-web-app-decisions
+    qa: channel-demo-web-app-qa
+project_delete_request:
+  guild_ref: guild-demo-project-manager
+  requested_by_ref: user-demo-operator
+  command: /project delete
+  project_ref: project-demo-web-app
+  project_slug: web-app
+  delete_reason: Fake demo cleanup for contract validation.
+  dry_run: false
+  approved_for_fake_contract: true
+delete_preview_scenarios:
+  - scenario_ref: delete-project-intact-preview
+    command_ref: /project delete
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+      - decisions
+      - qa
+    missing_fields: []
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: no-op
+    write_attempted: false
+    delete_preview:
+      status: approval-requested
+      category_ref_to_delete: category-demo-project-web-app
+      managed_channel_refs_to_delete:
+        - channel-demo-web-app-context
+        - channel-demo-web-app-skills
+        - channel-demo-web-app-strategy
+        - channel-demo-web-app-tasks
+        - channel-demo-web-app-decisions
+        - channel-demo-web-app-qa
+      registry_update_mode: remove-live-binding-and-tombstone
+      cleared_registry_channel_fields:
+        - context
+        - skills
+        - strategy
+        - tasks
+        - decisions
+        - qa
+      lifecycle_state_after_apply: deleted
+      post_delete_routing_status: DELETED_PROJECT
+      post_delete_status_result: deleted-project
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: approval-requested
+      approval_phrase: approve delete project web-app
+      stronger_than_standard_write_confirmation: true
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions:
+        - action: delete-channel
+          field_key: context
+          channel_ref: channel-demo-web-app-context
+        - action: delete-channel
+          field_key: skills
+          channel_ref: channel-demo-web-app-skills
+        - action: delete-channel
+          field_key: strategy
+          channel_ref: channel-demo-web-app-strategy
+        - action: delete-channel
+          field_key: tasks
+          channel_ref: channel-demo-web-app-tasks
+        - action: delete-channel
+          field_key: decisions
+          channel_ref: channel-demo-web-app-decisions
+        - action: delete-channel
+          field_key: qa
+          channel_ref: channel-demo-web-app-qa
+        - action: delete-category
+          category_ref: category-demo-project-web-app
+          project_ref: project-demo-web-app
+        - action: tombstone-project-binding
+          project_ref: project-demo-web-app
+          tombstone_ref: registry-tombstone-demo-web-app
+          lifecycle_state: deleted
+          removed_live_bindings: true
+          post_delete_routing_status: DELETED_PROJECT
+          post_delete_status_result: deleted-project
+    audit_ref: audit-demo-delete-project-intact-preview
+  - scenario_ref: delete-project-unmanaged-extra-blocked
+    command_ref: /project delete
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+      - decisions
+      - qa
+    missing_fields: []
+    unmanaged_channel_refs:
+      - channel-demo-web-app-random-notes
+    unsafe_missing_id_fields: []
+    status_result: unmanaged-present
+    write_attempted: false
+    operator_message: An unmanaged extra channel is visible inside the managed project category; deletion is blocked pending manual review.
+    delete_preview:
+      status: needs-review
+      category_ref_to_delete: category-demo-project-web-app
+      managed_channel_refs_to_delete:
+        - channel-demo-web-app-context
+        - channel-demo-web-app-skills
+        - channel-demo-web-app-strategy
+        - channel-demo-web-app-tasks
+        - channel-demo-web-app-decisions
+        - channel-demo-web-app-qa
+      registry_update_mode: remove-live-binding-and-tombstone
+      cleared_registry_channel_fields: []
+      lifecycle_state_after_apply: deleted
+      post_delete_routing_status: DELETED_PROJECT
+      post_delete_status_result: deleted-project
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      approval_phrase: approve delete project web-app
+      stronger_than_standard_write_confirmation: true
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions: []
+    audit_ref: audit-demo-delete-project-unmanaged-extra-blocked
+  - scenario_ref: delete-project-unsafe-missing-id-blocked
+    command_ref: /project delete
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - decisions
+      - qa
+    missing_fields:
+      - tasks
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields:
+      - tasks
+    status_result: unsafe-missing-id
+    write_attempted: false
+    possible_name_match_ref: channel-demo-web-app-tasks-unlinked
+    auto_delete_by_name_attempted: false
+    operator_message: Persisted ID for the tasks field is missing; a same-named channel was observed, but no destructive action was proposed without review.
+    delete_preview:
+      status: needs-review
+      category_ref_to_delete: category-demo-project-web-app
+      managed_channel_refs_to_delete:
+        - channel-demo-web-app-context
+        - channel-demo-web-app-skills
+        - channel-demo-web-app-strategy
+        - channel-demo-web-app-decisions
+        - channel-demo-web-app-qa
+      registry_update_mode: remove-live-binding-and-tombstone
+      cleared_registry_channel_fields: []
+      lifecycle_state_after_apply: deleted
+      post_delete_routing_status: DELETED_PROJECT
+      post_delete_status_result: deleted-project
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      approval_phrase: approve delete project web-app
+      stronger_than_standard_write_confirmation: true
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions: []
+    audit_ref: audit-demo-delete-project-unsafe-missing-id-blocked
+  - scenario_ref: delete-project-permission-blocked
+    command_ref: /project delete
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+      - decisions
+      - qa
+    missing_fields: []
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: no-op
+    write_attempted: false
+    operator_message: Project delete is blocked because the bot cannot manage channels safely; no destructive apply was attempted.
+    delete_preview:
+      status: blocked-permissions
+      category_ref_to_delete: category-demo-project-web-app
+      managed_channel_refs_to_delete:
+        - channel-demo-web-app-context
+        - channel-demo-web-app-skills
+        - channel-demo-web-app-strategy
+        - channel-demo-web-app-tasks
+        - channel-demo-web-app-decisions
+        - channel-demo-web-app-qa
+      registry_update_mode: remove-live-binding-and-tombstone
+      cleared_registry_channel_fields:
+        - context
+        - skills
+        - strategy
+        - tasks
+        - decisions
+        - qa
+      lifecycle_state_after_apply: deleted
+      post_delete_routing_status: DELETED_PROJECT
+      post_delete_status_result: deleted-project
+      permission_preflight_status: blocked-permissions
+      permission_missing_capabilities:
+        - manage_channels
+      approval_state: not-requested
+      approval_phrase: approve delete project web-app
+      stronger_than_standard_write_confirmation: true
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions:
+        - action: delete-channel
+          field_key: context
+          channel_ref: channel-demo-web-app-context
+        - action: delete-channel
+          field_key: skills
+          channel_ref: channel-demo-web-app-skills
+        - action: delete-channel
+          field_key: strategy
+          channel_ref: channel-demo-web-app-strategy
+        - action: delete-channel
+          field_key: tasks
+          channel_ref: channel-demo-web-app-tasks
+        - action: delete-channel
+          field_key: decisions
+          channel_ref: channel-demo-web-app-decisions
+        - action: delete-channel
+          field_key: qa
+          channel_ref: channel-demo-web-app-qa
+        - action: delete-category
+          category_ref: category-demo-project-web-app
+          project_ref: project-demo-web-app
+        - action: tombstone-project-binding
+          project_ref: project-demo-web-app
+          tombstone_ref: registry-tombstone-demo-web-app
+          lifecycle_state: deleted
+          removed_live_bindings: true
+          post_delete_routing_status: DELETED_PROJECT
+          post_delete_status_result: deleted-project
+    audit_ref: audit-demo-delete-project-permission-blocked
+  - scenario_ref: delete-project-already-deleted
+    command_ref: /project delete
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields: []
+    missing_fields: []
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: deleted-project
+    write_attempted: false
+    operator_message: This managed project is already tombstoned as deleted; no destructive apply is needed.
+    delete_preview:
+      status: no-op
+      category_ref_to_delete: category-demo-project-web-app
+      managed_channel_refs_to_delete: []
+      registry_update_mode: tombstone-project-binding
+      cleared_registry_channel_fields: []
+      lifecycle_state_after_apply: deleted
+      post_delete_routing_status: DELETED_PROJECT
+      post_delete_status_result: deleted-project
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: not-requested
+      approval_phrase: approve delete project web-app
+      stronger_than_standard_write_confirmation: true
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      proposed_actions: []
+    audit_ref: audit-demo-delete-project-already-deleted
+  - scenario_ref: delete-project-partial-failure-retry
+    command_ref: /project delete
+    project_ref: project-demo-web-app
+    project_slug: web-app
+    idempotency_source_ref: examples/discord-project-manager-project-create.fake.yaml#first_run_result
+    existing_fields:
+      - decisions
+      - qa
+    missing_fields:
+      - context
+      - skills
+      - strategy
+      - tasks
+    unmanaged_channel_refs: []
+    unsafe_missing_id_fields: []
+    status_result: needs-retry
+    write_attempted: false
+    delete_preview:
+      status: approval-requested
+      category_ref_to_delete: category-demo-project-web-app
+      managed_channel_refs_to_delete:
+        - channel-demo-web-app-decisions
+        - channel-demo-web-app-qa
+      registry_update_mode: remove-live-binding-and-tombstone
+      cleared_registry_channel_fields:
+        - decisions
+        - qa
+      lifecycle_state_after_apply: deleted
+      post_delete_routing_status: DELETED_PROJECT
+      post_delete_status_result: deleted-project
+      permission_preflight_status: ready
+      permission_missing_capabilities: []
+      approval_state: approval-requested
+      approval_phrase: approve delete project web-app
+      stronger_than_standard_write_confirmation: true
+      mandatory_skill: discord-approval-gate
+      write_executed: false
+      retry_source: partial-delete-audit
+      safe_retry_token_ref: retry-delete-demo-web-app
+      proposed_actions:
+        - action: delete-channel
+          field_key: decisions
+          channel_ref: channel-demo-web-app-decisions
+        - action: delete-channel
+          field_key: qa
+          channel_ref: channel-demo-web-app-qa
+        - action: delete-category
+          category_ref: category-demo-project-web-app
+          project_ref: project-demo-web-app
+        - action: tombstone-project-binding
+          project_ref: project-demo-web-app
+          tombstone_ref: registry-tombstone-demo-web-app
+          lifecycle_state: deleted
+          removed_live_bindings: true
+          post_delete_routing_status: DELETED_PROJECT
+          post_delete_status_result: deleted-project
+    audit_ref: audit-demo-delete-project-partial-failure-retry
+post_delete_registry_state:
+  project_ref: project-demo-web-app
+  project_slug: web-app
+  category_ref: category-demo-project-web-app
+  lifecycle_state: deleted
+  active_binding_present: false
+  tombstone_ref: registry-tombstone-demo-web-app
+  cleared_channel_fields:
+    - context
+    - skills
+    - strategy
+    - tasks
+    - decisions
+    - qa
+  deleted_by_interaction: /project delete
+  deleted_by_approval_phrase: approve delete project web-app
+  tombstone_reason: Fake demo cleanup for contract validation.
+post_delete_verification_expectations:
+  routing_status: DELETED_PROJECT
+  status_result: deleted-project
+  repair_preview_status: no-destructive-action
+  managed_channel_registry_consumer_must_not_return_ok: true
+partial_delete_audit:
+  status: partial-delete-needs-retry
+  project_ref: project-demo-web-app
+  project_slug: web-app
+  category_ref: category-demo-project-web-app
+  deleted_channel_refs:
+    - channel-demo-web-app-context
+    - channel-demo-web-app-skills
+    - channel-demo-web-app-strategy
+    - channel-demo-web-app-tasks
+  remaining_channel_fields:
+    - decisions
+    - qa
+  safe_retry_token_ref: retry-delete-demo-web-app
+  tombstone_written: false
+  live_registry_bindings_remaining: true
+audit_outputs:
+  - audit_ref: audit-demo-delete-project-intact-preview
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-delete-project-unmanaged-extra-blocked
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-delete-project-unsafe-missing-id-blocked
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-delete-project-permission-blocked
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-delete-project-already-deleted
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+  - audit_ref: audit-demo-delete-project-partial-failure-retry
+    runtime_namespace: discord-project-manager/runtime/discord/<guild-id>/<channel-id>
+    retained_raw_message: false
+    safe_fake_refs_only: true
+non_goals:
+  - live Discord delete commands
+  - durable writes before approval
+  - automatic delete by display name
+  - silent destructive cleanup of unmanaged extra channels
+  - prompt execution
+  - real Discord IDs
+  - raw Discord transcripts
+  - production credentials
+  - publishing
+  - scheduling
+metadata:
+  note: This file contains fake Project Manager project delete data only and is safe to commit.
+  no_real_guild_ids: true
+  no_real_project_ids: true
+  no_real_category_ids: true
+  no_real_channel_ids: true
+  no_real_message_ids: true
+  no_credentials: true
+  no_private_exports: true

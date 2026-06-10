@@ -63,6 +63,7 @@ This slice reuses the safe discovery/reconciliation vocabulary from `docs/archit
 | Reused topology state | Meaning in managed scaffolding status |
 | --- | --- |
 | `unchanged` | Persisted managed channel ID still resolves in Discord; reported as an `existing_fields` entry. |
+| `deleted-project` | Project binding is tombstoned by `docs/architecture/discord-project-manager-project-delete.md`; do not propose recreate-by-name repair. |
 | `missing` | Persisted managed channel ID no longer resolves. |
 | `renamed` | Persisted managed channel ID still resolves but the display name changed. |
 | `unmapped` | Extra visible channel exists inside a managed category but is not in the persisted registry; reported as an unmanaged channel. |
@@ -118,6 +119,7 @@ Permission failures must report `blocked-permissions` before partial repair when
 - Do not bypass `skills/discord-approval-gate/SKILL.md` for repair apply.
 - Do not recreate or refresh metadata before exact `approve write`.
 - Do not let unmanaged extra channels trigger destructive actions by default.
+- Do not resurrect a tombstoned `deleted-project` from display-name matches; recreating a deleted project requires a fresh create flow.
 
 ## Related artifacts
 
@@ -126,6 +128,7 @@ Permission failures must report `blocked-permissions` before partial repair when
 | `docs/architecture/discord-project-manager-global-init.md` | Produces global managed scaffolding registry metadata for #134. |
 | `docs/architecture/discord-project-manager-project-create.md` | Produces project managed scaffolding registry metadata and partial retry audit for #135. |
 | `docs/architecture/discord-managed-channel-routing.md` | Consumes refreshed managed channel metadata after repair for #137. |
+| `docs/architecture/discord-project-manager-project-delete.md` | Defines tombstone/delete expectations so deleted projects are not treated as live scaffolding. |
 | `docs/architecture/discord-topology-reconciliation.md` | Supplies rename/missing/discovered/permission-limited vocabulary. |
 | `examples/discord-channel-scaffolding-status-repair.fake.yaml` | Fake shared status and repair scenarios for #138. |
 | `scripts/validate-discord-channel-scaffolding-status-repair.sh` | Static validator for this contract and fixture. |
